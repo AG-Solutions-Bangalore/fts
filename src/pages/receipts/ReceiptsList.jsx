@@ -7,8 +7,8 @@ import { Visibility } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import moment from "moment";
-import BASE_URL from "../../base/BaseUrl";
 import Layout from "../../layout/Layout";
+import BASE_URL from "../../base/BaseUrl";
 
 const ReceiptsList = () => {
   const [receiptList, setReceiptList] = useState(null);

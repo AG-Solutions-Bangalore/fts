@@ -4,9 +4,9 @@ import { MdKeyboardBackspace } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Input } from "@material-tailwind/react";
-import Layout from "../../layout/Layout";
-import BASE_URL from "../../base/BaseUrl";
 import moment from "moment";
+import BASE_URL from "../../base/BaseUrl";
+import Layout from "../../layout/Layout";
 // import ReactToPrint from "react-to-print";
 
 const ViewReceipt2 = () => {

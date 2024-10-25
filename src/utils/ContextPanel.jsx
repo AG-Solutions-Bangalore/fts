@@ -48,20 +48,51 @@ const AppProvider = ({ children }) => {
           "/view-school",
           "/edit-datasource",
 
-          // States 
+          // States
 
           "/states",
           // Designation
           "/designation",
           // Expensive-type
           "/expensive-type",
-          // FAQ 
+          // FAQ
           "/faqList",
-          // Receipts 
+          // Receipts
           "/receipts",
           "/create-receipts",
           "/view-receipts",
           "/edit-receipts",
+
+          // REPORT
+
+          "/report/donorsummary",
+          "/report/recepit",
+          "/report/promoter",
+          "/report/donation",
+          "/report/school",
+          "/report/otg",
+          "/report/payment",
+          "/report/suspense",
+          //report view
+          "/d-summary-view",
+          "/recepit-summary-view",
+          "/recepit-otg-view",
+          "/recepit-nopan-view",
+          "/recepit-group-view",
+          "/report/payment-view",
+          "/report/donor-view",
+          "/report/donorgroup-view",
+          "/recepit-donation-view",
+
+                //download
+                "/download/donor",
+                "/download/receipts",
+                "/download/school",
+                "/material-recepit",
+                "/download/team",
+                "/download/ots",
+                "/download/allreceipts",
+
           "/form",
           "/profile",
           "/change-password",
