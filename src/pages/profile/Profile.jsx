@@ -147,7 +147,7 @@ const Profile = () => {
         </div>
 
         <div className="p-5 bg-white shadow-lg rounded-lg">
-          <h2 className="text-lg font-semibold mb-4">Basic Info</h2>
+          <h2 className="text-lg font-semibold mb-4">Basic Infos</h2>
           <hr />
           <div className="mt-4">
             <h3 className="text-md font-semibold">Admins</h3>
