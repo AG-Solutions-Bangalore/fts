@@ -4,7 +4,7 @@ import { MdKeyboardBackspace } from "react-icons/md";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Input } from "@material-tailwind/react";
-import BASE_URL, { baseURL } from "../base/BaseUrl";
+import BASE_URL, { BASE_URL } from "../base/BASE_URL";
 import Fields from "../common/TextField/TextField";
 import Logo from "../assets/logo.png";
 
@@ -211,7 +211,7 @@ const SignUpPage = () => {
   const [gottras, setGotras] = useState([]);
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/fetch-web-gotra`, {
+      .get(`${BASE_URL}/api/fetch-web-gotra`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -224,7 +224,7 @@ const SignUpPage = () => {
   const [states, setStates] = useState([]);
   useEffect(() => {
     axios
-      .get(`${baseURL}/api/fetch-web-state`, {
+      .get(`${BASE_URL}/api/fetch-web-state`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -238,7 +238,7 @@ const SignUpPage = () => {
     const data = new FormData();
     data.append("appli_mno", formData.appli_mno);
     axios({
-      url: baseURL + "/api/web-registerotp",
+      url: BASE_URL + "/api/web-registerotp",
       method: "POST",
       data,
     })
@@ -275,7 +275,7 @@ const SignUpPage = () => {
     if (selectedFiledoc) data.append("upload_doc_proof", selectedFiledoc);
     try {
       const response = await axios.post(
-        `${baseURL}/api/web-insert-register`,
+        `${BASE_URL}/api/web-insert-register`,
         data,
         {
           headers: {

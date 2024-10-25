@@ -46,7 +46,7 @@ export default function Invoice(props) {
     setTheId(id);
 
     axios({
-      url: baseURL+"/fetch-receipt-by-id/" + id,
+      url: BASE_URL+"/fetch-receipt-by-id/" + id,
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("login")}`,
@@ -67,14 +67,14 @@ export default function Invoice(props) {
   const printReceipt = (e) => {
     e.preventDefault();
     axios({
-      url: baseURL+"/print-receipt?id=" + theId,
+      url: BASE_URL+"/print-receipt?id=" + theId,
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("login")}`,
       },
     }).then((res) => {
       
-      window.open(baseURL+"/print-receipt?id=" + theId, '_blank');
+      window.open(BASE_URL+"/print-receipt?id=" + theId, '_blank');
       
     })
   };
@@ -83,7 +83,7 @@ export default function Invoice(props) {
   const sendEmail = (e) => {
     e.preventDefault();
     axios({
-      url: baseURL+"/send-receipt?id=" + theId,
+      url: BASE_URL+"/send-receipt?id=" + theId,
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("login")}`,
@@ -98,7 +98,7 @@ export default function Invoice(props) {
   const downloadReceipt = (e) => {
     e.preventDefault();
     axios({
-      url: baseURL+"/download-receipts?id=" + theId,
+      url: BASE_URL+"/download-receipts?id=" + theId,
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("login")}`,
@@ -145,7 +145,7 @@ export default function Invoice(props) {
                   className="invoice-head text-right">
                     <ul className="list-inline">
                       <li>
-                        <a  href={baseURL+"/download-receipts?id=" + theId}>
+                        <a  href={BASE_URL+"/download-receipts?id=" + theId}>
                           <i className="mr-10 ti-download"></i> Download
                         </a>
                       </li> 

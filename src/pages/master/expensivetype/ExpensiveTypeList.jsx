@@ -6,9 +6,9 @@ import { MdHighlightOff, MdKeyboardBackspace } from "react-icons/md";
 import axios from "axios";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import BASE_URL from "../../../base/BaseUrl";
 import Layout from "../../../layout/Layout";
 import Fields from "../../../common/TextField/TextField";
+import BASE_URL from "../../../base/BaseUrl";
 
 const ExpensiveTypeList = () => {
   const navigate = useNavigate();

@@ -31,7 +31,28 @@ import ViewReceipt from "./pages/receipts/ViewReceipt2";
 import CreateReceipt from "./pages/receipts/CreateReceipt";
 import EditReceipt from "./pages/receipts/EditReceipt";
 import ViewReceipt2 from "./pages/receipts/ViewReceipt2";
-
+import DonorSummary from "./pages/Reports/DonorSummary/DonorSummary";
+import PromterSummary from "./pages/Reports/PromoterSummary/PromoterSummary";
+import SuspenseSummary from "./pages/Reports/SuspenseSummary/SuspenseSummary";
+import PaymentView from "./pages/Reports/PayementSummary/PaymentView";
+import PromoterSummaryView from "./pages/Reports/PromoterSummary/PromoterSummaryView";
+import RecepitSummary from "./pages/Reports/RecepitSummary/RecepitSummary";
+import RecepitSummaryView from "./pages/Reports/RecepitSummary/RecepitSummaryView";
+import ReceiptAllView from "./pages/Reports/10DBDocument/10BDView/RecepitAllView";
+import NopanView from "./pages/Reports/10DBDocument/10BDView/NopanView";
+import GroupView from "./pages/Reports/10DBDocument/10BDView/GroupView";
+import DonorSummaryView from "./pages/Reports/DonorSummary/DonorView";
+import DonorGroupView from "./pages/Reports/DonorSummary/DonorGroupView";
+import SchoolSummary from "./pages/Reports/SchoolSummary.jsx/SchoolSummary";
+import RecepitDocument from "./pages/Reports/10DBDocument/RecepitDocument";
+import PaymentSummary from "./pages/Reports/PayementSummary/PaymentSummary";
+import DonationSummary from "./pages/Reports/DonationSummary.jsx/DonationSummary";
+import Donor from "./pages/Dowloads/Donor/Donor";
+import DowloadRecpit from "./pages/Dowloads/Receipt/DowloadReceipt";
+import DownloadSchool from "./pages/Dowloads/School/DownloadSchool";
+import Downloadots from "./pages/Dowloads/OTS/Downloadots";
+import Team from "./pages/Dowloads/Team/Team";
+import AllRecepits from "./pages/Dowloads/AllRecepits/AllRecepits";
 const App = () => {
   return (
     <>
@@ -112,15 +133,52 @@ const App = () => {
           path="/edit-receipts/:id"
           element={<ProtectedRoute element={<EditReceipt />} />}
         />
-        {/* //WALLET */}
+            {/* Reports  */}
+            <Route path="/report/donorsummary" element={<DonorSummary />} />
+        <Route path="/report/promoter" element={<PromterSummary />} />
+        <Route path="/report/suspense" element={<SuspenseSummary />} />
+        <Route path="/report/payment-view" element={<PaymentView />} />
+        <Route path="/d-summary-view" element={<PromoterSummaryView />} />
+        <Route path="/report/recepit" element={<RecepitSummary />} />
+        <Route path="/recepit-summary-view" element={<RecepitSummaryView />} />
+        <Route path="/recepit-otg-view" element={<ReceiptAllView />} />
+        <Route path="/recepit-nopan-view" element={<NopanView />} />
+        <Route path="/recepit-group-view" element={<GroupView />} />
+        {/* <Route path="/recepit-donation-view" element={<DonationSummarys />} /> */}
+        <Route path="/report/donor-view" element={<DonorSummaryView />} />
+        <Route path="/report/donorgroup-view" element={<DonorGroupView />} />
+        <Route path="/report/donation" element={<DonationSummary />} />
+        <Route path="/report/school" element={<SchoolSummary />} />
+        <Route path="/report/otg" element={<RecepitDocument />} />
+        <Route path="/report/payment" element={<PaymentSummary />} />
+        {/* //DOWNOLd// */}
+
+
+        
+        {/* Download  START */}
         <Route
-          path="/wallet"
-          element={<ProtectedRoute element={<Wallet />} />}
+          path="/download/donor"
+          element={<ProtectedRoute element={<Donor />} />}
         />
-        {/* //DOENLOAD */}
         <Route
-          path="/download"
-          element={<ProtectedRoute element={<Download />} />}
+          path="/download/receipts"
+          element={<ProtectedRoute element={<DowloadRecpit />} />}
+        />
+        <Route
+          path="/download/school"
+          element={<ProtectedRoute element={<DownloadSchool />} />}
+        />
+        <Route
+          path="/download/ots"
+          element={<ProtectedRoute element={<Downloadots />} />}
+        />
+        <Route
+          path="/download/team"
+          element={<ProtectedRoute element={<Team />} />}
+        />
+        <Route
+          path="/download/allreceipts"
+          element={<ProtectedRoute element={<AllRecepits />} />}
         />
 
         <Route path="/form" element={<ProtectedRoute element={<Form />} />} />
@@ -132,6 +190,8 @@ const App = () => {
           path="/change-password"
           element={<ProtectedRoute element={<ChangePassword />} />}
         />
+
+
       </Routes>
     </>
   );

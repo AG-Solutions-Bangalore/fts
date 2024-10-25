@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { HiMiniMinus } from "react-icons/hi2";
 import { TfiReload } from "react-icons/tfi";
 import { MdCancel } from "react-icons/md";
-import BASE_URL from "../../../base/BaseUrl";
+import BASE_URL from "../../../base/BASE_URL";
 import Loader from "./Loader";
 
 const BookingOrder = () => {

@@ -156,7 +156,7 @@ const Profile = () => {
               onClick={() => setOpenDialog(true)}
             >
               <FaLock className="mr-2" />
-              <span className="font-semibold">Change password</span>
+              <span className="font-semibold">Change password </span>
             </div>
           </div>
           <div className="mt-10  gap-6">

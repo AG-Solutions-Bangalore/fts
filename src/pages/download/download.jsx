@@ -10,7 +10,7 @@ const Download = () => {
     e.preventDefault();
 
     axios({
-      url: BASE_URL + "/api/panel-download-first-reffer",
+      url: BASE_URL + "/api/panel-download-first-reffer/api",
       method: "POST",
 
       headers: {

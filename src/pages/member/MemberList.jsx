@@ -3,7 +3,7 @@ import Layout from '../../layout/Layout'
 import { ContextPanel } from '../../utils/ContextPanel';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import BASE_URL from '../../base/BaseUrl';
+import BASE_URL from '../../base/BASE_URL';
 import { CiMail } from 'react-icons/ci';
 import MUIDataTable from 'mui-datatables';
 
