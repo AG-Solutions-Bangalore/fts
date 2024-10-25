@@ -7,11 +7,10 @@ import { Button, Input } from "@material-tailwind/react";
 import { Card } from "@material-tailwind/react";
 import Moment from "moment";
 import { useState, useEffect } from "react";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import DownloadCommon from "../../download/DeliveryDownload";
-import BASE_URL from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 function AllRecepits() {
   const navigate = useNavigate();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -244,7 +243,7 @@ function AllRecepits() {
       setIsButtonDisabled(true);
 
       axios({
-        url: BASE_URL + "/download-receipt-all/api",
+        url: BASE_URL + "/api/download-receipt-all",
         method: "POST",
         data,
         headers: {
@@ -277,7 +276,7 @@ function AllRecepits() {
       },
     };
 
-    fetch(BASE_URL + "/fetch-datasource/api", requestOptions)
+    fetch(BASE_URL + "/api/fetch-datasource", requestOptions)
       .then((response) => response.json())
       .then((data) => setDatasource(data.datasource));
   }, []);
@@ -291,7 +290,7 @@ function AllRecepits() {
       },
     };
 
-    fetch(BASE_URL + "/fetch-chapters/api", requestOptions)
+    fetch(BASE_URL + "/api/fetch-chapters", requestOptions)
       .then((response) => response.json())
       .then((data) => setChapters(data.chapters));
   }, []);
@@ -306,7 +305,7 @@ function AllRecepits() {
       },
     };
 
-    fetch(BASE_URL + "/fetch-promoter/api", requestOptions)
+    fetch(BASE_URL + "/api/fetch-promoter", requestOptions)
       .then((response) => response.json())
       .then((data) => setPromoters(data.promoter));
   }, []);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PageTitleBar from "../../../components/common/PageTitle";
-import BASE_URL from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { Spinner } from "@material-tailwind/react";
 import Layout from "../../../layout/Layout";
 import Moment from "moment";
@@ -23,7 +23,7 @@ const PaymentView = (props) => {
       const receiptToDate = localStorage.getItem("receipt_to_date_pay");
       try {
         const response = await axios.get(
-          `${BASE_URL}/fetch-teacher-payment-summary-by-date/api/${receiptFromDate}/${receiptToDate}`,
+          `${BASE_URL}/api/fetch-teacher-payment-summary-by-date/${receiptFromDate}/${receiptToDate}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

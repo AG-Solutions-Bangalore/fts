@@ -2,16 +2,14 @@ import Layout from "../../../layout/Layout";
 import PageTitle from "../../../components/common/PageTitle";
 import { Button, Input, Card } from "@material-tailwind/react";
 import Moment from "moment";
-import { useState} from "react";
-import  BASE_URL  from "../../../base/BaseUrl";
+import { useState } from "react";
+import BASE_URL from "../../../base/BaseUrl";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import DownloadCommon from "../../download/DeliveryDownload";
 
 function Team() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
 
   // Get the first and last date
   const todayback = Moment().format("YYYY-MM-DD");
@@ -42,7 +40,7 @@ function Team() {
       setIsButtonDisabled(true);
 
       axios({
-        url: BASE_URL + "/download-team-summary/api",
+        url: BASE_URL + "/api/download-team-summary",
         method: "POST",
         data,
         headers: {

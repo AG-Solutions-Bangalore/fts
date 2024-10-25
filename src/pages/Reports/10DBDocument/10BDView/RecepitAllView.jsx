@@ -7,7 +7,7 @@ import image1 from "../../../../assets/receipt/fts.png";
 import image2 from "../../../../assets/receipt/top.png";
 import image3 from "../../../../assets/receipt/ekal.png";
 import Layout from "../../../../layout/Layout";
-import BASE_URL from "../../../../base/BaseUrl"
+import BASE_URL from "../../../../base/BaseUrl";
 import { FaArrowLeft } from "react-icons/fa6";
 
 const ReceiptAllView = (props) => {
@@ -20,8 +20,6 @@ const ReceiptAllView = (props) => {
   const [loader, setLoader] = useState(true);
   const [error, setError] = useState(null);
 
-
-  
   useEffect(() => {
     let data = {
       receipt_from_date: localStorage.getItem("receipt_from_date"),
@@ -30,7 +28,7 @@ const ReceiptAllView = (props) => {
     };
 
     axios({
-      url: BASE_URL + "/fetch-donor-receipt-by-year/api",
+      url: BASE_URL + "/api/fetch-donor-receipt-by-year",
       method: "POST",
       data,
       headers: {

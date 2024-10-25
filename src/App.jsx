@@ -11,7 +11,7 @@ import ChangePassword from "./pages/profile/ChangePassword";
 import DirectReferral from "./pages/referral/DirectReferral";
 import SecondaryReferral from "./pages/referral/SecondReferral";
 import Wallet from "./pages/wallet/wallet";
-import Download from "./pages/download/download";
+// import Download from "./pages/download/download";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import ChaptersList from "./pages/master/chapters/ChaptersList";
@@ -62,6 +62,7 @@ import ReceiptDetails from "./pages/donor/ReceiptDetails";
 import ReciptList from "./pages/donor/ReciptList";
 import DonorEdit from "./pages/donor/DonorEdit";
 import ReceiptView from "./pages/donor/ReceiptView";
+import DonationSummarys from "./pages/Reports/DonationSummary.jsx/DonationSummaryView";
 const App = () => {
   return (
     <>
@@ -98,14 +99,14 @@ const App = () => {
           path="/edit-datasource/:id"
           element={<ProtectedRoute element={<EditDataSource />} />}
         />
-        
+
         {/* States  */}
 
         <Route
           path="/states"
           element={<ProtectedRoute element={<StatesList />} />}
         />
-        
+
         {/* Designation  */}
 
         <Route
@@ -142,8 +143,8 @@ const App = () => {
           path="/edit-receipts/:id"
           element={<ProtectedRoute element={<EditReceipt />} />}
         />
-            {/* Reports  */}
-            <Route path="/report/donorsummary" element={<DonorSummary />} />
+        {/* Reports  */}
+        <Route path="/report/donorsummary" element={<DonorSummary />} />
         <Route path="/report/promoter" element={<PromterSummary />} />
         <Route path="/report/suspense" element={<SuspenseSummary />} />
         <Route path="/report/payment-view" element={<PaymentView />} />
@@ -153,7 +154,7 @@ const App = () => {
         <Route path="/recepit-otg-view" element={<ReceiptAllView />} />
         <Route path="/recepit-nopan-view" element={<NopanView />} />
         <Route path="/recepit-group-view" element={<GroupView />} />
-        {/* <Route path="/recepit-donation-view" element={<DonationSummarys />} /> */}
+        <Route path="/recepit-donation-view" element={<DonationSummarys />} />
         <Route path="/report/donor-view" element={<DonorSummaryView />} />
         <Route path="/report/donorgroup-view" element={<DonorGroupView />} />
         <Route path="/report/donation" element={<DonationSummary />} />
@@ -162,8 +163,6 @@ const App = () => {
         <Route path="/report/payment" element={<PaymentSummary />} />
         {/* //DOWNOLd// */}
 
-
-        
         {/* Download  START */}
         <Route
           path="/download/donor"
@@ -190,10 +189,9 @@ const App = () => {
           element={<ProtectedRoute element={<AllRecepits />} />}
         />
 
+        {/* Donor  */}
 
-         {/* Donor  */}
-
-         <Route path="/donor-list" element={<DonorList />} />
+        <Route path="/donor-list" element={<DonorList />} />
         <Route path="/add-indivisual/:id" element={<AddIndivisual />} />
         <Route path="/add-indivisual" element={<AddIndivisual />} />
         <Route path="/add-company" element={<AddCompany />} />
@@ -214,8 +212,6 @@ const App = () => {
           path="/change-password"
           element={<ProtectedRoute element={<ChangePassword />} />}
         />
-
-
       </Routes>
     </>
   );

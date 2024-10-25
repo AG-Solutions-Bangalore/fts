@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import ReactToPrint from "react-to-print";
 import axios from "axios";
 import PageTitleBar from "../../../components/common/PageTitle";
-import BASE_URL from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { Spinner } from "@material-tailwind/react";
 import Layout from "../../../layout/Layout";
 import Moment from "moment";
@@ -36,7 +36,7 @@ const RecepitSummaryView = (props) => {
       const receiptToDate = localStorage.getItem("receipt_to_date_recp");
       try {
         const response = await axios.get(
-          `${BASE_URL}/fetch-receiptsummary-by-id/api/${receiptFromDate}/${receiptToDate}`,
+          `${BASE_URL}/api/fetch-receiptsummary-by-id/${receiptFromDate}/${receiptToDate}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

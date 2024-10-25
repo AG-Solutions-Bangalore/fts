@@ -4,11 +4,10 @@ import Dropdown from "../../../components/common/DropDown";
 import { Button, Input, Card } from "@material-tailwind/react";
 import Moment from "moment";
 import { useState, useEffect } from "react";
-import BASE_URL from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import DownloadCommon from "../../download/DeliveryDownload";
 
 function DowloadRecpit() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -78,7 +77,7 @@ function DowloadRecpit() {
       setIsButtonDisabled(true);
 
       axios({
-        url: BASE_URL + "/download-receipt/api",
+        url: BASE_URL + "/api/download-receipt",
         method: "POST",
         data,
         headers: {
@@ -115,7 +114,7 @@ function DowloadRecpit() {
       },
     };
 
-    fetch(BASE_URL + "/fetch-datasource", requestOptions)
+    fetch(BASE_URL + "/api/fetch-datasource", requestOptions)
       .then((response) => response.json())
       .then((data) => setDatasource(data.datasource));
   }, []);
