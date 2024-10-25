@@ -72,7 +72,7 @@ const ForgetPassword = () => {
               color="blue-gray"
               className="-mb-3 font-medium"
             >
-              Email Address
+              UserName
             </Typography>
             <Input
               id="email"
