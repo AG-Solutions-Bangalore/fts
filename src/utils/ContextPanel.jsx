@@ -93,6 +93,18 @@ const AppProvider = ({ children }) => {
                 "/download/ots",
                 "/download/allreceipts",
 
+                // Donor 
+
+                "/donor-list",
+        "/add-indivisual",
+        "/add-company",
+        "/member-list",
+        "/donor-view",
+        "/receipt-details",
+        "/receipt-list",
+        "/donor-edit",
+        "/receipt-view",
+
           "/form",
           "/profile",
           "/change-password",

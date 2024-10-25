@@ -53,6 +53,15 @@ import DownloadSchool from "./pages/Dowloads/School/DownloadSchool";
 import Downloadots from "./pages/Dowloads/OTS/Downloadots";
 import Team from "./pages/Dowloads/Team/Team";
 import AllRecepits from "./pages/Dowloads/AllRecepits/AllRecepits";
+import DonorList from "./pages/donor/DonorList";
+import AddIndivisual from "./pages/donor/AddIndivisual";
+import AddCompany from "./pages/donor/AddCompany";
+import MemberList from "./pages/member/MemberList";
+import DonorView from "./pages/donor/DonorView";
+import ReceiptDetails from "./pages/donor/ReceiptDetails";
+import ReciptList from "./pages/donor/ReciptList";
+import DonorEdit from "./pages/donor/DonorEdit";
+import ReceiptView from "./pages/donor/ReceiptView";
 const App = () => {
   return (
     <>
@@ -180,6 +189,21 @@ const App = () => {
           path="/download/allreceipts"
           element={<ProtectedRoute element={<AllRecepits />} />}
         />
+
+
+         {/* Donor  */}
+
+         <Route path="/donor-list" element={<DonorList />} />
+        <Route path="/add-indivisual/:id" element={<AddIndivisual />} />
+        <Route path="/add-indivisual" element={<AddIndivisual />} />
+        <Route path="/add-company" element={<AddCompany />} />
+        <Route path="/add-company/:id" element={<AddCompany />} />
+        <Route path="/member-list" element={<MemberList />} />
+        <Route path="/donor-view/:id" element={<DonorView />} />
+        <Route path="/receipt-details/:id" element={<ReceiptDetails />} />
+        <Route path="/receipt-list/:id" element={<ReciptList />} />
+        <Route path="/donor-edit/:id" element={<DonorEdit />} />
+        <Route path="/receipt-view/:id" element={<ReceiptView />} />
 
         <Route path="/form" element={<ProtectedRoute element={<Form />} />} />
         <Route

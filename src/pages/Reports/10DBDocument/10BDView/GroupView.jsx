@@ -24,7 +24,7 @@ const GroupView = (props) => {
     };
 
     axios({
-      url: BASE_URL + "/fetch-donor-receipt-group-by-year/api",
+      url: BASE_URL + "/api/fetch-donor-receipt-group-by-year",
       method: "POST",
       data,
       headers: {
