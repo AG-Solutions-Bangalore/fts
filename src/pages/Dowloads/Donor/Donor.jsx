@@ -92,7 +92,7 @@ function Donor() {
       setIsButtonDisabled(true);
 
       axios({
-        url: BASE_URL + "/download-donor/api",
+        url: BASE_URL + "/api/download-donor",
         method: "POST",
         data,
         headers: {

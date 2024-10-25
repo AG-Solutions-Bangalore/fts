@@ -1,38 +1,37 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Layout from '../../layout/Layout'
-import { ContextPanel } from '../../utils/ContextPanel';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import BASE_URL from '../../base/BaseUrl';
-import { CiMail } from 'react-icons/ci';
-import MUIDataTable from 'mui-datatables';
+import { useNavigate, useParams } from 'react-router-dom'
+import axios from 'axios'
+import BASE_URL from '../../base/BaseUrl'
+import MUIDataTable from 'mui-datatables'
+import { IoEyeOutline } from 'react-icons/io5'
 
-const MemberList = () => {
-    const [memberData, setMemberData] = useState(null);
+const ReciptList = () => {
+    const {id} = useParams()
+    const [receiptData, setReceiptData] = useState(null);
     const [loading, setLoading] = useState(false);
-    const {isPanelUp} = useContext(ContextPanel)
     const navigate = useNavigate();
   
     useEffect(() => {
-      const fetchDonorData = async () => {
+      const fetchReceiptData = async () => {
         try {
         
           setLoading(true);
           const token = localStorage.getItem("token");
-          const response = await axios.get(`${BASE_URL}/api/fetch-members`, {
+          const response = await axios.get(`${BASE_URL}/api/fetch-receipts-by-old-id/${id}`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
   
-          setMemberData(response.data?.individualCompanies);
+          setReceiptData(response.data?.receipts);
         } catch (error) {
-          console.error("Error fetching Factory data", error);
+          console.error("Error fetching receipt list data", error);
         } finally {
           setLoading(false);
         }
       };
-      fetchDonorData();
+      fetchReceiptData();
       setLoading(false);
     }, []);
   
@@ -53,48 +52,51 @@ const MemberList = () => {
       },
   
       {
-        name: "indicomp_full_name",
+        name: "receipt_no",
+        label: "Receipt No",
+        options: {
+          filter: true,
+          sort: false,
+        },
+      },
+      {
+        name: "individual_company",
         label: "Full Name",
         options: {
-          filter: true,
-          sort: false,
+            filter: true,
+            sort: false,
+            customBodyRender: (value) => {
+                return value?.indicomp_full_name || "N/A";
+            },
         },
-      },
+    },
       {
-        name: "indicomp_type",
-        label: "Type",
+        name: "receipt_date",
+        label: "Date",
         options: {
           filter: true,
           sort: false,
         },
       },
       {
-        name: "factory_address",
-        label: "Address",
+        name: "receipt_exemption_type",
+        label: "Exemption Type",
         options: {
           filter: true,
           sort: false,
         },
       },
       {
-        name: "indicomp_com_contact_name",
-        label: "Spouse/Contact",
+        name: "receipt_donation_type",
+        label: "Donation Type",
         options: {
           filter: true,
           sort: false,
         },
       },
       {
-        name: "indicomp_mobile_phone",
-        label: "Mobile",
-        options: {
-          filter: true,
-          sort: false,
-        },
-      },
-      {
-        name: "indicomp_email",
-        label: "Email",
+        name: "receipt_total_amount",
+        label: "Amount",
         options: {
           filter: true,
           sort: false,
@@ -109,15 +111,13 @@ const MemberList = () => {
           sort: false,
           customBodyRender: (id) => {
             return (
-            
+             
               <div 
-            
+             onClick={()=>navigate(`/receipt-view/${id}`)}
               className="flex items-center space-x-2">
-                <CiMail title="Email" className="h-5 w-5 cursor-pointer" />
+                <IoEyeOutline title="View" className="h-5 w-5 cursor-pointer" />
               </div>
               
-              
-            
             );
           },
         },
@@ -126,8 +126,6 @@ const MemberList = () => {
     const options = {
       selectableRows: "none",
       elevation: 0,
-      // rowsPerPage: 5,
-      // rowsPerPageOptions: [5, 10, 25],
       responsive: "standard",
       viewColumns: true,
       download: false,
@@ -135,17 +133,17 @@ const MemberList = () => {
       
     };
   return (
-    <Layout>
-         <div className="mt-5">
+   <Layout>
+     <div className="mt-5">
         <MUIDataTable
-        title='Member List'
-          data={memberData ? memberData : []}
+        title='Receipt List'
+          data={receiptData ? receiptData : []}
           columns={columns}
           options={options}
         />
       </div>
-    </Layout>
+   </Layout>
   )
 }
 
-export default MemberList
+export default ReciptList

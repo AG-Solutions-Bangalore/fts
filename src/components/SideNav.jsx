@@ -79,6 +79,7 @@ const SideNav = ({
   const [openSubMenu, setOpenSubMenu] = useState(false); // For handling sub-menu open/close state
   const [openSubMenu1, setOpenSubMenu1] = useState(false); // For handling sub-menu open/close state
   const [openSubMenu2, setOpenSubMenu2] = useState(false); // For handling sub-menu open/close state
+  const [openSubMenu3, setOpenSubMenu3] = useState(false); // For handling sub-menu open/close state
   const theme = useTheme();
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const isMediumScreen = useMediaQuery(
@@ -103,6 +104,9 @@ const SideNav = ({
   };
   const handleToggleSubMenu2 = () => {
     setOpenSubMenu2((prev) => !prev); // Toggles sub-menu open state
+  };
+  const handleToggleSubMenu3 = () => {
+    setOpenSubMenu3((prev) => !prev); // Toggles sub-menu open state
   };
 
   return (
@@ -155,7 +159,7 @@ const SideNav = ({
           </ListItemIcon>
         </CustomListItem>
 
-        {/* Wallet with sub-menu */}
+        {/* Master with sub-menu */}
         <CustomListItem
           isCollapsed={isCollapsed}
           primary="Master"
@@ -212,6 +216,59 @@ const SideNav = ({
               to="/faqList"
               isCollapsed={isCollapsed}
               primary="FAQ"
+            ></CustomListItem>
+          </List>
+        </Collapse>
+
+        {/* Donor with sub-menu */}
+        <CustomListItem
+          isCollapsed={isCollapsed}
+          primary="Donor"
+          hasSubMenu={true}
+          isOpen={openSubMenu3}
+          toggleSubMenu={handleToggleSubMenu3}
+        >
+          <ListItemIcon
+            sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
+          >
+            <FaWallet style={{ fontSize: "20px" }} />
+          </ListItemIcon>
+        </CustomListItem>
+
+        {/* Sub-menu items */}
+        <Collapse in={openSubMenu3} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <CustomListItem
+              isSelected={selectedIndex === 21}
+              onClick={() => handleListItemClick(21)}
+              component={NavLink}
+              to="/donor-list"
+              isCollapsed={isCollapsed}
+              primary="Full List"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/member-list"
+              isCollapsed={isCollapsed}
+              primary="Members"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/donor-view"
+              isCollapsed={isCollapsed}
+              primary="Viewers"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/expensive-type"
+              isCollapsed={isCollapsed}
+              primary="Duplicate"
             ></CustomListItem>
           </List>
         </Collapse>
