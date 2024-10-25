@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Layout from "../../../layout/Layout";
-import TaskManagerFilter from "../TaskManagerFilter";
 import { useNavigate } from "react-router-dom";
 import PageTitle from "../../../components/common/PageTitle";
 import { Input, Button } from "@material-tailwind/react";
 import Dropdown from "../../../components/common/DropDown";
 import moment from "moment";
-import  BASE_URL  from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -61,7 +60,7 @@ const PromterSummary = () => {
       },
     };
 
-    fetch(BASE_URL + "/fetch-promoter/api", requestOptions)
+    fetch(BASE_URL + "/api/fetch-promoter", requestOptions)
       .then((response) => response.json())
       .then((data) => setPromoters(data.promoter));
   }, []);
@@ -76,7 +75,7 @@ const PromterSummary = () => {
 
     if (document.getElementById("dowRecp").reportValidity()) {
       axios({
-        url: BASE_URL + "/download-promoter-summary/api",
+        url: BASE_URL + "/api/download-promoter-summary",
         method: "POST",
         data,
         headers: {

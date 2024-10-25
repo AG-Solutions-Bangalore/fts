@@ -8,18 +8,12 @@ import ForgetPassword from "./pages/auth/ForgetPassword";
 import Form from "./pages/dashboard/Form";
 import Profile from "./pages/profile/Profile";
 import ChangePassword from "./pages/profile/ChangePassword";
-import DirectReferral from "./pages/referral/DirectReferral";
-import SecondaryReferral from "./pages/referral/SecondReferral";
-import Wallet from "./pages/wallet/wallet";
-import Download from "./pages/download/download";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import ChaptersList from "./pages/master/chapters/ChaptersList";
 import AddChapter from "./pages/master/chapters/AddChapter";
 import EditChapter from "./pages/master/chapters/EditChapter";
 import ViewChapter from "./pages/master/chapters/ViewChapter";
-import ViewSchool from "./pages/master/chapters/AddSchool";
-import Addchool from "./pages/master/chapters/AddSchool";
 import EditDataSource from "./pages/master/chapters/EditDataSource";
 import AddSchool from "./pages/master/chapters/AddSchool";
 import StatesList from "./pages/master/states/StatesList";
@@ -27,7 +21,6 @@ import DesignationList from "./pages/master/designation/DesignationList";
 import ExpensiveTypeList from "./pages/master/expensivetype/ExpensiveTypeList";
 import FAQList from "./pages/master/FAQ/FAQList";
 import ReceiptsList from "./pages/receipts/ReceiptsList";
-import ViewReceipt from "./pages/receipts/ViewReceipt2";
 import CreateReceipt from "./pages/receipts/CreateReceipt";
 import EditReceipt from "./pages/receipts/EditReceipt";
 import ViewReceipt2 from "./pages/receipts/ViewReceipt2";
@@ -53,6 +46,7 @@ import DownloadSchool from "./pages/Dowloads/School/DownloadSchool";
 import Downloadots from "./pages/Dowloads/OTS/Downloadots";
 import Team from "./pages/Dowloads/Team/Team";
 import AllRecepits from "./pages/Dowloads/AllRecepits/AllRecepits";
+import DonationSummarys from "./pages/Reports/DonationSummary.jsx/DonationSummaryView";
 const App = () => {
   return (
     <>
@@ -89,14 +83,14 @@ const App = () => {
           path="/edit-datasource/:id"
           element={<ProtectedRoute element={<EditDataSource />} />}
         />
-        
+
         {/* States  */}
 
         <Route
           path="/states"
           element={<ProtectedRoute element={<StatesList />} />}
         />
-        
+
         {/* Designation  */}
 
         <Route
@@ -133,8 +127,8 @@ const App = () => {
           path="/edit-receipts/:id"
           element={<ProtectedRoute element={<EditReceipt />} />}
         />
-            {/* Reports  */}
-            <Route path="/report/donorsummary" element={<DonorSummary />} />
+        {/* Reports  */}
+        <Route path="/report/donorsummary" element={<DonorSummary />} />
         <Route path="/report/promoter" element={<PromterSummary />} />
         <Route path="/report/suspense" element={<SuspenseSummary />} />
         <Route path="/report/payment-view" element={<PaymentView />} />
@@ -144,7 +138,7 @@ const App = () => {
         <Route path="/recepit-otg-view" element={<ReceiptAllView />} />
         <Route path="/recepit-nopan-view" element={<NopanView />} />
         <Route path="/recepit-group-view" element={<GroupView />} />
-        {/* <Route path="/recepit-donation-view" element={<DonationSummarys />} /> */}
+        <Route path="/recepit-donation-view" element={<DonationSummarys />} />
         <Route path="/report/donor-view" element={<DonorSummaryView />} />
         <Route path="/report/donorgroup-view" element={<DonorGroupView />} />
         <Route path="/report/donation" element={<DonationSummary />} />
@@ -153,8 +147,6 @@ const App = () => {
         <Route path="/report/payment" element={<PaymentSummary />} />
         {/* //DOWNOLd// */}
 
-
-        
         {/* Download  START */}
         <Route
           path="/download/donor"
@@ -190,8 +182,6 @@ const App = () => {
           path="/change-password"
           element={<ProtectedRoute element={<ChangePassword />} />}
         />
-
-
       </Routes>
     </>
   );

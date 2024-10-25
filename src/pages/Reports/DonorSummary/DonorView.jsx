@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import ReactToPrint from "react-to-print";
 import axios from "axios";
 import PageTitleBar from "../../../components/common/PageTitle";
-import BASE_URL from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { Button, Spinner } from "@material-tailwind/react";
 import Layout from "../../../layout/Layout";
 import Moment from "moment";
@@ -31,7 +31,7 @@ const DonorSummaryView = (props) => {
 
       try {
         const response = await axios.get(
-          `${BASE_URL}/fetch-donorsummary-by-id/api/${indicompFullName}/${receiptFromDate}/${receiptToDate}`,
+          `${BASE_URL}/api/fetch-donorsummary-by-id/${indicompFullName}/${receiptFromDate}/${receiptToDate}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

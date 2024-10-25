@@ -8,7 +8,7 @@ import image2 from "../../../../assets/receipt/top.png";
 import image3 from "../../../../assets/receipt/ekal.png";
 import Layout from "../../../../layout/Layout";
 import { FaArrowLeft } from "react-icons/fa6";
-import BASE_URL from "../../../../base/BaseUrl"
+import BASE_URL from "../../../../base/BaseUrl";
 const GroupView = (props) => {
   const componentRef = useRef();
   const [donorSummary, setDonorSummary] = useState([]);
@@ -24,7 +24,7 @@ const GroupView = (props) => {
     };
 
     axios({
-      url: BASE_URL + "/fetch-donor-receipt-group-by-year/api",
+      url: BASE_URL + "/api/fetch-donor-receipt-group-by-year",
       method: "POST",
       data,
       headers: {

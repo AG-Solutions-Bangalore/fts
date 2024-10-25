@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PageTitleBar from "../../../components/common/PageTitle";
-import  BASE_URL  from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { Spinner } from "@material-tailwind/react";
 import Layout from "../../../layout/Layout";
 import Moment from "moment";
@@ -20,7 +20,7 @@ const SuspenseSummary = (props) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${BASE_URL}/fetch-receipt-suspense-summary/api`,
+          `${BASE_URL}/api/fetch-receipt-suspense-summary`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -28,7 +28,7 @@ const SuspenseSummary = (props) => {
           }
         );
         setSummary(response.data.receipt);
-    } catch (error) {
+      } catch (error) {
         setError("Error fetching promoter summary. Please try again.");
         console.error("Error fetching promoter summary:", error);
       } finally {

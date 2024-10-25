@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MUIDataTable from "mui-datatables";
 import { Button, Spinner } from "@material-tailwind/react";
 import axios from "axios";
-import  BASE_URL  from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 
 const options = {
   filterType: "textField",
@@ -21,13 +21,13 @@ const AddToGroup = ({ populateDonorName, handleClose }) => {
   const [donorData, setDonorData] = useState([]);
 
   const addDonorToReceipt = (fts_id) => {
-    populateDonorName(fts_id); 
+    populateDonorName(fts_id);
   };
 
   const getData = async () => {
     setLoader(true);
     try {
-      const res = await axios.get(`${BASE_URL}/fetch-donors/api`, {
+      const res = await axios.get(`${BASE_URL}/api/fetch-donors`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -70,7 +70,12 @@ const AddToGroup = ({ populateDonorName, handleClose }) => {
         sort: false,
         customBodyRender: (value) => (
           <div className="flex space-x-2">
-            <Button onClick={() => addDonorToReceipt(value)} className="bg-blue-500">Select</Button>
+            <Button
+              onClick={() => addDonorToReceipt(value)}
+              className="bg-blue-500"
+            >
+              Select
+            </Button>
           </div>
         ),
       },
