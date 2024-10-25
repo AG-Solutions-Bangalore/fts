@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PageTitleBar from "../../../components/common/PageTitle";
-import { BASE_URL } from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { Spinner } from "@material-tailwind/react";
 import Layout from "../../../layout/Layout";
 import image1 from "../../../assets/receipt/fts.png";
@@ -31,7 +31,7 @@ const DonationSummaryView = (props) => {
 
       try {
         const response = await axios.get(
-          `${BASE_URL}/fetch-donationsummary-by-id/${from_date}/${to_date}`,
+          `${BASE_URL}/api/fetch-donationsummary-by-id/${from_date}/${to_date}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

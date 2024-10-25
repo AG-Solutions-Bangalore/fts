@@ -4,12 +4,11 @@ import Dropdown from "../../../components/common/DropDown";
 import { useNavigate } from "react-router-dom";
 import { Button, Input, Card } from "@material-tailwind/react";
 import Moment from "moment";
-import { useState, useEffect } from "react";
-import BASE_URL from "../../../base/BaseUrl"
-import { ToastContainer, toast } from "react-toastify";
+import { useState } from "react";
+import BASE_URL from "../../../base/BaseUrl";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import DownloadCommon from "../../download/DeliveryDownload";
 
 function Downloadots() {
   const navigate = useNavigate();
@@ -44,7 +43,7 @@ function Downloadots() {
       setIsButtonDisabled(true);
 
       axios({
-        url: BASE_URL + "/download-ots/api",
+        url: BASE_URL + "/api/download-ots",
         method: "POST",
         data,
         headers: {

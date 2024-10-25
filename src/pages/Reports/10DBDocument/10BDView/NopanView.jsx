@@ -7,7 +7,7 @@ import image1 from "../../../../assets/receipt/fts.png";
 import image2 from "../../../../assets/receipt/top.png";
 import image3 from "../../../../assets/receipt/ekal.png";
 import Layout from "../../../../layout/Layout";
-import BASE_URL from "../../../../base/BaseUrl"
+import BASE_URL from "../../../../base/BaseUrl";
 import { FaArrowLeft } from "react-icons/fa6";
 
 const NopanView = (props) => {
@@ -25,7 +25,7 @@ const NopanView = (props) => {
     };
 
     axios({
-      url: BASE_URL + "/fetch-donor-receipt-by-year-no-pan/api",
+      url: BASE_URL + "/api/fetch-donor-receipt-by-year-no-pan",
       method: "POST",
       data,
       headers: {

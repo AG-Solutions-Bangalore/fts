@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PageTitleBar from "../../../components/common/PageTitle";
-import  BASE_URL  from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { Button, Spinner } from "@material-tailwind/react";
 import Layout from "../../../layout/Layout";
 import Moment from "moment";
@@ -10,7 +10,6 @@ import image2 from "../../../assets/receipt/top.png";
 import image3 from "../../../assets/receipt/ekal.png";
 import { FaArrowLeft } from "react-icons/fa6";
 import CustomPivotTable from "./CustomPivotTable";
-
 
 const PromoterSummaryView = (props) => {
   const [donorsummary, setSummary] = useState([]);
@@ -30,7 +29,7 @@ const PromoterSummaryView = (props) => {
       const indicompFullName = localStorage.getItem("indicomp_full_name_prm");
       try {
         const response = await axios.get(
-          `${BASE_URL}/fetch-promotersummary-by-id/api/${indicompFullName}/${receiptFromDate}/${receiptToDate}`,
+          `${BASE_URL}/api/fetch-promotersummary-by-id/${indicompFullName}/${receiptFromDate}/${receiptToDate}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -52,8 +51,6 @@ const PromoterSummaryView = (props) => {
     fetchData();
   }, []);
 
- 
- 
   return (
     <Layout>
       {loader && (

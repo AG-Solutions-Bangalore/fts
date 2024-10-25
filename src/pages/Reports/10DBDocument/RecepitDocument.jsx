@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../../layout/Layout";
-import TaskManagerFilter from "../TaskManagerFilter"
 import { Link, useNavigate } from "react-router-dom";
 import PageTitle from "../../../components/common/PageTitle";
 import { Input, Button } from "@material-tailwind/react";
 import moment from "moment";
-import BASE_URL from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -78,7 +77,7 @@ const RecepitDocument = () => {
 
     if (v) {
       axios({
-        url: BASE_URL + "/download-receipt-year/api",
+        url: BASE_URL + "/api/download-receipt-year",
         method: "POST",
         data,
         headers: {
@@ -113,7 +112,7 @@ const RecepitDocument = () => {
 
     if (v) {
       axios({
-        url: BASE_URL + "/download-receipt-year-no-pan",
+        url: BASE_URL + "/api/download-receipt-year-no-pan",
         method: "POST",
         data,
         headers: {
@@ -148,7 +147,7 @@ const RecepitDocument = () => {
 
     if (v) {
       axios({
-        url: BASE_URL + "/download-receipt-year-group",
+        url: BASE_URL + "/api/download-receipt-year-group",
         method: "POST",
         data,
         headers: {
