@@ -11,8 +11,6 @@ const AppProvider = ({ children }) => {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
-  
-  const userType = localStorage.getItem("user-type");
 
   const checkPanelStatus = async () => {
     try {
@@ -38,28 +36,41 @@ const AppProvider = ({ children }) => {
       navigate("/maintenance");
     } else if (isPanelUp?.success) {
       if (token) {
-        const allowedPaths = [
-        
+        const allowedPath = [
+          "/home",
+
+          //Chapters
+
+          "/chapters",
+          "/add-chapter",
+          "/edit-chapter",
+          "/view-chapter",
+          "/view-school",
+          "/edit-datasource",
+
+          // States 
+
+          "/states",
+          // Designation
+          "/designation",
+          // Expensive-type
+          "/expensive-type",
+          // FAQ 
+          "/faqList",
+          // Receipts 
+          "/receipts",
+          "/create-receipts",
+          "/view-receipts",
+          "/edit-receipts",
+          "/form",
           "/profile",
-        "/home",
-        "/donor-list",
-        "/add-indivisual",
-        "/add-company",
-        "/member-list",
-        "/donor-view",
-        "/receipt-details",
-        "/receipt-list",
-        "/donor-edit",
-        "/receipt-view",
-        "/change-password",
-       
+          "/change-password",
         ];
-        const isAllowedPath = allowedPaths.some((path) =>
+
+        const isAllowedPath = allowedPath.some((path) =>
           currentPath.startsWith(path)
         );
-        if (
-          isAllowedPath
-        ) {
+        if (isAllowedPath) {
           navigate(currentPath);
         } else {
           navigate("/home");
@@ -68,7 +79,8 @@ const AppProvider = ({ children }) => {
         if (
           currentPath === "/" ||
           currentPath === "/register" ||
-          currentPath === "/forget-password"
+          currentPath === "/forget-password" ||
+          currentPath === "/sign-up-page"
         ) {
           navigate(currentPath);
         } else {
@@ -85,7 +97,7 @@ const AppProvider = ({ children }) => {
   }, []);
 
   return (
-    <ContextPanel.Provider value={{ isPanelUp, setIsPanelUp,userType }}>
+    <ContextPanel.Provider value={{ isPanelUp, setIsPanelUp }}>
       {children}
     </ContextPanel.Provider>
   );

@@ -1,150 +1,230 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import {
-  HomeIcon,
-  TableCellsIcon,
-  XMarkIcon,
-} from "@heroicons/react/24/outline";
-import { Button, IconButton, Typography } from "@material-tailwind/react";
-import { useEffect, useRef } from "react";
-import { FaRegUser } from "react-icons/fa";
-import { LuUsers } from "react-icons/lu";
-import { TbReportAnalytics } from "react-icons/tb";
-const SideNav = ({ openSideNav, setOpenSideNav }) => {
-  const sidenavRef = useRef(null);
-  const { pathname } = useLocation();
+  Drawer,
+  List,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  Box,
+  Collapse,
+  useTheme,
+} from "@mui/material";
+import { Link, NavLink } from "react-router-dom";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
+import { MdDashboard, MdExpandLess, MdExpandMore } from "react-icons/md";
+import { BsFillPeopleFill } from "react-icons/bs";
+import { FaWallet, FaDownload } from "react-icons/fa";
+import Logo from "../assets/logo.png";
 
-  // Hardcoded sidenavType to "dark"
-  const sidenavType = "dark";
-
-  const sidenavTypes = {
-    dark: "bg-blue-200",
-    white: "bg-white shadow-sm",
-    transparent: "bg-transparent",
-  };
-
-  // close sidebar when clicking outside
-
-  useEffect(() => {
-    function handClickOutside(e) {
-      if (sidenavRef.current && !sidenavRef.current.contains(e.target)) {
-        setOpenSideNav(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handClickOutside);
-    };
-  }, [setOpenSideNav]);
-
-  // Close sidebar on route change
-  useEffect(() => {
-    setOpenSideNav(false);
-  }, [pathname, setOpenSideNav]);
-
+const CustomListItem = ({
+  isSelected,
+  onClick,
+  to,
+  component,
+  children,
+  primary,
+  hasSubMenu,
+  isOpen,
+  toggleSubMenu,
+}) => {
   return (
-    <aside
-      ref={sidenavRef}
-      className={`${sidenavTypes[sidenavType]} ${
-        openSideNav ? "translate-x-0" : "-translate-x-80"
-      } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-[272px] rounded-xl transition-transform duration-300 xl:translate-x-0 border border-blue-gray-100`}
-    >
-      <div className={`relative`}>
-        <Link to="/brand" className="flex items-center justify-center p-3">
-          <div className="flex items-center">
-            <img
-              src="https://agsrb.online/static/media/fts1.616cc323.png"
-              alt="Logo"
-              className="h-16 w-48"
-            />
-            
-          </div>
-        </Link>
-        <IconButton
-          variant="text"
-          color="white"
-          size="sm"
-          ripple={false}
-          className="absolute right-0 top-0 grid rounded-br-none rounded-tl-none xl:hidden"
-          onClick={() => setOpenSideNav(false)}
+    <>
+      <Box
+        onClick={onClick}
+        component={component}
+        to={to}
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          textDecoration: "none",
+          padding: "10px 20px",
+          backgroundColor: isSelected ? "#eceff1" : "transparent",
+          color: isSelected ? "#5e35b1" : "inherit",
+          "&:hover": {
+            backgroundColor: "#f5f5f5",
+          },
+        }}
+      >
+        {children}
+        <Typography
+          sx={{
+            ml: 3,
+            fontWeight: isSelected ? "bold" : "normal",
+            color: isSelected ? "#5e35b1" : "#000",
+          }}
         >
-          <XMarkIcon strokeWidth={2.5} className="h-5 w-5 text-white" />
-        </IconButton>
-      </div>
-      <div className="m-4">
-        <ul className="mb-4 flex flex-col gap-1">
-         
-
-          <li>
-            <NavLink to="/home">
-              {({ isActive }) => (
-                <Button
-                  variant={isActive ? "gradient" : "text"}
-                  color="green"
-                  className="flex items-center gap-4 px-4 capitalize"
-                  fullWidth
-                >
-                  <FaRegUser className="w-5 h-5 text-black" />
-                  <Typography
-                    color="black"
-                    className="font-medium capitalize"
-                  >
-                    Dashboard
-                  </Typography>
-                </Button>
-              )}
-            </NavLink>
-          </li>
-     
-          <li>
-            <NavLink to="/donor-list">
-              {({ isActive }) => (
-                <Button
-                  variant={isActive ? "gradient" : "text"}
-                  color="green"
-                  className="flex items-center gap-4 px-4 capitalize"
-                  fullWidth
-                >
-                  <LuUsers className="w-5 h-5 text-black" />
-                  <Typography
-                    color="black"
-                    className="font-medium capitalize"
-                  >
-                    Donor
-                  </Typography>
-                </Button>
-              )}
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/member-list">
-              {({ isActive }) => (
-                <Button
-                  variant={isActive ? "gradient" : "text"}
-                  color="green"
-                  className="flex items-center gap-4 px-4 capitalize"
-                  fullWidth
-                >
-                  <LuUsers className="w-5 h-5 text-black" />
-                  <Typography
-                    color="black"
-                    className="font-medium capitalize"
-                  >
-                    Member
-                  </Typography>
-                </Button>
-              )}
-            </NavLink>
-          </li>
-          
-          
-
-          
-        </ul>
-      </div>
-      <div className=" fixed bottom-5 left-1/4 font-bold text-blue-gray-700 border-b border-dashed border-black   flex items-center ">Version: 1.0.5</div>
-    </aside>
-   
+          {primary}
+        </Typography>
+        {hasSubMenu && (
+          <ListItemIcon
+            sx={{ ml: "auto", minWidth: 0, color: "#5e35b1" }}
+            onClick={toggleSubMenu}
+          >
+            {isOpen ? <MdExpandLess /> : <MdExpandMore />}
+          </ListItemIcon>
+        )}
+      </Box>
+    </>
   );
 };
+
+const SideNav = ({
+  isCollapsed,
+  handleDrawerToggle,
+  openDrawer,
+  setIsCollapsed,
+}) => {
+  const [selectedIndex, setSelectedIndex] = useState(null);
+  const [openSubMenu, setOpenSubMenu] = useState(false); // For handling sub-menu open/close state
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery("(max-width:600px)");
+  const isMediumScreen = useMediaQuery(
+    "(min-width:600px) and (max-width:960px)"
+  );
+
+  const handleListItemClick = (index) => {
+    setSelectedIndex(index);
+    if (isSmallScreen) {
+      handleDrawerToggle();
+    }
+    // if (!isSmallScreen && isMediumScreen) {
+    //   setIsCollapsed(!isCollapsed);
+    // }
+  };
+
+  const handleToggleSubMenu = () => {
+    setOpenSubMenu((prev) => !prev); // Toggles sub-menu open state
+  };
+
+  return (
+    <Drawer
+      variant={isSmallScreen ? "temporary" : "permanent"}
+      open={isSmallScreen ? openDrawer : true}
+      onClose={isSmallScreen ? handleDrawerToggle : undefined}
+      sx={{
+        width: isSmallScreen ? 260 : isCollapsed ? 75 : 260,
+        flexShrink: 0,
+        "& .MuiDrawer-paper": {
+          width: isSmallScreen ? 260 : isCollapsed ? 75 : 260,
+          boxSizing: "border-box",
+          overflowX: "hidden",
+          marginTop: isSmallScreen ? 0 : "92px",
+          border: "none",
+          boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
+          backgroundColor: "#FFFFFF",
+          transition: "width 0.3s ease",
+        },
+        display: { xs: "block", sm: "block" },
+      }}
+    >
+      <List sx={{ padding: "10px" }}>
+        <Link to="/">
+          <Box
+            sx={{
+              display: isSmallScreen ? "flex" : "none",
+              padding: "16px",
+              mb: 3,
+              cursor: "pointer",
+            }}
+          >
+            <img src={Logo} alt="Logo" className="w-[200px] h-[80px]" />
+          </Box>
+        </Link>
+
+        <CustomListItem
+          isSelected={selectedIndex === 0}
+          onClick={() => handleListItemClick(0)}
+          component={NavLink}
+          to="/home"
+          isCollapsed={isCollapsed}
+          primary="Dashboard"
+        >
+          <ListItemIcon
+            sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
+          >
+            <MdDashboard style={{ fontSize: "20px" }} />
+          </ListItemIcon>
+        </CustomListItem>
+
+        {/* Wallet with sub-menu */}
+        <CustomListItem
+          isCollapsed={isCollapsed}
+          primary="Master"
+          hasSubMenu={true}
+          isOpen={openSubMenu}
+          toggleSubMenu={handleToggleSubMenu}
+        >
+          <ListItemIcon
+            sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
+          >
+            <FaWallet style={{ fontSize: "20px" }} />
+          </ListItemIcon>
+        </CustomListItem>
+
+        {/* Sub-menu items */}
+        <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <CustomListItem
+              isSelected={selectedIndex === 21}
+              onClick={() => handleListItemClick(21)}
+              component={NavLink}
+              to="/chapters"
+              isCollapsed={isCollapsed}
+              primary="Chapters"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/states"
+              isCollapsed={isCollapsed}
+              primary="States"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/designation"
+              isCollapsed={isCollapsed}
+              primary="Designation"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/expensive-type"
+              isCollapsed={isCollapsed}
+              primary="OTS Expensive Type"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/faqList"
+              isCollapsed={isCollapsed}
+              primary="FAQ"
+            ></CustomListItem>
+          </List>
+        </Collapse>
+
+        <CustomListItem
+          isSelected={selectedIndex === 3}
+          onClick={() => handleListItemClick(3)}
+          component={NavLink}
+          to="/receipts"
+          isCollapsed={isCollapsed}
+          primary="Reciepts"
+        >
+          <ListItemIcon
+            sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
+          >
+            <FaDownload style={{ fontSize: "20px" }} />
+          </ListItemIcon>
+        </CustomListItem>
+      </List>
+    </Drawer>
+  );
+};
+
 export default SideNav;
