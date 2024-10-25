@@ -230,7 +230,7 @@ const SideNav = ({
             <FaDownload style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
-{/* /////REPORT START */}
+        {/* /////REPORT START */}
         <CustomListItem
           isCollapsed={isCollapsed}
           primary="Report"
@@ -276,7 +276,7 @@ const SideNav = ({
               isSelected={selectedIndex === 22}
               onClick={() => handleListItemClick(22)}
               component={NavLink}
-              to= "/report/donation"
+              to="/report/donation"
               isCollapsed={isCollapsed}
               primary="Donation  Summary "
             ></CustomListItem>
@@ -288,7 +288,7 @@ const SideNav = ({
               isCollapsed={isCollapsed}
               primary="School  Summary "
             ></CustomListItem> */}
-                     <CustomListItem
+            <CustomListItem
               isSelected={selectedIndex === 22}
               onClick={() => handleListItemClick(22)}
               component={NavLink}
@@ -296,7 +296,7 @@ const SideNav = ({
               isCollapsed={isCollapsed}
               primary="10BD  Summary "
             ></CustomListItem>
-                     <CustomListItem
+            <CustomListItem
               isSelected={selectedIndex === 22}
               onClick={() => handleListItemClick(22)}
               component={NavLink}
@@ -304,7 +304,7 @@ const SideNav = ({
               isCollapsed={isCollapsed}
               primary="Suspense  Summary "
             ></CustomListItem>
-                     <CustomListItem
+            <CustomListItem
               isSelected={selectedIndex === 22}
               onClick={() => handleListItemClick(22)}
               component={NavLink}
@@ -314,10 +314,6 @@ const SideNav = ({
             ></CustomListItem>
           </List>
         </Collapse>
-
-
-
-
 
         <CustomListItem
           isCollapsed={isCollapsed}
@@ -350,7 +346,7 @@ const SideNav = ({
               component={NavLink}
               to="/download/receipts"
               isCollapsed={isCollapsed}
-              primary= "Receipts"
+              primary="Receipts"
             ></CustomListItem>
             <CustomListItem
               isSelected={selectedIndex === 22}
@@ -364,12 +360,12 @@ const SideNav = ({
               isSelected={selectedIndex === 22}
               onClick={() => handleListItemClick(22)}
               component={NavLink}
-              to= "/download/team"
+              to="/download/team"
               isCollapsed={isCollapsed}
               primary="  Team "
             ></CustomListItem>
-     
-                     <CustomListItem
+
+            <CustomListItem
               isSelected={selectedIndex === 22}
               onClick={() => handleListItemClick(22)}
               component={NavLink}
@@ -377,14 +373,8 @@ const SideNav = ({
               isCollapsed={isCollapsed}
               primary="All Recepits"
             ></CustomListItem>
-                    
           </List>
         </Collapse>
-
-
-
-
-        
       </List>
     </Drawer>
   );
