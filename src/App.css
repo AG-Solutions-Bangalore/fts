@@ -4,12 +4,6 @@
   padding: 2rem;
   text-align: center;
 }
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
-body {
-    font-family: 'Roboto', sans-serif;
-  }
-  
 
 .logo {
   height: 6em;
@@ -46,3 +40,8 @@ body {
 .read-the-docs {
   color: #888;
 }
+
+:root {
+  --color: #1e90ff;
+}
+
