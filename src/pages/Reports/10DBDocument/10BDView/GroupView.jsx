@@ -8,7 +8,7 @@ import image2 from "../../../../assets/receipt/top.png";
 import image3 from "../../../../assets/receipt/ekal.png";
 import Layout from "../../../../layout/Layout";
 import { FaArrowLeft } from "react-icons/fa6";
-import BASE_URL from "../../../../base/BaseUrl"
+import BASE_URL from "../../../../base/BaseUrl";
 const GroupView = (props) => {
   const componentRef = useRef();
   const [donorSummary, setDonorSummary] = useState([]);

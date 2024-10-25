@@ -1,16 +1,14 @@
 import Layout from "../../../layout/Layout";
 import PageTitle from "../../../components/common/PageTitle";
 import Dropdown from "../../../components/common/DropDown";
-import { FaArrowCircleLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { Button, Input } from "@material-tailwind/react";
+import { Button, } from "@material-tailwind/react";
 import { Card } from "@material-tailwind/react";
 import { useState } from "react";
 // import BASE_URL from "../../../base/BaseUrl"
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import DownloadCommon from "../../download/DeliveryDownload";
 import BASE_URL from "../../../base/BaseUrl";
 
 function Donor() {
@@ -159,7 +157,6 @@ function Donor() {
                 onClick={onSubmit}
                 disabled={isButtonDisabled}
               >
-                
                 {isButtonDisabled ? "Downloading..." : "Download"}
               </Button>
             </div>

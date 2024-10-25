@@ -1,10 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../../layout/Layout";
-import TaskManagerFilter from "../TaskManagerFilter";
 import { useNavigate } from "react-router-dom";
 import { Input, Button } from "@material-tailwind/react";
 import moment from "moment";
-import BASE_URL from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { toast } from "react-toastify";
 import axios from "axios";
 import PageTitle from "../../../components/common/PageTitle";
@@ -47,7 +46,7 @@ const PaymentSummary = () => {
 
     if (v) {
       axios({
-        url: BASE_URL + "/download-teacher-payment-summary-by-date/api",
+        url: BASE_URL + "/api/download-teacher-payment-summary-by-date",
         method: "POST",
         data,
         headers: {
