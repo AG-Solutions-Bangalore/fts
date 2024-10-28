@@ -84,26 +84,30 @@ const AppProvider = ({ children }) => {
           "/report/donorgroup-view",
           "/recepit-donation-view",
 
-                //download
-                "/download/donor",
-                "/download/receipts",
-                "/download/school",
-                "/material-recepit",
-                "/download/team",
-                "/download/ots",
-                "/download/allreceipts",
+          //download
+          "/download/donor",
+          "/download/receipts",
+          "/download/school",
+          "/material-recepit",
+          "/download/team",
+          "/download/ots",
+          "/download/allreceipts",
+          //others
+          "/others-faq",
+          "/others-team",
+          "/others-team-add",
+          "/others-notification",
+          // Donor
 
-                // Donor 
-
-                "/donor-list",
-        "/add-indivisual",
-        "/add-company",
-        "/member-list",
-        "/donor-view",
-        "/receipt-details",
-        "/receipt-list",
-        "/donor-edit",
-        "/receipt-view",
+          "/donor-list",
+          "/add-indivisual",
+          "/add-company",
+          "/member-list",
+          "/donor-view",
+          "/receipt-details",
+          "/receipt-list",
+          "/donor-edit",
+          "/receipt-view",
 
           "/form",
           "/profile",
@@ -115,6 +119,7 @@ const AppProvider = ({ children }) => {
         );
         if (isAllowedPath) {
           navigate(currentPath);
+          console.log(currentPath + location.search);
         } else {
           navigate("/home");
         }

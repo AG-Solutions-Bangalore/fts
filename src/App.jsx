@@ -63,7 +63,12 @@ import ReciptList from "./pages/donor/ReciptList";
 import DonorEdit from "./pages/donor/DonorEdit";
 import ReceiptView from "./pages/donor/ReceiptView";
 import DonationSummarys from "./pages/Reports/DonationSummary.jsx/DonationSummaryView";
+import Faq from "./pages/Others/faq";
+import OthersTeam from "./pages/Others/OtherTeam/OthersTeam";
+import Addimage from "./pages/Others/Addimage";
+import Notification from "./pages/Others/Notification/Notification";
 //NEW CODE HER AFTER BY MOORTHY
+
 const App = () => {
   return (
     <>
@@ -100,34 +105,27 @@ const App = () => {
           path="/edit-datasource/:id"
           element={<ProtectedRoute element={<EditDataSource />} />}
         />
-
         {/* States  */}
-
         <Route
           path="/states"
           element={<ProtectedRoute element={<StatesList />} />}
         />
-
         {/* Designation  */}
-
         <Route
           path="/designation"
           element={<ProtectedRoute element={<DesignationList />} />}
         />
         {/* Expensive Type  */}
-
         <Route
           path="/expensive-type"
           element={<ProtectedRoute element={<ExpensiveTypeList />} />}
         />
         {/* FAQ  */}
-
         <Route
           path="/faqList"
           element={<ProtectedRoute element={<FAQList />} />}
         />
         {/* FAQ  */}
-
         <Route
           path="/receipts"
           element={<ProtectedRoute element={<ReceiptsList />} />}
@@ -163,7 +161,6 @@ const App = () => {
         <Route path="/report/otg" element={<RecepitDocument />} />
         <Route path="/report/payment" element={<PaymentSummary />} />
         {/* //DOWNOLd// */}
-
         {/* Download  START */}
         <Route
           path="/download/donor"
@@ -189,9 +186,7 @@ const App = () => {
           path="/download/allreceipts"
           element={<ProtectedRoute element={<AllRecepits />} />}
         />
-
         {/* Donor  */}
-
         <Route path="/donor-list" element={<DonorList />} />
         <Route path="/add-indivisual/:id" element={<AddIndivisual />} />
         <Route path="/add-indivisual" element={<AddIndivisual />} />
@@ -203,7 +198,14 @@ const App = () => {
         <Route path="/receipt-list/:id" element={<ReciptList />} />
         <Route path="/donor-edit/:id" element={<DonorEdit />} />
         <Route path="/receipt-view/:id" element={<ReceiptView />} />
+        {/* //others */}
+        <Route path="/others-faq" element={<Faq />} />
+        <Route path="/others-team" element={<OthersTeam />} />
+        
+        <Route path="/others-team-add" element={<Addimage />} />
+        <Route path="/others-notification" element={<Notification />} />
 
+        
         <Route path="/form" element={<ProtectedRoute element={<Form />} />} />
         <Route
           path="/profile"
