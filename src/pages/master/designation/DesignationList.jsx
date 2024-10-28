@@ -13,13 +13,15 @@ import BASE_URL from "../../../base/BaseUrl";
 const DesignationList = () => {
   const navigate = useNavigate();
 
- 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [student, setStudent] = useState({});
 
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({
     designation_type: "",
+  });
+  const [user1, setUser1] = useState({
+    designation_type1: "",
   });
 
   const [selected_user_id, setSelectedUserId] = useState("");
@@ -31,7 +33,8 @@ const DesignationList = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (e) => {
+    e.preventDefault();
     setOpen(false);
   };
 
@@ -39,7 +42,8 @@ const DesignationList = () => {
     setOpen1(true);
   };
 
-  const handleClose1 = () => {
+  const handleClose1 = (e) => {
+    e.preventDefault();
     setOpen1(false);
   };
 
@@ -57,11 +61,16 @@ const DesignationList = () => {
 
   const onUserInputChange = (e) => {
     setUser({
-       ...user,
+      ...user,
       [e.target.name]: e.target.value,
     });
- 
-};
+  };
+  const onUserInputChange1 = (e) => {
+    setUser1({
+      ...user1,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const createUser = async (e) => {
     e.preventDefault();
@@ -72,7 +81,7 @@ const DesignationList = () => {
     }
     setIsButtonDisabled(true);
     const formData = {
-        designation_type: user.designation_type,
+      designation_type: user.designation_type,
     };
     try {
       const response = await axios.post(
@@ -114,7 +123,7 @@ const DesignationList = () => {
 
     setIsButtonDisabled(true);
     const formData = {
-        designation_type: user.designation_type,
+      designation_type: user1.designation_type1,
     };
     try {
       const response = await axios.put(
@@ -183,23 +192,22 @@ const DesignationList = () => {
                       <td class="py-3 px-12 text-center">
                         <span> {dataSumm.designation_type}</span>
                       </td>
-                        <td class="py-3 px-12 text-center">
-                          <button
-                            onClick={() => {
-                                setUser({
-                                    ...user,
-                                    designation_type: dataSumm.designation_type,
-                                });
-                                setSelectedUserId(dataSumm.id);
-                                handleClickOpen1();
-                              }}
-                            // onClick={handleClickOpen1}
-                            className="btn btn-primary text-center md:text-right text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md"
-                          >
-                            Edit
-                          </button>
-                        </td>
-                     
+                      <td class="py-3 px-12 text-center">
+                        <button
+                          onClick={() => {
+                            setUser1({
+                              ...user1,
+                              designation_type1: dataSumm.designation_type,
+                            });
+                            setSelectedUserId(dataSumm.id);
+                            handleClickOpen1();
+                          }}
+                          // onClick={handleClickOpen1}
+                          className="btn btn-primary text-center md:text-right text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md"
+                        >
+                          Edit
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 ))}
@@ -216,7 +224,7 @@ const DesignationList = () => {
                 <CardContent>
                   <div className="flex justify-between items-center mb-2">
                     <h1 className="text-slate-800 text-xl font-semibold">
-                    Create States
+                      Create States
                     </h1>
                     <div className="flex">
                       <Tooltip title="Close">
@@ -286,7 +294,7 @@ const DesignationList = () => {
                   </div>
 
                   <div className="mt-2">
-                  <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
                       <div className="form-group ">
                         <Fields
                           required={true}
@@ -295,8 +303,8 @@ const DesignationList = () => {
                           type="textField"
                           autoComplete="Name"
                           name="designation_type"
-                          value={user.designation_type}
-                          onChange={(e) => onUserInputChange(e)}
+                          value={user1.designation_type1}
+                          onChange={(e) => onUserInputChange1(e)}
                         />
                       </div>
                     </div>

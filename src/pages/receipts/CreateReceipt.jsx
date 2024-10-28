@@ -145,6 +145,12 @@ const CreateReceipt = () => {
   //   today = mm + "/" + dd + "/" + yyyy;
   const todayback = yyyy + "-" + mm + "-" + dd;
 
+  const todayyear = new Date().getFullYear();
+  const twoDigitYear = todayyear.toString().substr(-2);
+  const preyear = todayyear;
+  const finyear = (+twoDigitYear) + 1;
+  const finalyear = preyear+'-'+finyear;
+
   const [userdata, setUserdata] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [loader, setLoader] = useState(true);
@@ -203,18 +209,18 @@ const CreateReceipt = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     axios
-  //       .get(`${BASE_URL}/api/fetch-donor-by-id/${id}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         setUserdata(res.data.individualCompany);
-  //         setLoader(false);
-  //       });
-  //   }, []);
+    useEffect(() => {
+      axios
+        .get(`${BASE_URL}/api/fetch-donor-by-id/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          setUserdata(res.data.individualCompany);
+          setLoader(false);
+        });
+    }, [id]);
 
   const [datasource, setDatasource] = useState([]);
   useEffect(() => {
@@ -274,13 +280,13 @@ const CreateReceipt = () => {
         }
       );
 
-      if (response.data.code == 200) {
+      if (response.status == '200') {
         toast.success("Receipt Created Successfully");
-        navigate("/receipts");
+        navigate("/donor-list");
       } else {
-        if (response.data.code == 401) {
+        if (response.status == '401') {
           toast.error("Receipt Duplicate Entry");
-        } else if (response.data.code == 402) {
+        } else if (response.status == '402') {
           toast.error("Receipt Duplicate Entry");
         } else {
           toast.error("An unknown error occurred");
@@ -308,31 +314,31 @@ const CreateReceipt = () => {
             <div>
               <label className="block text-gray-700 ">Name</label>
               <span className="mt-1 text-black">
-                {/* {userdata.indicomp_full_name} */} 12345
+                {userdata.indicomp_full_name}
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">FTS Id</label>
               <span className="mt-1 text-black">
-                {/* {userdata.indicomp_fts_id} */} 12345
+                {userdata.indicomp_fts_id}
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">Pan No</label>
               <span className="mt-1 text-black">
-                {/* {pan} */} 12345
+                {pan} 
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">Receipt Date</label>
               <span className="mt-1 text-black">
-                {/* {moment(donor.receipt_date).format('DD-MM-YYYY')}  */}12345
+                {moment(donor.receipt_date).format('DD-MM-YYYY')} 
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">Year</label>
               <span className="mt-1 text-black">
-                {/* {finalyear} */} 12345
+                {finalyear} 
               </span>
             </div>
             <div>
@@ -539,7 +545,7 @@ const CreateReceipt = () => {
               >
                 {isButtonDisabled ? "Submiting..." : "Submit"}
               </button>
-              <Link to="/chapters">
+              <Link to="/donor-list">
                 <button className="bg-green-500 text-white px-4 py-2 rounded-md">
                   Back
                 </button>

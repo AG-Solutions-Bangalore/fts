@@ -247,8 +247,8 @@ const EditReceipt = () => {
       donor_source: donor.donor_source,
     };
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/update-receipt`,
+      const response = await axios.put(
+        `${BASE_URL}/api/update-receipt/${id}`,
         formData,
         {
           headers: {
@@ -257,13 +257,13 @@ const EditReceipt = () => {
         }
       );
 
-      if (response.data.code == 200) {
+      if (response.status == '200') {
         toast.success("Receipt Updated Successfully");
         navigate("/receipts");
       } else {
-        if (response.data.code == 401) {
+        if (response.status == '401') {
           toast.error("Receipt Duplicate Entry");
-        } else if (response.data.code == 402) {
+        } else if (response.status == '402') {
           toast.error("Receipt Duplicate Entry");
         } else {
           toast.error("An unknown error occurred");
@@ -283,7 +283,7 @@ const EditReceipt = () => {
         {/* Title */}
         <div className="flex mb-4 mt-6">
           <h1 className="text-2xl text-[#464D69] font-semibold ml-2 content-center">
-            Receipt
+           Edit Receipt
           </h1>
         </div>
         <div className="p-6 mt-5 bg-white shadow-md rounded-lg">
@@ -519,7 +519,7 @@ const EditReceipt = () => {
                 className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
                 disabled={isButtonDisabled}
               >
-                {isButtonDisabled ? "Submiting..." : "Submit"}
+                {isButtonDisabled ? "Updating..." : "Update"}
               </button>
               <Link to="/receipts">
                 <button className="bg-green-500 text-white px-4 py-2 rounded-md">

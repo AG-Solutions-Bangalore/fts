@@ -21,6 +21,10 @@ const FAQList = () => {
     header: "",
     text: "",
   });
+  const [user1, setUser1] = useState({
+    header1: "",
+    text1: "",
+  });
 
   const [selected_user_id, setSelectedUserId] = useState("");
 
@@ -31,7 +35,8 @@ const FAQList = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (e) => {
+    e.preventDefault();
     setOpen(false);
   };
 
@@ -39,7 +44,8 @@ const FAQList = () => {
     setOpen1(true);
   };
 
-  const handleClose1 = () => {
+  const handleClose1 = (e) => {
+    e.preventDefault();
     setOpen1(false);
   };
 
@@ -58,6 +64,12 @@ const FAQList = () => {
   const onUserInputChange = (e) => {
     setUser({
       ...user,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const onUserInputChange1 = (e) => {
+    setUser1({
+      ...user1,
       [e.target.name]: e.target.value,
     });
   };
@@ -115,8 +127,8 @@ const FAQList = () => {
 
     setIsButtonDisabled(true);
     const formData = {
-      header: user.header,
-      text: user.text,
+      header: user1.header1,
+      text: user1.text1,
     };
     try {
       const response = await axios.put(
@@ -192,10 +204,10 @@ const FAQList = () => {
                       <td class="py-3 px-12 text-center">
                         <button
                           onClick={() => {
-                            setUser({
-                              ...user,
-                              header: dataSumm.header,
-                              text: dataSumm.text,
+                            setUser1({
+                              ...user1,
+                              header1: dataSumm.header,
+                              text1: dataSumm.text,
                             });
                             setSelectedUserId(dataSumm.id);
                             handleClickOpen1();
@@ -315,8 +327,8 @@ const FAQList = () => {
                           type="textField"
                           autoComplete="Name"
                           name="header"
-                          value={user.header}
-                          onChange={(e) => onUserInputChange(e)}
+                          value={user1.header1}
+                          onChange={(e) => onUserInputChange1(e)}
                         />
                       </div>
                     </div>
@@ -329,8 +341,8 @@ const FAQList = () => {
                           type="textField"
                           autoComplete="Name"
                           name="text"
-                          value={user.text}
-                          onChange={(e) => onUserInputChange(e)}
+                          value={user1.text1}
+                          onChange={(e) => onUserInputChange1(e)}
                         />
                       </div>
                     </div>
