@@ -2,10 +2,10 @@ import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../../layout/Layout";
 import { Link, useNavigate } from "react-router-dom";
 import PageTitle from "../../../components/common/PageTitle";
-import { Input, Button } from "@material-tailwind/react";
+import { Input, Button, Card } from "@material-tailwind/react";
 import Dropdown from "../../../components/common/DropDown";
 import moment from "moment";
-import BASE_URL from "../../../base/BaseUrl"
+import BASE_URL from "../../../base/BaseUrl";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -54,7 +54,7 @@ const SchoolSummary = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     let data = {
-        indicomp_full_name: downloadDonor.indicomp_full_name,
+      indicomp_full_name: downloadDonor.indicomp_full_name,
     };
     var v = document.getElementById("dowRecp").checkValidity();
     var v = document.getElementById("dowRecp").reportValidity();
@@ -89,35 +89,37 @@ const SchoolSummary = () => {
       <div className="mt-4 mb-6">
         <PageTitle title={"School Summary"} />
       </div>
+      <Card className="p-4">
+        <h3 className="text-red-500 mb-5">Please fill all for View report.</h3>
+        <form id="dowRecp" autoComplete="off">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="w-full">
+              <Dropdown
+                label="Donor "
+                className="required"
+                value={downloadDonor.indicomp_full_name}
+                options={individual.map((item) => ({
+                  value: item.indicomp_promoter,
+                  label: item.indicomp_promoter,
+                }))}
+                name="indicomp_full_name"
+                onChange={(value) => onInputChange("indicomp_full_name", value)}
+              />
+            </div>
 
-      <form id="dowRecp" autoComplete="off">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <div className="w-full">
-            <Dropdown
-              label="Donor "
-              className="required"
-              value={downloadDonor.indicomp_full_name}
-              options={individual.map((item) => ({
-                value: item.indicomp_promoter,
-                label: item.indicomp_promoter,
-              }))}
-              name="indicomp_full_name"
-              onChange={(value) => onInputChange("indicomp_full_name", value)}
-            />
+            <div className="w-full">
+              <Button color="blue" fullWidth onClick={onSubmit}>
+                Download
+              </Button>
+            </div>
+            <div className="w-full">
+              <Button color="blue" fullWidth onClick={onReportView}>
+                View
+              </Button>
+            </div>
           </div>
-
-          <div className="w-full">
-            <Button color="blue" fullWidth onClick={onSubmit}>
-              Download
-            </Button>
-          </div>
-          <div className="w-full">
-            <Button color="blue" fullWidth onClick={onReportView}>
-              View
-            </Button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </Card>
     </Layout>
   );
 };

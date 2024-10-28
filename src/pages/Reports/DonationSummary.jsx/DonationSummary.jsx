@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Layout from "../../../layout/Layout";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Input, Button } from "@material-tailwind/react";
+import { Input, Button, Card } from "@material-tailwind/react";
 import moment from "moment";
 import BASE_URL from "../../../base/BaseUrl";
 import { toast } from "react-toastify";
@@ -79,43 +79,47 @@ const DonationSummary = () => {
       <div className="mt-4 mb-6">
         <PageTitle title={"Donation Summary"} />
       </div>
-
-      <form id="dowRecp" autoComplete="off">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          <div className="w-full">
-            <Input
-              type="date"
-              label="From Date "
-              className="required"
-              required
-              name="receipt_from_date"
-              value={downloadDonor.receipt_from_date}
-              onChange={(e) => onInputChange(e)}
-            />
+      <Card className="p-4">
+        <h3 className="text-red-500 mb-5">Please fill all for View report.</h3>
+        <form id="dowRecp" autoComplete="off">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="w-full">
+              <Input
+                type="date"
+                label="From Date "
+                className="required"
+                required
+                name="receipt_from_date"
+                value={downloadDonor.receipt_from_date}
+                onChange={(e) => onInputChange(e)}
+              />
+            </div>
+            <div className="w-full">
+              <Input
+                type="date"
+                label="To Date"
+                required
+                className="required"
+                value={downloadDonor.receipt_to_date}
+                onChange={(e) => onInputChange(e)}
+                name="receipt_to_date"
+              />
+            </div>
           </div>
-          <div className="w-full">
-            <Input
-              type="date"
-              label="To Date"
-              required
-              className="required"
-              value={downloadDonor.receipt_to_date}
-              onChange={(e) => onInputChange(e)}
-              name="receipt_to_date"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4  py-4">
+            <div className="w-full">
+              <Button color="blue" fullWidth onClick={onSubmit}>
+                Download
+              </Button>
+            </div>
+            <div className="w-full">
+              <Button color="blue" fullWidth onClick={onReportView}>
+                View
+              </Button>
+            </div>
           </div>
-          <div className="w-full">
-            <Button color="blue" fullWidth onClick={onSubmit}>
-              Download
-            </Button>
-          </div>
-          <div className="w-full">
-            <Button color="blue" fullWidth onClick={onReportView}>
-              View
-            </Button>
-          </div>
-        </div>
-      </form>
+        </form>
+      </Card>
     </Layout>
   );
 };
