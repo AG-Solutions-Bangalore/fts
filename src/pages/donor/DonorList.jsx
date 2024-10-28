@@ -141,7 +141,7 @@ const DonorList = () => {
               <IoEyeOutline title="View" className="h-5 w-5 cursor-pointer" />
             </div>
             <div 
-            
+              onClick={()=>navigate(`/create-receipts/${id}`)}
             className="flex items-center space-x-2">
               <CiReceipt title="Reciept" className="h-5 w-5 cursor-pointer" />
             </div>

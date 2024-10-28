@@ -54,12 +54,10 @@ const ViewChapter = () => {
   };
 
   const handleClickOpen1 = (e) => {
-    e.preventDefault();
     setOpen1(true);
   };
 
   const handleClose1 = (e) => {
-    e.preventDefault();
     setOpen1(false);
   };
 
@@ -127,7 +125,7 @@ const ViewChapter = () => {
 
       if (response.data.code == "200") {
         setUsers(res.data.users);
-        navigate("/");
+        handleClose();
         toast.success("User is Created Successfully");
       } else {
         if (response.data.code == "401") {
@@ -176,7 +174,7 @@ const ViewChapter = () => {
 
       if (response.data.code == "200") {
         setUsers(res.data.users);
-        navigate("/");
+        handleClose();
         toast.success("User is Updated Successfully");
       } else {
         if (response.data.code == "401") {
