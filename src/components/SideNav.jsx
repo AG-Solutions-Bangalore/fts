@@ -82,6 +82,8 @@ const SideNav = ({
   const [openSubMenu1, setOpenSubMenu1] = useState(false); // For handling sub-menu open/close state
   const [openSubMenu2, setOpenSubMenu2] = useState(false); // For handling sub-menu open/close state
   const [openSubMenu3, setOpenSubMenu3] = useState(false); // For handling sub-menu open/close state
+  const [openSubMenu4, setOpenSubMenu4] = useState(false); // For handling sub-menu open/close state
+
   const theme = useTheme();
   const isSmallScreen = useMediaQuery("(max-width:600px)");
   const isMediumScreen = useMediaQuery(
@@ -109,6 +111,9 @@ const SideNav = ({
   };
   const handleToggleSubMenu3 = () => {
     setOpenSubMenu3((prev) => !prev); // Toggles sub-menu open state
+  };
+  const handleToggleSubMenu4 = () => {
+    setOpenSubMenu4((prev) => !prev); // Toggles sub-menu open state
   };
 
   return (
@@ -431,6 +436,51 @@ const SideNav = ({
               to="/download/allreceipts"
               isCollapsed={isCollapsed}
               primary="All Recepits"
+            ></CustomListItem>
+          </List>
+        </Collapse>
+
+        {/* //OTHHERS */}
+        <CustomListItem
+          isCollapsed={isCollapsed}
+          primary="Others"
+          hasSubMenu={true}
+          isOpen={openSubMenu4}
+          toggleSubMenu={handleToggleSubMenu4}
+        >
+          <ListItemIcon
+            sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
+          >
+            <FaWallet style={{ fontSize: "20px" }} />
+          </ListItemIcon>
+        </CustomListItem>
+
+        {/* Sub-menu items */}
+        <Collapse in={openSubMenu4} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <CustomListItem
+              isSelected={selectedIndex === 21}
+              onClick={() => handleListItemClick(21)}
+              component={NavLink}
+              to="/others-faq"
+              isCollapsed={isCollapsed}
+              primary="Faq"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/others-team"
+              isCollapsed={isCollapsed}
+              primary="Team"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/others-notification"
+              isCollapsed={isCollapsed}
+              primary="Notification"
             ></CustomListItem>
           </List>
         </Collapse>

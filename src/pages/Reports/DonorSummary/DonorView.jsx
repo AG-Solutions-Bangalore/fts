@@ -10,6 +10,7 @@ import image1 from "../../../assets/receipt/fts.png";
 import image2 from "../../../assets/receipt/top.png";
 import image3 from "../../../assets/receipt/ekal.png";
 import { FaArrowLeft } from "react-icons/fa6";
+import moment from "moment/moment";
 
 const DonorSummaryView = (props) => {
   const componentRef = useRef();
@@ -210,6 +211,19 @@ const DonorSummaryView = (props) => {
                           </td>
                           <td className="border border-black text-center text-sm md:text-base">
                             {dataSumm.receipt_tran_pay_details}
+                          </td>
+                          <td className="border border-black text-center text-sm md:text-base">
+                            {dataSumm.receipt_realization_date
+                              ? moment(
+                                  dataSumm.receipt_realization_date
+                                ).format("DD-MM-YYYY")
+                              : ""}
+                          </td>
+                          <td className="border border-black text-center text-sm md:text-base">
+                            {dataSumm.receipt_reason || ""}
+                          </td>
+                          <td className="border border-black text-center text-sm md:text-base">
+                            {dataSumm.receipt_remarks || ""}
                           </td>
                         </tr>
                       ))}

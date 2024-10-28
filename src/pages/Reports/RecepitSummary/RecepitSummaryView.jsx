@@ -170,18 +170,18 @@ const RecepitSummaryView = (props) => {
                           Total
                         </td>
                         {grandtotal.map((grandcount, key) => (
-                          <td className="border border-black text-center text-sm md:text-base font-bold">
+                          <td className="border border-black px-4 py-2 text-sm md:text-base font-bold">
                             {grandcount.total_grand_count}
                           </td>
                         ))}
                         {grandots.map((footv, key) => (
-                          <td className="border border-black text-center text-sm md:text-base font-bold">
+                          <td className="border border-black px-4 py-2 text-sm md:text-base font-bold">
                             {footv.total_no_of_ots}
                           </td>
                         ))}
 
                         {receiptsummaryfootertotal.map((foota, key) => (
-                          <td className="border border-black text-right px-4 text-sm md:text-base font-bold">
+                          <td className="border border-black text-right px-4  py-2 text-sm md:text-base font-bold">
                             <NumericFormat
                               value={foota.total_grand_amount}
                               displayType={"text"}

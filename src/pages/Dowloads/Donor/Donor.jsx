@@ -2,11 +2,11 @@ import Layout from "../../../layout/Layout";
 import PageTitle from "../../../components/common/PageTitle";
 import Dropdown from "../../../components/common/DropDown";
 import { useNavigate } from "react-router-dom";
-import { Button, } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { Card } from "@material-tailwind/react";
 import { useState } from "react";
 // import BASE_URL from "../../../base/BaseUrl"
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import BASE_URL from "../../../base/BaseUrl";
@@ -149,7 +149,8 @@ function Donor() {
                 }
               />
             </div>
-
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
             <div className="w-77">
               <Button
                 color="blue"
