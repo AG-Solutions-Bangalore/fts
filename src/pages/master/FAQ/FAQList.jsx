@@ -58,6 +58,7 @@ const FAQList = () => {
       })
       .then((res) => {
         setUsers(res.data.faqs);
+        
       });
   }, []);
 
