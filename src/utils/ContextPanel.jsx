@@ -108,7 +108,14 @@ const AppProvider = ({ children }) => {
           "/receipt-list",
           "/donor-edit",
           "/receipt-view",
-
+          //students
+          "/students-full-list",
+          "/students-to-allot",
+          "/students-report-donor",
+          "/students-full-list-view",
+          "/students-addschoolalot",
+          "/students-schoolallot",
+          "/students-allotedit",
           "/form",
           "/profile",
           "/change-password",
@@ -118,7 +125,7 @@ const AppProvider = ({ children }) => {
           currentPath.startsWith(path)
         );
         if (isAllowedPath) {
-          navigate(currentPath);
+          navigate(currentPath + location.search);
           console.log(currentPath + location.search);
         } else {
           navigate("/home");

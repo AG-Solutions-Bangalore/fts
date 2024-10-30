@@ -67,6 +67,13 @@ import Faq from "./pages/Others/faq";
 import OthersTeam from "./pages/Others/OtherTeam/OthersTeam";
 import Addimage from "./pages/Others/Addimage";
 import Notification from "./pages/Others/Notification/Notification";
+import FullList from "./pages/Students/FullList/FullList";
+import SchoolToAllot from "./pages/Students/SchoolToAllot/SchoolToAllot";
+import RepeatDonors from "./pages/Students/RepeatDonors/RepeatDonors";
+import FullListView from "./pages/Students/FullList/FullListView";
+import DonorDetails from "./pages/Students/SchoolToAllot/DonorDetails";
+import SchoolAllot from "./pages/Students/SchoolAllot/SchoolAllot";
+import SchoolAllotEdit from "./pages/Students/SchoolAllot/SchoolAllotEdit";
 //NEW CODE HER AFTER BY MOORTHY
 
 const App = () => {
@@ -186,6 +193,15 @@ const App = () => {
           path="/download/allreceipts"
           element={<ProtectedRoute element={<AllRecepits />} />}
         />
+        {/* //SUDENTS */}
+        <Route path="/students-full-list" element={<FullList />} />
+        <Route path="/students-to-allot" element={<SchoolToAllot />} />
+        <Route path="/students-report-donor" element={<RepeatDonors />} />
+        <Route path="/students-full-list-view/:id" element={<FullListView />} />
+        <Route path="/students-addschoolalot" element={<DonorDetails />} />
+        <Route path="/students-schoolallot" element={<SchoolAllot />} />
+        <Route path="/students-allotedit" element={<SchoolAllotEdit />} />
+
         {/* Donor  */}
         <Route path="/donor-list" element={<DonorList />} />
         <Route path="/add-indivisual/:id" element={<AddIndivisual />} />
@@ -201,11 +217,8 @@ const App = () => {
         {/* //others */}
         <Route path="/others-faq" element={<Faq />} />
         <Route path="/others-team" element={<OthersTeam />} />
-        
         <Route path="/others-team-add" element={<Addimage />} />
         <Route path="/others-notification" element={<Notification />} />
-
-        
         <Route path="/form" element={<ProtectedRoute element={<Form />} />} />
         <Route
           path="/profile"

@@ -46,7 +46,7 @@ const SchoolSummary = () => {
       },
     };
 
-    fetch(BASE_URL + "/fetch-school-allot-year-donor/api", requestOptions)
+    fetch(BASE_URL + "/api/fetch-school-allot-year-donor", requestOptions)
       .then((response) => response.json())
       .then((data) => setIndividuals(data.schoolallot));
   }, []);
@@ -61,7 +61,7 @@ const SchoolSummary = () => {
 
     if (v) {
       axios({
-        url: BASE_URL + "/download-school-summary/api",
+        url: BASE_URL + "/api/download-school-summary",
         method: "POST",
         data,
         headers: {
