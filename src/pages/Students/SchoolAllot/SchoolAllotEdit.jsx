@@ -8,6 +8,7 @@ import MUIDataTable from "mui-datatables";
 import { Card, Input, Spinner, Button } from "@material-tailwind/react";
 import PageTitle from "../../../components/common/PageTitle";
 import toast from "react-hot-toast";
+import { IoMdArrowBack } from "react-icons/io";
 
 const SchoolAllotEdit = () => {
   const [schoolToAllot, setSchoolToAllot] = useState([]);
@@ -146,6 +147,7 @@ const SchoolAllotEdit = () => {
     selectableRows: true,
     responsive: "standard",
     rowsSelected: selectedSchoolIds,
+    selectableRows: "multiple",
     selectToolbarPlacement: "above",
     isRowSelectable: (dataIndex) =>
       schoolAllot[dataIndex]?.status_label !== "Allotted",
@@ -166,9 +168,13 @@ const SchoolAllotEdit = () => {
   return (
     <Layout>
       <Card>
-        <PageTitle title="Donor Details" />
+        <PageTitle
+          title="Donor Details"
+          icon={IoMdArrowBack}
+          backLink={"/students-schoolallot"}
+        />
         <hr />
-        <div className="grid grid-cols md:grid-cols-4 gap-4">
+        <div className="grid grid-cols md:grid-cols-3 gap-4 p-4">
           <Input
             label="School Allot Year"
             name="schoolalot_financial_year"
@@ -209,9 +215,9 @@ const SchoolAllotEdit = () => {
             />
           )}
         </div>
-        <div className="mt-5">
+        <div className="mt-5 flex justify-end p-4">
           <Button onClick={onSubmit} color="purple">
-            Submit Selected Schools
+            Submit
           </Button>
         </div>
       </Card>

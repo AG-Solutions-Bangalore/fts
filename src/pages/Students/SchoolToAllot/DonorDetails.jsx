@@ -11,6 +11,7 @@ import schoolalotcurrenttodate from "./Date/ToDate";
 import { Card, Input, Spinner, Button } from "@material-tailwind/react";
 import PageTitle from "../../../components/common/PageTitle";
 import toast from "react-hot-toast";
+import { IoMdArrowBack } from "react-icons/io";
 
 const DonorDetails = () => {
   const [schoolToAllot, setSchoolToAllot] = useState([]);
@@ -179,7 +180,11 @@ const DonorDetails = () => {
   return (
     <Layout>
       <Card>
-        <PageTitle title="Donor Details" />
+        <PageTitle
+          title="Donor Details"
+          icon={IoMdArrowBack}
+          backLink={"/students-to-allot"}
+        />
         <hr />
         <div className="grid grid-cols md:grid-cols-3 gap-4">
           <Input
@@ -216,9 +221,9 @@ const DonorDetails = () => {
             />
           )}
         </div>
-        <div className="mt-5">
+        <div className="mt-5 flex justify-end p-4">
           <Button onClick={onSubmit} color="purple">
-            Submit Selected Schools
+            Submit
           </Button>
         </div>
       </Card>
