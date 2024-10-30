@@ -86,7 +86,7 @@ const ViewReceipt1 = () => {
 
   const printReceipt = (e) => {
     e.preventDefault();
-    window.open(`${BASE_URL}/print-receipt?id=${theId}`, "_blank");
+    window.open(`${BASE_URL}/api/print-receipt?id=${theId}`, "_blank");
   };
 
   const sendEmail = (e) => {

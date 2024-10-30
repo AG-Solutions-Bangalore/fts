@@ -17,7 +17,8 @@ import { BsFillPeopleFill } from "react-icons/bs";
 import { FaWallet, FaDownload  , FaRegListAlt} from "react-icons/fa";
 import { IoPersonCircle , IoPersonSharp } from "react-icons/io5";
 // import { IoPersonSharp } from "react-icons/io5";
-import Logo from "../assets/logo.png";
+// import Logo from "../assets/receipt/fts1.png";
+import Logo from '../assets/receipt/fts1.png'
 
 const CustomListItem = ({
   isSelected,
@@ -147,7 +148,7 @@ const SideNav = ({
               cursor: "pointer",
             }}
           >
-            <img src={Logo} alt="Logo" className="w-[200px] h-[80px]" />
+            {/* <img src={Logo} alt="Logo" className="w-[200px] h-[80px]" /> */}
           </Box>
         </Link>
 
@@ -426,7 +427,7 @@ const SideNav = ({
               component={NavLink}
               to="/download/team"
               isCollapsed={isCollapsed}
-              primary="  Team "
+              primary="Team"
             ></CustomListItem>
 
             <CustomListItem

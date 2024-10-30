@@ -48,6 +48,8 @@ const EditChapter = () => {
     auth_sign: "",
   });
 
+  console.log(chapter , "chapter")
+
   const [states, setStates] = useState([]);
 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -88,7 +90,7 @@ const EditChapter = () => {
           },
         })
         .then((res) => {
-          setChapter(res.data.chapter);
+          setChapter(res.data?.chapter);
         });
     }, [id]);
 
@@ -167,7 +169,7 @@ const EditChapter = () => {
             <MdKeyboardBackspace className=" text-white bg-[#464D69] p-1 w-10 h-8 cursor-pointer rounded-2xl" />
           </Link>
           <h1 className="text-2xl text-[#464D69] font-semibold ml-2 content-center">
-            Create Brand
+          Update Chapter
           </h1>
         </div>
         <div className="p-6 mt-5 bg-white shadow-md rounded-lg">

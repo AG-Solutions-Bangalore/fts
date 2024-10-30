@@ -27,13 +27,13 @@ const Profile = () => {
 
   const getData = async () => {
     try {
-      const res = await axios.get(`${BASE_URL}/api/panel-fetch-profile`, {
+      const res = await axios.get(`${BASE_URL}/api/fetch-profile`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      setFirstName(res.data.user.full_name || "");
-      setPhone(res.data.user.mobile || "");
+      setFirstName(res.data.user.first_name || "");
+      setPhone(res.data.user.phone || "");
       setEmail(res.data.user.email || "");
       setReferralCode(res.data.user.referral_code || "");
       setAddress(res.data.user.address || "");
@@ -59,7 +59,7 @@ const Profile = () => {
       return;
     }
 
-    const data = { full_name: firstName, phone };
+    const data = { first_name: firstName, phone: phone };
 
     try {
       const res = await axios.post(`${BASE_URL}/api/update-profile`, data, {
@@ -75,9 +75,7 @@ const Profile = () => {
         toast.error("Duplicate Entry of Email");
       } else {
         toast.success("Profile Updated Successfully!");
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 2000);
+        navigate("/");
       }
     } catch (error) {
       console.error("Profile update failed:", error);
@@ -104,7 +102,7 @@ const Profile = () => {
     };
 
     try {
-      await axios.post(`${BASE_URL}/api/panel-change-password`, data, {
+      await axios.post(`${BASE_URL}/api/change-password`, data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -204,40 +202,6 @@ const Profile = () => {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium">
-                    Referral Code
-                  </label>
-                  <input
-                    type="text"
-                    className="mt-1 p-2 border border-gray-300 rounded w-full"
-                    required
-                    value={referralcode}
-                    onChange={(e) => setReferralCode(e.target.value)}
-                  />
-                </div>
-              </div>
-
-              <h3 className="font-medium text-lg">Other Details</h3>
-              <div className="mb-4">
-                <label className="block text-sm font-medium">Address</label>
-                <input
-                  type="text"
-                  className="mt-1 p-2 border border-gray-300 rounded w-full"
-                  required
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                />
-              </div>
-              <div className="mb-4">
-                <label className="block text-sm font-medium">Pincode</label>
-                <input
-                  type="number"
-                  className="mt-1 p-2 border border-gray-300 rounded w-full"
-                  required
-                  value={pincode}
-                  onChange={(e) => setPincode(e.target.value)}
-                />
               </div>
               <div className="flex justify-center">
                 <button

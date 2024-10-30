@@ -3,12 +3,12 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, CircularProgress, IconButton, Tooltip } from "@mui/material";
 import MUIDataTable from "mui-datatables";
-import { Visibility } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
 import moment from "moment";
 import Layout from "../../layout/Layout";
 import BASE_URL from "../../base/BaseUrl";
+import { MdRemoveRedEye } from "react-icons/md";
 
 const ReceiptsList = () => {
   const [receiptList, setReceiptList] = useState(null);
@@ -140,7 +140,7 @@ const ReceiptsList = () => {
                   >
                     <Link to={`/view-receipts/${id}`}>
                     {/* <Link to={`/view-receipts/${id}`}> */}
-                      <Visibility />
+                      <MdRemoveRedEye />
                     </Link>
                   </IconButton>
                 </Tooltip>
