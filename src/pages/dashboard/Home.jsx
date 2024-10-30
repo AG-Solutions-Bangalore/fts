@@ -258,9 +258,6 @@ const Home = () => {
                     <div className="relative w-full overflow-auto bg-white ">
                       <div className="flex transition-transform duration-500">
                         <div className="min-w-full h-[350px] p-4">
-                          {/* <div className="flex flex-col items-center">
-                            <h3 className="text-center">Data </h3>
-                          </div> */}
                           {datanotification.length > 0 ? (
                             datanotification.map((notice) => (
                               <div key={notice.id} className="mb-2">
