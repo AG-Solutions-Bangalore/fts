@@ -340,7 +340,7 @@ const EditReceipt = () => {
           </div>
           <form onSubmit={onSubmit} autoComplete="off">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 mt-1">
-              <div className="form-group ">
+              <div className="form-group mt-6">
                 <Input
                   required
                   type="text"
@@ -353,9 +353,24 @@ const EditReceipt = () => {
                 />
               </div>
               <div className="form-group ">
-                <Fields
+                {/* <Fields
                   required={true}
                   type="whatsappDropdown"
+                  title="Transaction Type"
+                  autoComplete="Name"
+                  name="receipt_tran_pay_mode"
+                  value={donor.receipt_tran_pay_mode}
+                  onChange={(e) => onInputChange(e)}
+                  options={
+                    donor.receipt_exemption_type == "80G" &&
+                    donor.receipt_total_amount > 2000
+                      ? pay_mode_2
+                      : pay_mode
+                  }
+                /> */}
+                <Fields
+                  required={true}
+                  type="newwhatsappDropdown"
                   title="Transaction Type"
                   autoComplete="Name"
                   name="receipt_tran_pay_mode"
@@ -375,7 +390,7 @@ const EditReceipt = () => {
                 </div>
               </div>
               <div className="form-group ">
-                <Fields
+                {/* <Fields
                   required={true}
                   type="whatsappDropdown"
                   title="Purpose"
@@ -388,7 +403,22 @@ const EditReceipt = () => {
                       ? donation_type_2
                       : donation_type
                   }
+                /> */}
+                <Fields
+                  required={true}
+                  type="newwhatsappDropdown"
+                  title="Purpose"
+                  autoComplete="Name"
+                  name="receipt_donation_type"
+                  value={donor.receipt_donation_type}
+                  onChange={(e) => onInputChange(e)}
+                  options={
+                    donor.receipt_exemption_type == "80G"
+                      ? donation_type_2
+                      : donation_type
+                  }
                 />
+                
                 <div>
                   <span className="text-gray-500 text-sm">
                     Please select your Donation Type

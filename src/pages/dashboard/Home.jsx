@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Layout from "../../layout/Layout";
 import BASE_URL from "../../base/BaseUrl";
 import axios from "axios";
@@ -8,276 +8,607 @@ import { MdCancel } from "react-icons/md";
 import Loader from "./Loader";
 import { useNavigate } from "react-router-dom";
 import CountUp from "react-countup";
+import { Chip, IconButton, List, ListItem, Stack } from "@mui/material";
+import { NumericFormat } from "react-number-format";
+import moment from "moment";
+import { Badge } from "@material-tailwind/react";
+import AddNotice from "./AddNotice";
+import { Bar, Doughnut } from "react-chartjs-2";
+import { Chart, ArcElement, registerables } from "chart.js";
 
 const Home = () => {
-  const dateyear = ["2023-24"];
+  Chart.register(ArcElement, ...registerables);
+  const [result, setResult] = useState([]);
+  console.log(result, "result");
+  const [loadingRecentOrders, setLoadingRecentOrders] = useState([]);
+  const [fullCloseCategory, setFullCloseCategory] = useState(true);
+  const [closeCategory, setCloseCategory] = useState(true);
+  const [fullCloseDonation, setFullCloseDonation] = useState(true);
+  const [closeDonation, setCloseDonation] = useState(true);
+  const [fullCloseDonation1, setFullCloseDonation1] = useState(true);
+  const [closeDonation1, setCloseDonation1] = useState(true);
+  // const [fullCloseCategory, setFullCloseCategory] = useState(true);
+  // const [closeCategory, setCloseCategory] = useState(true);
+  const [loadingProducts, setLoadingProducts] = useState(false);
+  const [datanotification, setNotification] = useState([]);
+  const [graphData, setGraphData] = useState(null);
+  const [graph1, setGraph1] = useState([]);
+  const [graph2, setGraph2] = useState([]);
+  const [currentYear, setCurrentYear] = useState("");
 
-  const [referral, setReferral] = useState([]);
-  const [recentOrders, setRecentOrders] = useState([]);
-  const [products, setProducts] = useState(null);
-  const [showTable, setShowTable] = useState(true);
-  const [fullClose, setFullClose] = useState(true);
-  const [loadingRecentOrders, setLoadingRecentOrders] = useState(false); // Loading state for orders
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [showmodalNotice, setShowmodalNotice] = useState(false);
+  const closegroupNoticeModal = () => {
+    setShowmodalNotice(false);
+  };
+
+  const openmodalNotice = () => {
+    setShowmodalNotice(true);
+  };
+
   const navigate = useNavigate();
 
-  // Fetch both data sets but manage loading states separately
-  // const fetchDirectReferral = async () => {
-  //   setLoadingRecentOrders(true);
-  //   try {
-  //     const response = await axios.get(
-  //       `${BASE_URL}/api/panel-fetch-dashboard-data/${dateyear}`,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       }
-  //     );
-  //     if (response.status === 200) {
-  //       setReferral(response.data);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching booking data:", error);
-  //   } finally {
-  //     setLoadingRecentOrders(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchDirectReferral();
-  // }, []);
 
 
-  // const handleReload = () => {
-  //   fetchDirectReferral(); 
-  // };
+  useEffect(() => {
+    const fetchYearData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/fetch-year`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
+        setCurrentYear(response.data?.year?.current_year);
+        console.log(response.data?.year.current_year);
+      } catch (error) {
+        console.error("Error fetching year data:", error);
+      }
+    };
 
-  // useEffect(() => {
-  //   if (products && products.length > 0) {
-  //     const interval = setInterval(() => {
-  //       setActiveIndex((prevIndex) =>
-  //         prevIndex === products.length - 1 ? 0 : prevIndex + 1
-  //       );
-  //     }, 3000);
-  //     return () => clearInterval(interval);
-  //   }
-  // }, [products]);
+    fetchYearData();
+  }, []);
+
+  const fetchNotices = async () => {
+    setLoading(true);
+    try {
+      const url =
+        userTypeId === "3"
+          ? `${BASE_URL}/api/superadmin-fetch-notices`
+          : `${BASE_URL}/api/user-fetch-notices`;
+
+      const response = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      setNotification(response.data.notices || []);
+    } catch (error) {
+      console.error("Error fetching notices:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const populateNotice = (hi) => {
+    setShowmodalNotice(false);
+    axios({
+      url: BASE_URL + "/api/user-fetch-notices",
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    }).then((res) => {
+      if (res) {
+        setNotification(res.data.notices);
+      } else {
+        toast.error("Duplicate Entry");
+      }
+    });
+  };
+
+  const fetchResult = async () => {
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/api/fetch-dashboard-data-by/${currentYear}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      console.log(response, "response")
+      if (response.status === 200) {
+        setResult(response.data);
+
+        const barLabels = response.data?.graph1.map(
+          (item) =>  item.receipt_donation_type
+        );
+        const barValue = response.data?.graph1.map(
+          (item) =>  item.total_count
+        );
+        console.log(barLabels , "barLabels")
+        setGraph1(barLabels);
+        setGraph2(barValue);
+      }
+    } catch (error) {
+      console.error("Error fetching booking data:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (graph1.length > 0 ) {
+      setGraphData({
+        labels: graph1,
+        datasets: [
+          {
+            data: graph2,
+            backgroundColor: [
+              "#1C64F2",
+              "#16BDCA",
+              "#FDBA8C",
+              "#E74694",
+              "#F59E0B",
+              "#10B981",
+              "#6366F1",
+            ],
+            hoverBackgroundColor: [
+              "#1654C0",
+              "#13A5B0",
+              "#FC9D7C",
+              "#D93B84",
+              "#E78F0A",
+              "#0F9872",
+              "#5458E0",
+            ],
+          },
+        ],
+      });
+    }
+  }, [graph1,graph2]);
+
+ 
+  useEffect(() => {
+    fetchResult();
+  }, [currentYear]);
 
   return (
     <Layout>
       <div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
-          {/* <div className="bg-[#5e7081] text-white flex items-center justify-center flex-col text-center md:h-24 py-4 rounded-lg transition-transform duration-400">
-            <p className="text-md font-bold">Direct Referral</p>
-            <p className="text-xl font-bold">
-              <CountUp start={0} end={referral.inquiry_count} />
-            </p>
-          </div> */}
-
           <div>
             <div className="bg-[#5e7081] text-white p-4 shadow-[0_4px_10px_rgba(0,0,0,0.25)] rounded-md text-center min-h-[150px] flex flex-col items-center justify-center">
-              <h3 className="text-xl font-bold">Direct Referral</h3>
+              <h3 className="text-xl font-bold">Total Donors</h3>
               <p className="text-5xl font-bold">
-                <CountUp start={0} end={55} />
+                <CountUp start={0} end={result.total_companies_count} />
+              </p>
+            </div>
+          </div>
+          <div>
+            <div className="bg-[#5e7081] text-white p-4 shadow-[0_4px_10px_rgba(0,0,0,0.25)] rounded-md text-center min-h-[150px] flex flex-col items-center justify-center">
+              <h3 className="text-xl font-bold">Individual Donors</h3>
+              <p className="text-5xl font-bold">
+                <CountUp start={0} end={result.individual_company_count} />
               </p>
             </div>
           </div>
           <div>
             <div className="bg-blue-500 text-white p-4 shadow-[0_4px_10px_rgba(0,0,0,0.25)] rounded-md text-center min-h-[150px] flex flex-col items-center justify-center">
-              <h3 className="text-xl font-bold">Second Referral</h3>
+              <h3 className="text-xl font-bold">Companies/Trusts</h3>
               <p className="text-5xl font-bold">
-                <CountUp start={0} end={44} />
+                <CountUp start={0} end={result.other_companies_count} />
               </p>
             </div>
           </div>
           <div>
             <div className="bg-green-500 text-white p-4 shadow-[0_4px_10px_rgba(0,0,0,0.25)] rounded-md text-center min-h-[150px] flex flex-col items-center justify-center">
-              <h3 className="text-xl font-bold">Total Wallet</h3>
+              <h3 className="text-xl font-bold">Total Donation</h3>
               <p className="text-5xl font-bold">
-                <CountUp start={0} end={33} />
+                <CountUp start={0} end={result.total_donation} />
               </p>
             </div>
           </div>
-
-        
         </div>
-
-        {/* <div className="mt-10">
-          {fullClose && (
-            <div className="container mx-auto col-span-2">
-              <div className="flex justify-between bg-white p-4 rounded-sm">
-                <div className="content-center">
-                  <h1>Direct Referral</h1>
-                </div>
-                <div className="flex gap-3">
-                  <div>
-                    <HiMiniMinus
-                      className="text-2xl cursor-pointer"
-                      onClick={() => setShowTable(!showTable)}
-                    />
+        <div className="md:grid md:grid-cols-3 grid-cols-1 mt-5 gap-3">
+          {fullCloseCategory && (
+            <div className="col-span-2 h-[200px]">
+              <div className=" bg-white p-4 rounded-sm border-b-2">
+                <div className="flex justify-between">
+                  <div className="content-center">
+                    <h1>Notices</h1>
                   </div>
-                  <div>
+                  <div className="flex gap-3">
+                    <div>
+                      <HiMiniMinus
+                        className="text-2xl cursor-pointer"
+                        onClick={() => setCloseCategory(!closeCategory)}
+                      />
+                    </div>
+                    <div>
+                      <MdCancel
+                        className="text-2xl cursor-pointer"
+                        onClick={() => setFullCloseCategory(false)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                {loadingProducts ? (
+                  <Loader />
+                ) : (
+                  closeCategory && (
+                    <div className="relative w-full overflow-auto bg-white ">
+                      <div className="flex transition-transform duration-500">
+                        <div className="min-w-full h-[350px] p-4">
+                          {/* <div className="flex flex-col items-center">
+                            <h3 className="text-center">Data </h3>
+                          </div> */}
+                          {datanotification.length > 0 ? (
+                            datanotification.map((notice) => (
+                              <div key={notice.id} className="mb-4">
+                                <h2
+                                  className="text-lg font-semibold mb-4"
+                                  style={{ color: "#464D69" }}
+                                >
+                                  {notice.notice_name}
+                                </h2>
+                                <p className="text-sm text-gray-500">
+                                  {notice.notice_detail}
+                                </p>
+                                <h3 className="my-4 text-sm text-gray-500">
+                                  Notice Posted On{" "}
+                                  {moment(notice.created_at).format("DD-MM-YY")}
+                                </h3>
+                                <hr />
+                              </div>
+                            ))
+                          ) : (
+                            <p className="p-4">No notices available.</p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+              {closeCategory && (
+                <div className="flex justify-between bg-white p-4 rounded-sm border-t-2">
+                  <div className="content-center">
+                    <button
+                      onClick={openmodalNotice}
+                      className="btn btn-primary text-center md:text-right text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md"
+                    >
+                      Add A New Notice
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+          <div>
+            {fullCloseDonation && (
+              <div className="w-full">
+                <div className=" bg-white p-2 rounded-sm border-b-2">
+                  <div className="flex justify-between border-b-2 p-3">
+                    <div className="content-center">
+                      <h1>Total Donation Details</h1>
+                    </div>
+                    <div className="flex gap-3">
+                      <div>
+                        <HiMiniMinus
+                          className="text-2xl cursor-pointer"
+                          onClick={() => setCloseDonation(!closeDonation)}
+                        />
+                      </div>
+                      <div>
+                        <MdCancel
+                          className="text-2xl cursor-pointer"
+                          onClick={() => setFullCloseDonation(false)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {loadingProducts ? (
+                    <Loader />
+                  ) : (
+                    closeDonation && (
+                      <div className="!p-0 w-full">
+                        <List className="list-none p-0">
+                          <ListItem className="!px-0 !py-0 !flex !justify-between items-center">
+                            <p className="mb-0 content-title w-[20px] mr-6">
+                              OTS
+                            </p>
+                            <Stack alignItems="center">
+                              <Chip
+                                label={
+                                  <NumericFormat
+                                    thousandSeparator={true}
+                                    thousandsGroupStyle="lakh"
+                                    displayType="text"
+                                    prefix="₹ "
+                                    value={result.total_ots_donation}
+                                  />
+                                }
+                                style={{ fontSize: "16px" }}
+                                color="primary"
+                              />
+                            </Stack>
+                            <IconButton color="default">
+                              <p>{result.ots_receipts_count}</p>
+                            </IconButton>
+                          </ListItem>
+
+                          <ListItem className="!px-0 !py-0 !flex !justify-between items-center">
+                            <p className="mb-0 content-title w-[20px] mr-6">
+                              Membership
+                            </p>
+                            <Stack alignItems="center">
+                              <Chip
+                                label={
+                                  <NumericFormat
+                                    thousandSeparator={true}
+                                    thousandsGroupStyle="lakh"
+                                    displayType="text"
+                                    prefix="₹ "
+                                    value={result.total_membership_donation}
+                                  />
+                                }
+                                style={{
+                                  fontSize: "16px",
+                                  background: "#FFB70F",
+                                  color: "white",
+                                }}
+                                color="primary"
+                                className="px-4"
+                              />
+                            </Stack>
+                            <IconButton color="default">
+                              <p>{result.mem_receipts_count}</p>
+                            </IconButton>
+                          </ListItem>
+
+                          <ListItem className="!px-0 !py-0 !flex !justify-between items-center">
+                            <p className="mb-0 content-title w-[20px] mr-6">
+                              General
+                            </p>
+                            <Stack alignItems="center">
+                              <Chip
+                                label={
+                                  <NumericFormat
+                                    thousandSeparator={true}
+                                    thousandsGroupStyle="lakh"
+                                    displayType="text"
+                                    prefix="₹ "
+                                    value={result.total_general_donation}
+                                  />
+                                }
+                                style={{
+                                  fontSize: "16px",
+                                  background: "#4d7d79",
+                                  color: "white",
+                                }}
+                                className="px-4"
+                              />
+                            </Stack>
+                            <IconButton color="default">
+                              <p>{result.gen_receipts_count}</p>
+                            </IconButton>
+                          </ListItem>
+                        </List>
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+            )}
+            {fullCloseDonation1 && (
+              <div className="w-full mt-2">
+                <div className=" bg-white p-2 rounded-sm border-b-2">
+                  <div className="flex justify-between border-b-2 p-3">
+                    <div className="content-center">
+                      <h1>Last 30 Days Donation Details</h1>
+                    </div>
+                    <div className="flex gap-3">
+                      <div>
+                        <HiMiniMinus
+                          className="text-2xl cursor-pointer"
+                          onClick={() => setCloseDonation1(!closeDonation1)}
+                        />
+                      </div>
+                      <div>
+                        <MdCancel
+                          className="text-2xl cursor-pointer"
+                          onClick={() => setFullCloseDonation1(false)}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  {loadingProducts ? (
+                    <Loader />
+                  ) : (
+                    closeDonation1 && (
+                      <div className="!p-0 w-full">
+                        <List className="list-none p-0">
+                          <ListItem className="!px-0 !py-1 !flex !justify-between items-center">
+                            <p className="mb-0 content-title w-[20px] mr-6">
+                              OTS
+                            </p>
+                            <Stack alignItems="center">
+                              <Chip
+                                label={
+                                  <NumericFormat
+                                    thousandSeparator={true}
+                                    thousandsGroupStyle="lakh"
+                                    displayType="text"
+                                    prefix="₹ "
+                                    value={result.thirty_ots}
+                                  />
+                                }
+                                style={{ fontSize: "16px" }}
+                                color="primary"
+                              />
+                            </Stack>
+                          </ListItem>
+
+                          <ListItem className="!px-0 !py-1 !flex !justify-between items-center">
+                            <p className="mb-0 content-title w-[20px] mr-6">
+                              Membership
+                            </p>
+                            <Stack alignItems="center">
+                              <Chip
+                                label={
+                                  <NumericFormat
+                                    thousandSeparator={true}
+                                    thousandsGroupStyle="lakh"
+                                    displayType="text"
+                                    prefix="₹ "
+                                    value={result.thirty_mem}
+                                  />
+                                }
+                                style={{
+                                  fontSize: "16px",
+                                  background: "#FFB70F",
+                                  color: "white",
+                                }}
+                                color="primary"
+                                className="px-4"
+                              />
+                            </Stack>
+                          </ListItem>
+
+                          <ListItem className="!px-0 !py-1 !flex !justify-between items-center">
+                            <p className="mb-0 content-title w-[20px] mr-6">
+                              General
+                            </p>
+                            <Stack alignItems="center">
+                              <Chip
+                                label={
+                                  <NumericFormat
+                                    thousandSeparator={true}
+                                    thousandsGroupStyle="lakh"
+                                    displayType="text"
+                                    prefix="₹ "
+                                    value={result.thirty_gen}
+                                  />
+                                }
+                                style={{
+                                  fontSize: "16px",
+                                  background: "#4d7d79",
+                                  color: "white",
+                                }}
+                                className="px-4 bg-[#4d7d79] text-white"
+                              />
+                            </Stack>
+                          </ListItem>
+                        </List>
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+          <div className="md:grid md:grid-cols-3 grid-cols-1 mt-5 gap-3 w-full ">
+          {fullCloseCategory && (
+            <div className="col-span-2 h-[200px] mt-8">
+              <div className=" bg-white p-4 rounded-sm border-b-2">
+                <div className="flex justify-between">
+                  <div className="content-center">
+                    <h1>Receipts</h1>
+                  </div>
+                  <div className="flex gap-3">
+                    <div>
+                      <HiMiniMinus
+                        className="text-2xl cursor-pointer"
+                        onClick={() => setCloseCategory(!closeCategory)}
+                      />
+                    </div>
+                    {/* <div>
                     <TfiReload
                       className="text-xl cursor-pointer"
                       onClick={handleReload}
                     />
-                  </div>
-                  <div>
-                    <MdCancel
-                      className="text-2xl cursor-pointer"
-                      onClick={() => setFullClose(false)}
-                    />
+                  </div> */}
+                    <div>
+                      <MdCancel
+                        className="text-2xl cursor-pointer"
+                        onClick={() => setFullCloseCategory(false)}
+                      />
+                    </div>
                   </div>
                 </div>
               </div>
-              {loadingRecentOrders ? (
-                <Loader />
-              ) : (
-                showTable && (
-                  <div className="flex flex-col">
-                    <div className="overflow-x-auto">
-                      <div className="inline-block min-w-full">
-                        <div className="overflow-hidden">
-                          <table className="min-w-full text-center text-sm font-light text-surface dark:text-white">
-                            {localStorage.getItem("user_type_id") == 2 && (
-                              <thead className="bg-gray-400 font-medium text-white dark:border-white/10">
-                                <tr>
-                                  <th scope="col" className="px-6 py-4">
-                                    ID
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    Full Name
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    Mobile
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    Area
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    Service
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    Status
-                                  </th>
-                                </tr>
-                              </thead>
-                            )}
-                            {localStorage.getItem("user_type_id") == 1 && (
-                              <thead className="bg-[#5e7081] font-medium text-white dark:border-white/10">
-                                <tr>
-                                  <th scope="col" className="px-6 py-4">
-                                    ID
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    Full Name
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    Mobile
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    Email
-                                  </th>
-                                  <th scope="col" className="px-6 py-4 ">
-                                    Referral Id
-                                  </th>
-                                  <th scope="col" className="px-6 py-4">
-                                    No of Referral
-                                  </th>
-                                </tr>
-                              </thead>
-                            )}
-                            {localStorage.getItem("user_type_id") == 1 && (
-                              <tbody>
-                                {referral?.inquiry_latest?.length > 0 ? (
-                                  referral.inquiry_latest.map((order, key) => (
-                                    <tr
-                                      key={key}
-                                      className="border-b border-neutral-200 bg-white"
-                                    >
-                                      <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        {order.id}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        {order.full_name}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        {order.mobile}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        {order.email}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4">
-                                        {order.name}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4">
-                                        {order.purch}
-                                      </td>
-                                    </tr>
-                                  ))
-                                ) : (
-                                  <tr>
-                                    <td
-                                      colSpan={6}
-                                      className="px-6 py-4 text-center text-2xl font-bold text-blue-grey-600"
-                                    >
-                                      No data available
-                                    </td>
-                                  </tr>
-                                )}
-                              </tbody>
-                            )}
-                            {localStorage.getItem("user_type_id") == 2 && (
-                              <tbody>
-                                {referral?.inquiry_latest?.length > 0 ? (
-                                  referral.inquiry_latest.map((order, key) => (
-                                    <tr
-                                      key={key}
-                                      className="border-b border-neutral-200 bg-white"
-                                    >
-                                      <td className="whitespace-nowrap px-6 py-4 font-medium">
-                                        {order.id}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4">
-                                        {order.area}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4">
-                                        {order.full_name}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4">
-                                        {order.mobile}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4">
-                                        {order.service}
-                                      </td>
-                                      <td className="whitespace-nowrap px-6 py-4">
-                                        {order.status}
-                                      </td>
-                                    </tr>
-                                  ))
-                                ) : (
-                                  <tr>
-                                    <td
-                                      colSpan={6}
-                                      className="px-6 py-4 text-center text-2xl font-bold text-blue-grey-600"
-                                    >
-                                      No data available
-                                    </td>
-                                  </tr>
-                                )}
-                              </tbody>
-                            )}
-                          </table>
+              <div>
+                {loadingProducts ? (
+                  <Loader />
+                ) : (
+                  closeCategory && (
+                    <div className="relative w-full overflow-auto bg-white ">
+                      <div className="flex transition-transform duration-500">
+                        <div className="min-w-full  p-4">
+                          {/* <div className="flex flex-col items-center">
+                            <h3 className="text-center">Data </h3>
+                          </div> */}
+                          {graphData && <Bar data={graphData} />}
                         </div>
                       </div>
                     </div>
-                  </div>
-                )
-              )}
+                  )
+                )}
+              </div>
             </div>
           )}
-        </div> */}
+          {fullCloseCategory && (
+            <div className="h-[200px] mt-8">
+              <div className=" bg-white p-4 rounded-sm border-b-2">
+                <div className="flex justify-between">
+                  <div className="content-center">
+                    <h1>Receipts Total Count</h1>
+                  </div>
+                  <div className="flex gap-3">
+                    <div>
+                      <HiMiniMinus
+                        className="text-2xl cursor-pointer"
+                        onClick={() => setCloseCategory(!closeCategory)}
+                      />
+                    </div>
+                    <div>
+                      <MdCancel
+                        className="text-2xl cursor-pointer"
+                        onClick={() => setFullCloseCategory(false)}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                {loadingProducts ? (
+                  <Loader />
+                ) : (
+                  closeCategory && (
+                    <div className="relative w-full overflow-hidden bg-white ">
+                      <div className="flex transition-transform duration-500">
+                        <div className="min-w-full h-[350px] p-4">
+                          {/* <div className="flex flex-col items-center">
+                            <h3 className="text-center">Data </h3>
+                          </div> */}
+                          {graphData && <Doughnut data={graphData} />}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                )}
+              </div>
+            </div>
+          )}
+          </div>
+        <AddNotice
+          open={showmodalNotice}
+          onClick={closegroupNoticeModal}
+          populateNotice={populateNotice}
+        />
       </div>
     </Layout>
   );

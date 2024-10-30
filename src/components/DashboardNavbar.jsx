@@ -13,7 +13,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { styled, alpha } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
-import Logo from "../assets/logo.png";
+import Logo from "../assets/receipt/fts1.png";
 import { IoPersonSharp } from "react-icons/io5";
 import { UserCircleIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { MdLogout } from "react-icons/md";
@@ -76,9 +76,7 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
   const handleClick1 = (event) => {
     setAnchorEl1(event.currentTarget);
   };
-  const handleClose1 = () => {
-    setAnchorEl1(null);
-  };
+
   const [openModal, setOpenModal] = useState(false);
   const handleOpenLogout = () => setOpenModal(!openModal);
 
@@ -150,7 +148,7 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
             display: isSmallScreen ? "none" : "flex",
           }}
         >
-          <img src={Logo} alt="Logo" className="w-[200px] h-[80px]" />
+          <img src={Logo} alt="Logo" className="w-[200px] h-[60px]" />
         </Box>
 
         <Box
@@ -183,44 +181,9 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                 </HoverIconButton>
               </Box>
               <Box className="flex justify-end">
-                <Button
-                  id="basic-button"
-                  aria-controls={open ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
-                  className="!text-white"
-                >
-                  <FaShareAlt className="h-5 w-5 text-white" /> Share
-                </Button>
 
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                  }}
-                >
-                  <MenuList>
-                    <MenuItem
-                      onClick={handleWhatsAppShare}
-                      className="text-white"
-                    >
-                      <FaWhatsapp className=" h-5 w-5 inline-flex mr-2" />
-                      Whatsapp
-                    </MenuItem>
-                    <MenuItem onClick={handleEmailShare} className="text-white">
-                      <MdEmail className="i h-5 w-5 inline-flex mr-2" />
-                      Email
-                    </MenuItem>
-                    <MenuItem onClick={handleCopyLink} className="text-white">
-                      <IoMdCopy className="h-5 w-5 inline-flex mr-2" />
-                      Copy
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
+                
+                 
 
                 <Button
                   id="basic-button"
@@ -237,7 +200,7 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                   id="basic-menu"
                   anchorEl={anchorEl1}
                   open={open1}
-                  onClose={handleClose1}
+                  // onClose={handleClose1}
                   MenuListProps={{
                     "aria-labelledby": "basic-button",
                   }}
@@ -280,45 +243,9 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                 </HoverIconButton>
               </Box>
               <Box className="flex justify-end">
-                <Button
-                  id="basic-button"
-                  aria-controls={open ? "basic-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? "true" : undefined}
-                  onClick={handleClick}
-                  sx={{ color: "white" }}
-                >
-                  <FaShareAlt className="h-5 w-5 text-red" color="white" />{" "}
-                  Share
-                </Button>
+               
 
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    "aria-labelledby": "basic-button",
-                  }}
-                >
-                  <MenuList>
-                    <MenuItem
-                      onClick={handleWhatsAppShare}
-                      className="text-white"
-                    >
-                      <FaWhatsapp className=" h-5 w-5 inline-flex mr-2" />
-                      Whatsapp
-                    </MenuItem>
-                    <MenuItem onClick={handleEmailShare} className="text-white">
-                      <MdEmail className="i h-5 w-5 inline-flex mr-2" />
-                      Email
-                    </MenuItem>
-                    <MenuItem onClick={handleCopyLink} className="text-white">
-                      <IoMdCopy className="h-5 w-5 inline-flex mr-2" />
-                      Copy
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
+               
 
                 <Button
                   id="basic-button"
@@ -334,7 +261,6 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                   id="basic-menu"
                   anchorEl={anchorEl1}
                   open={open1}
-                  onClose={handleClose1}
                   MenuListProps={{
                     "aria-labelledby": "basic-button",
                   }}
