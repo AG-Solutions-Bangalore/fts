@@ -34,12 +34,12 @@ const SignIn = () => {
       const res = await axios.post(`${BASE_URL}/api/login`, formData);
 
       if (res.status === 200) {
-        console.log(res);
         const token = res.data.UserInfo?.token;
-        const id = res.data.UserInfo?.user.user_type;
+        const id = res.data.UserInfo?.user.id;
         localStorage.setItem("id", id);
         const name = res.data.UserInfo?.user.name;
-        const user_type = res.data.UserInfo?.user.user_type;
+        const user_type = res.data.UserInfo?.user?.user_type_id;
+        console.log(user_type , "user_type")
         const full_name = res.data.UserInfo?.user.full_name;
 
         localStorage.setItem("username", name);

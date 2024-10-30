@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect,useState } from "react";
 import Layout from "../../layout/Layout";
 import BASE_URL from "../../base/BaseUrl";
 import axios from "axios";
@@ -11,7 +11,6 @@ import CountUp from "react-countup";
 import { Chip, IconButton, List, ListItem, Stack } from "@mui/material";
 import { NumericFormat } from "react-number-format";
 import moment from "moment";
-import { Badge } from "@material-tailwind/react";
 import AddNotice from "./AddNotice";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Chart, ArcElement, registerables } from "chart.js";
@@ -33,10 +32,12 @@ const Home = () => {
   const [closeReceipts1, setCloseReceipts1] = useState(true);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [datanotification, setNotification] = useState([]);
+  console.log(datanotification , "datanotification")
   const [graphData, setGraphData] = useState(null);
   const [graph1, setGraph1] = useState([]);
   const [graph2, setGraph2] = useState([]);
   const [currentYear, setCurrentYear] = useState("");
+  const userTypeId = localStorage.getItem("user_type_id");
 
   const [showmodalNotice, setShowmodalNotice] = useState(false);
   const closegroupNoticeModal = () => {
@@ -47,8 +48,7 @@ const Home = () => {
     setShowmodalNotice(true);
   };
 
-  const navigate = useNavigate();
-
+ 
 
 
   useEffect(() => {
@@ -71,10 +71,10 @@ const Home = () => {
   }, []);
 
   const fetchNotices = async () => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const url =
-        userTypeId === "3"
+        userTypeId == "3"
           ? `${BASE_URL}/api/superadmin-fetch-notices`
           : `${BASE_URL}/api/user-fetch-notices`;
 
@@ -83,7 +83,7 @@ const Home = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
+      console.log(response , "response")
       setNotification(response.data.notices || []);
     } catch (error) {
       console.error("Error fetching notices:", error);
@@ -91,6 +91,9 @@ const Home = () => {
       setLoading(false);
     }
   };
+
+  // useEffect(()=>{
+  // },[])
 
   const populateNotice = (hi) => {
     setShowmodalNotice(false);
@@ -139,7 +142,11 @@ const Home = () => {
 
 
   useEffect(()=>{
+    console.log("jshdbeforw")
     fetchResult();
+    console.log("jshd")
+    fetchNotices()
+
   },[currentYear])
 
   const handleReload = () => {
@@ -256,9 +263,9 @@ const Home = () => {
                           </div> */}
                           {datanotification.length > 0 ? (
                             datanotification.map((notice) => (
-                              <div key={notice.id} className="mb-4">
+                              <div key={notice.id} className="mb-2">
                                 <h2
-                                  className="text-lg font-semibold mb-4"
+                                  className="text-lg font-semibold mb-1"
                                   style={{ color: "#464D69" }}
                                 >
                                   {notice.notice_name}
@@ -266,7 +273,7 @@ const Home = () => {
                                 <p className="text-sm text-gray-500">
                                   {notice.notice_detail}
                                 </p>
-                                <h3 className="my-4 text-sm text-gray-500">
+                                <h3 className="my-3 text-sm text-gray-500">
                                   Notice Posted On{" "}
                                   {moment(notice.created_at).format("DD-MM-YY")}
                                 </h3>
@@ -558,9 +565,6 @@ const Home = () => {
                     <div className="relative w-full overflow-auto bg-white ">
                       <div className="flex transition-transform duration-500">
                         <div className="min-w-full  p-4">
-                          {/* <div className="flex flex-col items-center">
-                            <h3 className="text-center">Data </h3>
-                          </div> */}
                           {graphData && <Bar data={graphData} />}
                         </div>
                       </div>
@@ -607,9 +611,6 @@ const Home = () => {
                     <div className="relative w-full overflow-hidden bg-white ">
                       <div className="flex transition-transform duration-500">
                         <div className="min-w-full h-[350px] p-4">
-                          {/* <div className="flex flex-col items-center">
-                            <h3 className="text-center">Data </h3>
-                          </div> */}
                           {graphData && <Doughnut data={graphData} />}
                         </div>
                       </div>
