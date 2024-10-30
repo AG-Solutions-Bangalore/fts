@@ -26,7 +26,7 @@ const Notification = () => {
   const [isVisible, setIsVisible] = useState(true);
   const [openDialog, setOpenDialog] = useState(false);
   const [newNotice, setNewNotice] = useState("");
-  const [noticeDetail, setNoticeDetail] = useState(""); // State for notice detail
+  const [noticeDetail, setNoticeDetail] = useState("");
   const [sendTo, setSendTo] = useState("");
 
   const userTypeId = localStorage.getItem("id");
@@ -42,19 +42,16 @@ const Notification = () => {
     try {
       const url =
         userTypeId === "3"
-          ? BASE_URL + "/api/superadmin-fetch-notices"
-          : BASE_URL + "/api/user-fetch-notices";
+          ? `${BASE_URL}/api/superadmin-fetch-notices`
+          : `${BASE_URL}/api/user-fetch-notices`;
 
-      const response = await axios({
-        url: url,
-        method: "GET",
+      const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
-      const notices = response.data.notices;
-      setNotification(notices);
+      setNotification(response.data.notices || []);
     } catch (error) {
       console.error("Error fetching notices:", error);
     } finally {
@@ -109,36 +106,37 @@ const Notification = () => {
       console.error("Error adding notice:", error);
     }
   };
+
   return (
     <Layout>
       <div>
-        <PageTitle title={"Notification"}></PageTitle>
-        <div className="grid grid-cols-1 mt-10 gap-4 bg-white ">
-          <>
+        <PageTitle title="Notification" />
+        {isVisible && (
+          <div className="grid grid-cols-1 mt-10 gap-4 bg-white">
             <div className="flex justify-between p-4 rounded-sm">
-              <div className="content-center">
-                <h1>Notices</h1>
-              </div>
+              <h1>Notices</h1>
               <div className="flex gap-3">
-                <div onClick={handleMinimizeToggle}>
-                  <HiMiniMinus className="text-2xl cursor-pointer" />
-                </div>
-                <div onClick={handleReload}>
-                  <TfiReload className="text-xl cursor-pointer" />
-                </div>
-                <div onClick={handleCancel}>
-                  <MdCancel className="text-2xl cursor-pointer" />
-                </div>
+                <HiMiniMinus
+                  onClick={handleMinimizeToggle}
+                  className="text-2xl cursor-pointer"
+                />
+                <TfiReload
+                  onClick={handleReload}
+                  className="text-xl cursor-pointer"
+                />
+                <MdCancel
+                  onClick={handleCancel}
+                  className="text-2xl cursor-pointer"
+                />
               </div>
             </div>
-            <hr></hr>
-
-            {isVisible && (
-              <div
-                className=" w-full  overflow-y-auto"
-                style={{ height: "340px" }}
-              >
-                {!isMinimized && (
+            <hr />
+            {!isMinimized && (
+              <>
+                <div
+                  className="w-full overflow-y-auto"
+                  style={{ height: "340px" }}
+                >
                   <div className="p-4">
                     {loading ? (
                       <div className="flex justify-center items-center">
@@ -160,29 +158,28 @@ const Notification = () => {
                             Notice Posted On{" "}
                             {moment(notice.created_at).format("DD-MM-YY")}
                           </h3>
-                          <hr></hr>
+                          <hr />
                         </div>
                       ))
                     ) : (
                       <p>No notices available.</p>
                     )}
                   </div>
-                )}
-              </div>
+                </div>
+              </>
             )}
-          </>
-          <hr></hr>
-          <div className="flex w-max p-4">
-            <Button
-              onClick={handleOpenDialog}
-              variant="filled"
-              className="bg-green-500"
-            >
-              Add a New Notice
-            </Button>
+            <hr />
+            <div className="flex w-max p-4">
+              <Button
+                onClick={handleOpenDialog}
+                variant="filled"
+                className="bg-green-500"
+              >
+                Add a New Notice
+              </Button>
+            </div>
           </div>
-        </div>
-
+        )}
         <Dialog
           open={openDialog}
           handler={handleOpenDialog}

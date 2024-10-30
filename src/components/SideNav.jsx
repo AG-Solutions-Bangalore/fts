@@ -83,6 +83,7 @@ const SideNav = ({
   const [openSubMenu2, setOpenSubMenu2] = useState(false); // For handling sub-menu open/close state
   const [openSubMenu3, setOpenSubMenu3] = useState(false); // For handling sub-menu open/close state
   const [openSubMenu4, setOpenSubMenu4] = useState(false); // For handling sub-menu open/close state
+  const [openSubMenu5, setOpenSubMenu5] = useState(false); // For handling sub-menu open/close state
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery("(max-width:600px)");
@@ -114,6 +115,9 @@ const SideNav = ({
   };
   const handleToggleSubMenu4 = () => {
     setOpenSubMenu4((prev) => !prev); // Toggles sub-menu open state
+  };
+  const handleToggleSubMenu5 = () => {
+    setOpenSubMenu5((prev) => !prev); // Toggles sub-menu open state
   };
 
   return (
@@ -150,7 +154,6 @@ const SideNav = ({
             {/* <img src={Logo} alt="Logo" className="w-[200px] h-[80px]" /> */}
           </Box>
         </Link>
-
         <CustomListItem
           isSelected={selectedIndex === 0}
           onClick={() => handleListItemClick(0)}
@@ -165,7 +168,6 @@ const SideNav = ({
             <MdDashboard style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
-
         {/* Master with sub-menu */}
         <CustomListItem
           isCollapsed={isCollapsed}
@@ -180,7 +182,6 @@ const SideNav = ({
             <IoPersonCircle style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
-
         {/* Sub-menu items */}
         <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -226,7 +227,6 @@ const SideNav = ({
             ></CustomListItem>
           </List>
         </Collapse>
-
         {/* Donor with sub-menu */}
         <CustomListItem
           isCollapsed={isCollapsed}
@@ -241,7 +241,6 @@ const SideNav = ({
             <IoPersonSharp style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
-
         {/* Sub-menu items */}
         <Collapse in={openSubMenu3} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -279,7 +278,6 @@ const SideNav = ({
             ></CustomListItem>
           </List>
         </Collapse>
-
         <CustomListItem
           isSelected={selectedIndex === 3}
           onClick={() => handleListItemClick(3)}
@@ -294,6 +292,57 @@ const SideNav = ({
             <FaRegListAlt style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
+        {/* //student */}
+        <CustomListItem
+          isCollapsed={isCollapsed}
+          primary="Student"
+          hasSubMenu={true}
+          isOpen={openSubMenu5}
+          toggleSubMenu={handleToggleSubMenu5}
+        >
+          <ListItemIcon
+            sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
+          >
+            <FaWallet style={{ fontSize: "20px" }} />
+          </ListItemIcon>
+        </CustomListItem>
+        {/* Sub-menu items */}
+        <Collapse in={openSubMenu5} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding>
+            <CustomListItem
+              isSelected={selectedIndex === 21}
+              onClick={() => handleListItemClick(21)}
+              component={NavLink}
+              to="/students-full-list"
+              isCollapsed={isCollapsed}
+              primary="Full List"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/students-to-allot"
+              isCollapsed={isCollapsed}
+              primary="School To Allot"
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/students-schoolallot"
+              isCollapsed={isCollapsed}
+              primary="School Allotted "
+            ></CustomListItem>
+            <CustomListItem
+              isSelected={selectedIndex === 22}
+              onClick={() => handleListItemClick(22)}
+              component={NavLink}
+              to="/students-report-donor"
+              isCollapsed={isCollapsed}
+              primary="Repeat Donors "
+            ></CustomListItem>
+          </List>
+        </Collapse>
         {/* /////REPORT START */}
         <CustomListItem
           isCollapsed={isCollapsed}
@@ -308,7 +357,6 @@ const SideNav = ({
             <FaRegListAlt style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
-
         {/* Sub-menu items */}
         <Collapse in={openSubMenu1} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -378,7 +426,6 @@ const SideNav = ({
             ></CustomListItem>
           </List>
         </Collapse>
-
         <CustomListItem
           isCollapsed={isCollapsed}
           primary="Download"
@@ -392,7 +439,6 @@ const SideNav = ({
             <MdDownloading style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
-
         {/* Sub-menu items */}
         <Collapse in={openSubMenu2} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
@@ -439,7 +485,6 @@ const SideNav = ({
             ></CustomListItem>
           </List>
         </Collapse>
-
         {/* //OTHHERS */}
         <CustomListItem
           isCollapsed={isCollapsed}
@@ -454,7 +499,6 @@ const SideNav = ({
             <FaWallet style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
-
         {/* Sub-menu items */}
         <Collapse in={openSubMenu4} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>

@@ -1,12 +1,20 @@
-import { Input, Checkbox, Button, Typography } from "@material-tailwind/react";
+import { Input, Button, Typography } from "@material-tailwind/react";
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import BASE_URL from "../../base/BaseUrl";
 import { ContextPanel } from "../../utils/ContextPanel";
 import toast, { Toaster } from "react-hot-toast";
-import Logo from "../../assets/logo1.png";
-import bgImg from "../../assets/rct-session-banner.png";
+import Logo from "../../assets/receipt/sigin.jpg";
+import Logo1 from "../../assets/receipt/fts_logo.png";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaPinterest,
+  FaTwitter,
+} from "react-icons/fa";
+import { TiSocialLinkedin, TiSocialYoutubeCircular } from "react-icons/ti";
+import { CgFacebook } from "react-icons/cg";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -14,8 +22,11 @@ const SignIn = () => {
   const [loading, setLoading] = useState(false);
   const { isPanelUp } = useContext(ContextPanel);
   const navigate = useNavigate();
+  const handleForgetPasswordClick = () => {
+    navigate("/forget-password");
+  };
 
-  const handleSumbit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isPanelUp) {
       navigate("/maintenance");
@@ -24,28 +35,27 @@ const SignIn = () => {
 
     setLoading(true);
 
-    //create a formData object and append state values
     const formData = new FormData();
     formData.append("username", email);
     formData.append("password", password);
 
     try {
-      // Send POST request to login API with form data
       const res = await axios.post(`${BASE_URL}/api/login`, formData);
 
       if (res.status === 200) {
         const token = res.data.UserInfo?.token;
-        const id = res.data.UserInfo?.user.id;
-        localStorage.setItem("id", id);
-        const name = res.data.UserInfo?.user.name;
-        const user_type = res.data.UserInfo?.user?.user_type_id;
-        console.log(user_type , "user_type")
-        const full_name = res.data.UserInfo?.user.full_name;
 
-        localStorage.setItem("username", name);
-        localStorage.setItem("user_type_id", user_type);
-        localStorage.setItem("full_name", full_name);
-        if (token) {          localStorage.setItem("token", token);
+
+        localStorage.setItem("id", res.data.UserInfo.user.user_type_id);
+        localStorage.setItem("name", res.data.UserInfo.user.first_name);
+        localStorage.setItem("username", res.data.UserInfo.user.name);
+        localStorage.setItem("chapter_id", res.data.UserInfo.user.chapter_id);
+        localStorage.setItem(
+          "user_type_id",
+          res.data.UserInfo.user.user_type_id
+        );
+        if (token) {
+          localStorage.setItem("token", token);
           navigate("/home");
         } else {
           toast.error("Login Failed, Token not received.");
@@ -54,12 +64,12 @@ const SignIn = () => {
         toast.error("Login Failed, Please check your credentials.");
       }
     } catch (error) {
-      console.error(error);
       toast.error("An error occurred during login.");
     }
 
     setLoading(false);
   };
+
   return (
     <>
       <Toaster
@@ -78,57 +88,38 @@ const SignIn = () => {
         position="top-right"
         reverseOrder={false}
       />
-      <div
-        className="p-5 m-auto  bg-cover bg-center h-[100vh] w-full flex justify-center items-center"
-        style={{ backgroundImage: `url(${bgImg})` }}
-      >
-        <section className=" flex-col lg:flex-row bg-[rgba(255,255,255,0.57)] md:w-[40%] w-full md:h-[600px] h-[550px] rounded-lg">
-          <div className="flex-1  m-4   px-4 lg:px-2">
-            <div className="flex justify-center">
-              <div>
-                <img src={Logo} alt="Logo" className="md:ml-9 mb-1" />
-
-                <Typography
-                  variant="paragraph"
-                  color="blue-gray"
-                  className="md:text-lg text-sm font-normal"
-                >
-                  Enter your email and password to Sign In.
-                </Typography>
-              </div>
+      <div className="p-6   bg-blue-400 flex items-center justify-center max-h-screen">
+        <div className="max-w-7xl w-full bg-white shadow-lg rounded-2xl overflow-hidden">
+          <div className="flex flex-col lg:flex-row max-h-[682px]">
+            {/* Left Side - Image */}
+            <div className="lg:w-1/2 hidden lg:block">
+              <img
+                src={Logo}
+                alt="Login"
+                className="object-cover h-full w-full"
+              />
             </div>
-            <form
-              onSubmit={handleSumbit}
-              method="POST"
-              className="mt-8 mb-2 mx-auto w-full max-w-md lg:w-3/4"
-            >
-              <div className="mb-6 flex flex-col gap-6">
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="-mb-3 font-medium"
-                >
-                  User Id
-                </Typography>
+
+            {/* Right Side - Form */}
+            <div className="flex-1 p-4  sm:px-0 md:px-16 flex flex-col mt-8 max-h-[682px]">
+              <div className="flex items-center justify-center mb-8">
+                <img src={Logo1} alt="Company Logo" className="w-32 h-32" />
+              </div>
+              <Typography
+                variant="h4"
+                className="text-center font-bold mb-6 text-blue-gray-800"
+              >
+                Sign into your account
+              </Typography>
+              <form onSubmit={handleSubmit} method="POST" className="space-y-6">
                 <Input
                   id="email"
                   name="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   size="lg"
-                  placeholder="Enter user id"
-                  className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  label="Username"
                 />
-                <Typography
-                  variant="small"
-                  color="blue-gray"
-                  className="-mb-3 font-medium"
-                >
-                  Password
-                </Typography>
                 <Input
                   id="password"
                   name="password"
@@ -136,33 +127,40 @@ const SignIn = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   type="password"
                   size="lg"
-                  placeholder="********"
-                  className="!border-t-blue-gray-200 focus:!border-t-gray-900"
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
+                  label="Password"
                 />
-              </div>
-              <Button
-                type="sumbit"
-                disabled={loading}
-                className="mt-6"
-                fullWidth
-              >
-                {loading ? "Checking..." : "Sign In"}
-              </Button>
-
-              <div className="flex items-center justify-center gap-2 mt-6">
-                <Typography
-                  variant="small"
-                  className="font-medium text-gray-900"
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full mt-4 bg-blue-500 hover:bg-blue-600 text-white"
                 >
-                  <Link to="/forget-password">Forgot Password</Link>
-                </Typography>
+                  {loading ? "Checking..." : "Sign In"}
+                </Button>
+              </form>
+              <div
+                className="text-end mt-4"
+                onClick={handleForgetPasswordClick}
+              >
+                <Link className="text-sm text-gray-700 hover:text-blue-600">
+                  Forgot password?
+                </Link>
               </div>
-            </form>
+              <div>
+                <h6 className="flex justify-center text-gray-600">
+                  Follow with us{" "}
+                </h6>
+                <div className="grid grid-cols-6  text-black">
+                  <CgFacebook className="text-black hover:bg-blue-700 cursor-pointer hover:text-white transition-colors duration-300 p-4 rounded-full w-14 h-14 flex items-center justify-center" />
+                  <TiSocialYoutubeCircular className="text-black hover:bg-red-500 hover:text-white  cursor-pointer transition-colors duration-300 p-4 rounded-full w-14 h-14 flex items-center justify-center" />
+                  <FaTwitter className="text-black hover:bg-blue-500 hover:text-white cursor-pointer transition-colors duration-300 p-4 rounded-full w-14 h-14 flex items-center justify-center" />
+                  <TiSocialLinkedin className="text-black hover:bg-blue-500 hover:text-white cursor-pointer transition-colors duration-300 p-4 rounded-full w-14 h-14 flex items-center justify-center" />
+                  <FaInstagram className="text-black hover:bg-yellow-800  hover:text-white cursor-pointer transition-colors duration-300 p-4 rounded-full w-14 h-14 flex items-center justify-center" />
+                  <FaPinterest className="text-black hover:bg-red-500  hover:text-white cursor-pointer transition-colors duration-300 p-4 rounded-full w-14 h-14 flex items-center justify-center" />
+                </div>
+              </div>
+            </div>
           </div>
-        </section>
+        </div>
       </div>
     </>
   );

@@ -193,14 +193,13 @@ const Home = () => {
     <Layout>
       <div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
-          <div>
-            <div className="bg-[pink] text-white p-4 shadow-[0_4px_10px_rgba(0,0,0,0.25)] rounded-md text-center min-h-[150px] flex flex-col items-center justify-center">
-              <h3 className="text-xl font-bold">Total Donors</h3>
-              <p className="text-5xl font-bold">
-                <CountUp start={0} end={result.total_companies_count} />
-              </p>
-            </div>
-          </div>
+          {/* <div className="bg-[#5e7081] text-white flex items-center justify-center flex-col text-center md:h-24 py-4 rounded-lg transition-transform duration-400">
+            <p className="text-md font-bold">Direct Referral</p>
+            <p className="text-xl font-bold">
+              <CountUp start={0} end={referral.inquiry_count} />
+            </p>
+          </div> */}
+
           <div>
             <div className="bg-[#5e7081] text-white p-4 shadow-[0_4px_10px_rgba(0,0,0,0.25)] rounded-md text-center min-h-[150px] flex flex-col items-center justify-center">
               <h3 className="text-xl font-bold">Individual Donors</h3>
@@ -226,6 +225,7 @@ const Home = () => {
             </div>
           </div>
         </div>
+
         <div className="md:grid md:grid-cols-3 grid-cols-1 mt-5 gap-3">
           {fullCloseCategory && (
             <div className="col-span-2 h-[200px]">
@@ -465,93 +465,28 @@ const Home = () => {
                             </Stack>
                           </ListItem>
 
-                          <ListItem className="!px-0 !py-1 !flex !justify-between items-center">
-                            <p className="mb-0 content-title w-[20px] mr-6">
-                              Membership
-                            </p>
-                            <Stack alignItems="center">
-                              <Chip
-                                label={
-                                  <NumericFormat
-                                    thousandSeparator={true}
-                                    thousandsGroupStyle="lakh"
-                                    displayType="text"
-                                    prefix="₹ "
-                                    value={result.thirty_mem}
-                                  />
-                                }
-                                style={{
-                                  fontSize: "16px",
-                                  background: "#FFB70F",
-                                  color: "white",
-                                }}
-                                color="primary"
-                                className="px-4"
-                              />
-                            </Stack>
-                          </ListItem>
 
-                          <ListItem className="!px-0 !py-1 !flex !justify-between items-center">
-                            <p className="mb-0 content-title w-[20px] mr-6">
-                              General
-                            </p>
-                            <Stack alignItems="center">
-                              <Chip
-                                label={
-                                  <NumericFormat
-                                    thousandSeparator={true}
-                                    thousandsGroupStyle="lakh"
-                                    displayType="text"
-                                    prefix="₹ "
-                                    value={result.thirty_gen}
-                                  />
-                                }
-                                style={{
-                                  fontSize: "16px",
-                                  background: "#4d7d79",
-                                  color: "white",
-                                }}
-                                className="px-4 bg-[#4d7d79] text-white"
-                              />
-                            </Stack>
-                          </ListItem>
-                        </List>
-                      </div>
-                    )
-                  )}
+        {/* <div className="mt-10">
+          {fullClose && (
+            <div className="container mx-auto col-span-2">
+              <div className="flex justify-between bg-white p-4 rounded-sm">
+                <div className="content-center">
+                  <h1>Direct Referral</h1>
                 </div>
-              </div>
-            )}
-          </div>
-        </div>
-          <div className="md:grid md:grid-cols-3 grid-cols-1 mt-5 gap-3 w-full ">
-          {fullCloseReceipts && (
-            <div className="col-span-2 h-[200px] mt-8">
-              <div className=" bg-white p-4 rounded-sm border-b-2">
-                <div className="flex justify-between">
-                  <div className="content-center">
-                    <h1>Receipts</h1>
+                <div className="flex gap-3">
+                  <div>
+                    <HiMiniMinus
+                      className="text-2xl cursor-pointer"
+                      onClick={() => setShowTable(!showTable)}
+                    />
                   </div>
-                  <div className="flex gap-3">
-                    <div>
-                      <HiMiniMinus
-                        className="text-2xl cursor-pointer"
-                        onClick={() => setCloseReceipts(!closeReceipts)}
-                      />
-                    </div>
-                    {/* <div>
+                  <div>
                     <TfiReload
                       className="text-xl cursor-pointer"
                       onClick={handleReload}
                     />
-                  </div> */}
-                    <div>
-                      <MdCancel
-                        className="text-2xl cursor-pointer"
-                        onClick={() => setFullCloseReceipts(false)}
-                      />
-                    </div>
                   </div>
+
                 </div>
               </div>
               <div>
@@ -589,17 +524,17 @@ const Home = () => {
                     <TfiReload
                       className="text-xl cursor-pointer"
                       // onClick={handleReload}
+
+                  <div>
+                    <MdCancel
+                      className="text-2xl cursor-pointer"
+                      onClick={() => setFullClose(false)}
+
                     />
-                  </div> */}
-                    <div>
-                      <MdCancel
-                        className="text-2xl cursor-pointer"
-                        onClick={() => setFullCloseReceipts1(false)}
-                      />
-                    </div>
                   </div>
                 </div>
               </div>
+
               <div>
                 {loadingProducts ? (
                   <Loader />
@@ -609,20 +544,16 @@ const Home = () => {
                       <div className="flex transition-transform duration-500">
                         <div className="min-w-full h-[350px] p-4">
                           {graphData && <Doughnut data={graphData} />}
+
                         </div>
                       </div>
                     </div>
-                  )
-                )}
-              </div>
+                  </div>
+                )
+              )}
             </div>
           )}
-          </div>
-        <AddNotice
-          open={showmodalNotice}
-          onClick={closegroupNoticeModal}
-          populateNotice={populateNotice}
-        />
+        </div> */}
       </div>
     </Layout>
   );
