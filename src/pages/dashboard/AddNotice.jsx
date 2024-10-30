@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Input } from "@material-tailwind/react";
 import { Card, CardContent, Dialog, Tooltip } from "@mui/material";
-import { HighlightOff } from "@mui/icons-material";
+import { MdCancel } from "react-icons/md";
 import Fields from "../../common/TextField/TextField";
 import BASE_URL from "../../base/BaseUrl";
 
@@ -106,7 +106,7 @@ const AddNotice = (props) => {
                       className="ml-3 pl-2 hover:bg-gray-200 rounded-full"
                       onClick={props.onClick}
                     >
-                      <HighlightOff />
+                      <MdCancel />
                     </button>
                   </Tooltip>
                 </div>

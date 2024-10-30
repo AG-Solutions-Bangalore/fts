@@ -9,7 +9,7 @@ import {
   IconButton,
   Button,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import { IoMdMenu } from "react-icons/io";
 import { styled, alpha } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
@@ -177,7 +177,7 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                   aria-label="menu"
                   onClick={handleLeftDrawerToggle}
                 >
-                  <MenuIcon />
+                  <IoMdMenu />
                 </HoverIconButton>
               </Box>
               <Box className="flex justify-end">
@@ -235,7 +235,7 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                   aria-label="menu"
                   onClick={handleLeftDrawerToggle}
                 >
-                  <MenuIcon />
+                  <IoMdMenu />
                 </HoverIconButton>
               </Box>
               <Box className="flex justify-end">

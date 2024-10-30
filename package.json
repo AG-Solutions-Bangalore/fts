@@ -17,6 +17,7 @@
     "@mui/material": "^5.16.7",
     "apexcharts": "3.44.0",
     "axios": "^1.7.5",
+    "chart.js": "^4.4.6",
     "moment": "^2.30.1",
     "mui-datatables": "^4.3.0",
     "num-words": "^1.2.3",
