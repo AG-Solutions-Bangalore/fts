@@ -132,7 +132,7 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
       position="fixed"
       sx={{
         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
-        backgroundColor: "#5e7081",
+        backgroundColor: "#95a5b4",
         color: "black",
         boxShadow: "none",
         padding: "6px",
@@ -181,10 +181,6 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                 </HoverIconButton>
               </Box>
               <Box className="flex justify-end">
-
-                
-                 
-
                 <Button
                   id="basic-button"
                   aria-controls={open1 ? "basic-menu" : undefined}
@@ -243,10 +239,6 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                 </HoverIconButton>
               </Box>
               <Box className="flex justify-end">
-               
-
-               
-
                 <Button
                   id="basic-button"
                   aria-controls={open1 ? "basic-menu" : undefined}

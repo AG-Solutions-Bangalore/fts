@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import MUIDataTable from "mui-datatables";
 import axios from "axios";
 import { Spinner } from "@material-tailwind/react";
-import {  Visibility } from "@mui/icons-material";
 import { ContextPanel } from "../../utils/ContextPanel";
 import BASE_URL from "../../base/BaseUrl";
 import Layout from "../../layout/Layout";
 import Referal from "../../components/Referal";
+import { MdRemoveRedEye } from "react-icons/md";
 
 const DirectReferral = () => {
   const [referralData, setReferralData] = useState(null);
@@ -89,7 +89,7 @@ const DirectReferral = () => {
               <Tooltip title="View" placement="top">
                 <IconButton aria-label="View">
                   <Link to={"view?id=" + value}>
-                    <Visibility />
+                    <MdRemoveRedEye />
                   </Link>
                 </IconButton>
               </Tooltip>

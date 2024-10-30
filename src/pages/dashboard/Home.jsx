@@ -27,8 +27,10 @@ const Home = () => {
   const [closeDonation, setCloseDonation] = useState(true);
   const [fullCloseDonation1, setFullCloseDonation1] = useState(true);
   const [closeDonation1, setCloseDonation1] = useState(true);
-  // const [fullCloseCategory, setFullCloseCategory] = useState(true);
-  // const [closeCategory, setCloseCategory] = useState(true);
+  const [fullCloseReceipts, setFullCloseReceipts] = useState(true);
+  const [closeReceipts, setCloseReceipts] = useState(true);
+  const [fullCloseReceipts1, setFullCloseReceipts1] = useState(true);
+  const [closeReceipts1, setCloseReceipts1] = useState(true);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [datanotification, setNotification] = useState([]);
   const [graphData, setGraphData] = useState(null);
@@ -117,7 +119,6 @@ const Home = () => {
           },
         }
       );
-      console.log(response, "response")
       if (response.status === 200) {
         setResult(response.data);
 
@@ -134,6 +135,15 @@ const Home = () => {
     } catch (error) {
       console.error("Error fetching booking data:", error);
     }
+  };
+
+
+  useEffect(()=>{
+    fetchResult();
+  },[currentYear])
+
+  const handleReload = () => {
+    fetchResult(); 
   };
 
   useEffect(() => {
@@ -177,7 +187,7 @@ const Home = () => {
       <div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-5">
           <div>
-            <div className="bg-[#5e7081] text-white p-4 shadow-[0_4px_10px_rgba(0,0,0,0.25)] rounded-md text-center min-h-[150px] flex flex-col items-center justify-center">
+            <div className="bg-[pink] text-white p-4 shadow-[0_4px_10px_rgba(0,0,0,0.25)] rounded-md text-center min-h-[150px] flex flex-col items-center justify-center">
               <h3 className="text-xl font-bold">Total Donors</h3>
               <p className="text-5xl font-bold">
                 <CountUp start={0} end={result.total_companies_count} />
@@ -511,7 +521,7 @@ const Home = () => {
           </div>
         </div>
           <div className="md:grid md:grid-cols-3 grid-cols-1 mt-5 gap-3 w-full ">
-          {fullCloseCategory && (
+          {fullCloseReceipts && (
             <div className="col-span-2 h-[200px] mt-8">
               <div className=" bg-white p-4 rounded-sm border-b-2">
                 <div className="flex justify-between">
@@ -522,7 +532,7 @@ const Home = () => {
                     <div>
                       <HiMiniMinus
                         className="text-2xl cursor-pointer"
-                        onClick={() => setCloseCategory(!closeCategory)}
+                        onClick={() => setCloseReceipts(!closeReceipts)}
                       />
                     </div>
                     {/* <div>
@@ -534,7 +544,7 @@ const Home = () => {
                     <div>
                       <MdCancel
                         className="text-2xl cursor-pointer"
-                        onClick={() => setFullCloseCategory(false)}
+                        onClick={() => setFullCloseReceipts(false)}
                       />
                     </div>
                   </div>
@@ -544,7 +554,7 @@ const Home = () => {
                 {loadingProducts ? (
                   <Loader />
                 ) : (
-                  closeCategory && (
+                  closeReceipts && (
                     <div className="relative w-full overflow-auto bg-white ">
                       <div className="flex transition-transform duration-500">
                         <div className="min-w-full  p-4">
@@ -560,7 +570,7 @@ const Home = () => {
               </div>
             </div>
           )}
-          {fullCloseCategory && (
+          {fullCloseReceipts1 && (
             <div className="h-[200px] mt-8">
               <div className=" bg-white p-4 rounded-sm border-b-2">
                 <div className="flex justify-between">
@@ -571,13 +581,19 @@ const Home = () => {
                     <div>
                       <HiMiniMinus
                         className="text-2xl cursor-pointer"
-                        onClick={() => setCloseCategory(!closeCategory)}
+                        onClick={() => setCloseReceipts1(!closeReceipts1)}
                       />
                     </div>
+                    {/* <div>
+                    <TfiReload
+                      className="text-xl cursor-pointer"
+                      // onClick={handleReload}
+                    />
+                  </div> */}
                     <div>
                       <MdCancel
                         className="text-2xl cursor-pointer"
-                        onClick={() => setFullCloseCategory(false)}
+                        onClick={() => setFullCloseReceipts1(false)}
                       />
                     </div>
                   </div>
@@ -587,7 +603,7 @@ const Home = () => {
                 {loadingProducts ? (
                   <Loader />
                 ) : (
-                  closeCategory && (
+                  closeReceipts1 && (
                     <div className="relative w-full overflow-hidden bg-white ">
                       <div className="flex transition-transform duration-500">
                         <div className="min-w-full h-[350px] p-4">
