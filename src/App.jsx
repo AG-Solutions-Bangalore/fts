@@ -74,6 +74,10 @@ import FullListView from "./pages/Students/FullList/FullListView";
 import DonorDetails from "./pages/Students/SchoolToAllot/DonorDetails";
 import SchoolAllot from "./pages/Students/SchoolAllot/SchoolAllot";
 import SchoolAllotEdit from "./pages/Students/SchoolAllot/SchoolAllotEdit";
+import ViewerList from "./pages/donor/viewer/ViewerList";
+import AddViewer from "./pages/donor/viewer/AddViewer";
+import EditViewer from "./pages/donor/viewer/EditViewer";
+import DuplicateList from "./pages/donor/duplicate/DuplicateList";
 //NEW CODE HER AFTER BY MOORTHY
 
 const App = () => {
@@ -214,6 +218,10 @@ const App = () => {
         <Route path="/receipt-list/:id" element={<ReciptList />} />
         <Route path="/donor-edit/:id" element={<DonorEdit />} />
         <Route path="/receipt-view/:id" element={<ReceiptView />} />
+        <Route path="/viewer-list" element={<ViewerList />} />
+        <Route path="/add-viewer" element={<AddViewer />} />
+        <Route path="/edit-viewer/:id" element={<EditViewer />} />
+        <Route path="/duplicate-list" element={<DuplicateList />} />
         {/* //others */}
         <Route path="/others-faq" element={<Faq />} />
         <Route path="/others-team" element={<OthersTeam />} />

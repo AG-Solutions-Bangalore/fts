@@ -385,11 +385,6 @@ const CreateReceipt = () => {
                  options={exemption} 
                 
                 />
-                <div>
-                  <span className="text-gray-500 text-xs">
-                    Please select your Exemption Type
-                  </span>
-                </div>
               </div>
               <div className="form-group mt-6">
                 <Input
@@ -435,13 +430,8 @@ const CreateReceipt = () => {
                 onChange={(e) => onInputChange(e)}
                 
                 />
-                <div>
-                  <span className="text-gray-500 text-xs">
-                    Please select your Transaction Type
-                  </span>
-                </div>
               </div>
-              <div className="form-group col-span-2 ml-12">
+              <div className="form-group col-span-2 md:ml-12">
                 {/* <Fields
                   required={true}
                   type="whatsappDropdown"
@@ -469,11 +459,6 @@ const CreateReceipt = () => {
                 value={donor.receipt_donation_type}
                 onChange={(e) => onInputChange(e)}
                 />
-                  <div>
-                  <span className="text-gray-500 text-xs">
-                  Please select your Donation Type
-                  </span>
-                </div>
               </div>
 
 
