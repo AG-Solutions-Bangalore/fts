@@ -247,8 +247,8 @@ const EditReceipt = () => {
       donor_source: donor.donor_source,
     };
     try {
-      const response = await axios.post(
-        `${BASE_URL}/api/update-receipt`,
+      const response = await axios.put(
+        `${BASE_URL}/api/update-receipt/${id}`,
         formData,
         {
           headers: {
@@ -257,13 +257,13 @@ const EditReceipt = () => {
         }
       );
 
-      if (response.data.code == 200) {
+      if (response.status == '200') {
         toast.success("Receipt Updated Successfully");
         navigate("/receipts");
       } else {
-        if (response.data.code == 401) {
+        if (response.status == '401') {
           toast.error("Receipt Duplicate Entry");
-        } else if (response.data.code == 402) {
+        } else if (response.status == '402') {
           toast.error("Receipt Duplicate Entry");
         } else {
           toast.error("An unknown error occurred");
@@ -283,7 +283,7 @@ const EditReceipt = () => {
         {/* Title */}
         <div className="flex mb-4 mt-6">
           <h1 className="text-2xl text-[#464D69] font-semibold ml-2 content-center">
-            Receipt
+           Edit Receipt
           </h1>
         </div>
         <div className="p-6 mt-5 bg-white shadow-md rounded-lg">
@@ -340,7 +340,7 @@ const EditReceipt = () => {
           </div>
           <form onSubmit={onSubmit} autoComplete="off">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 mt-1">
-              <div className="form-group ">
+              <div className="form-group mt-6">
                 <Input
                   required
                   type="text"
@@ -353,9 +353,24 @@ const EditReceipt = () => {
                 />
               </div>
               <div className="form-group ">
-                <Fields
+                {/* <Fields
                   required={true}
                   type="whatsappDropdown"
+                  title="Transaction Type"
+                  autoComplete="Name"
+                  name="receipt_tran_pay_mode"
+                  value={donor.receipt_tran_pay_mode}
+                  onChange={(e) => onInputChange(e)}
+                  options={
+                    donor.receipt_exemption_type == "80G" &&
+                    donor.receipt_total_amount > 2000
+                      ? pay_mode_2
+                      : pay_mode
+                  }
+                /> */}
+                <Fields
+                  required={true}
+                  type="newwhatsappDropdown"
                   title="Transaction Type"
                   autoComplete="Name"
                   name="receipt_tran_pay_mode"
@@ -375,7 +390,7 @@ const EditReceipt = () => {
                 </div>
               </div>
               <div className="form-group ">
-                <Fields
+                {/* <Fields
                   required={true}
                   type="whatsappDropdown"
                   title="Purpose"
@@ -388,7 +403,22 @@ const EditReceipt = () => {
                       ? donation_type_2
                       : donation_type
                   }
+                /> */}
+                <Fields
+                  required={true}
+                  type="newwhatsappDropdown"
+                  title="Purpose"
+                  autoComplete="Name"
+                  name="receipt_donation_type"
+                  value={donor.receipt_donation_type}
+                  onChange={(e) => onInputChange(e)}
+                  options={
+                    donor.receipt_exemption_type == "80G"
+                      ? donation_type_2
+                      : donation_type
+                  }
                 />
+                
                 <div>
                   <span className="text-gray-500 text-sm">
                     Please select your Donation Type
@@ -519,7 +549,7 @@ const EditReceipt = () => {
                 className="bg-blue-500 text-white px-4 py-2 rounded-md mr-2"
                 disabled={isButtonDisabled}
               >
-                {isButtonDisabled ? "Submiting..." : "Submit"}
+                {isButtonDisabled ? "Updating..." : "Update"}
               </button>
               <Link to="/receipts">
                 <button className="bg-green-500 text-white px-4 py-2 rounded-md">

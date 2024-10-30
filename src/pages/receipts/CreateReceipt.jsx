@@ -145,6 +145,12 @@ const CreateReceipt = () => {
   //   today = mm + "/" + dd + "/" + yyyy;
   const todayback = yyyy + "-" + mm + "-" + dd;
 
+  const todayyear = new Date().getFullYear();
+  const twoDigitYear = todayyear.toString().substr(-2);
+  const preyear = todayyear;
+  const finyear = (+twoDigitYear) + 1;
+  const finalyear = preyear+'-'+finyear;
+
   const [userdata, setUserdata] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [loader, setLoader] = useState(true);
@@ -203,18 +209,18 @@ const CreateReceipt = () => {
     }
   };
 
-  //   useEffect(() => {
-  //     axios
-  //       .get(`${BASE_URL}/api/fetch-donor-by-id/${id}`, {
-  //         headers: {
-  //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         setUserdata(res.data.individualCompany);
-  //         setLoader(false);
-  //       });
-  //   }, []);
+    useEffect(() => {
+      axios
+        .get(`${BASE_URL}/api/fetch-donor-by-id/${id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        .then((res) => {
+          setUserdata(res.data.individualCompany);
+          setLoader(false);
+        });
+    }, [id]);
 
   const [datasource, setDatasource] = useState([]);
   useEffect(() => {
@@ -274,13 +280,13 @@ const CreateReceipt = () => {
         }
       );
 
-      if (response.data.code == 200) {
+      if (response.status == '200') {
         toast.success("Receipt Created Successfully");
-        navigate("/receipts");
+        navigate("/donor-list");
       } else {
-        if (response.data.code == 401) {
+        if (response.status == '401') {
           toast.error("Receipt Duplicate Entry");
-        } else if (response.data.code == 402) {
+        } else if (response.status == '402') {
           toast.error("Receipt Duplicate Entry");
         } else {
           toast.error("An unknown error occurred");
@@ -293,6 +299,15 @@ const CreateReceipt = () => {
       setIsButtonDisabled(false);
     }
   };
+
+  // const [alignment, setAlignment] = useState(props.value || "left");
+
+  // const handleAlignment = (event, newAlignment) => {
+  //   if (newAlignment !== null) {
+  //     setAlignment(newAlignment);
+  //     props.onchange && props.onchange(event, newAlignment);
+  //   }
+  // };
 
   return (
     <Layout>
@@ -308,31 +323,31 @@ const CreateReceipt = () => {
             <div>
               <label className="block text-gray-700 ">Name</label>
               <span className="mt-1 text-black">
-                {/* {userdata.indicomp_full_name} */} 12345
+                {userdata.indicomp_full_name}
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">FTS Id</label>
               <span className="mt-1 text-black">
-                {/* {userdata.indicomp_fts_id} */} 12345
+                {userdata.indicomp_fts_id}
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">Pan No</label>
               <span className="mt-1 text-black">
-                {/* {pan} */} 12345
+                {pan} 
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">Receipt Date</label>
               <span className="mt-1 text-black">
-                {/* {moment(donor.receipt_date).format('DD-MM-YYYY')}  */}12345
+                {moment(donor.receipt_date).format('DD-MM-YYYY')} 
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">Year</label>
               <span className="mt-1 text-black">
-                {/* {finalyear} */} 12345
+                {finalyear} 
               </span>
             </div>
             <div>
@@ -348,9 +363,9 @@ const CreateReceipt = () => {
             </div>
           </div>
           <form onSubmit={onSubmit} autoComplete="off">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-6">
               <div className="form-group ">
-                <Fields
+                {/* <Fields
                   required={true}
                   type="whatsappDropdown"
                   title="Category"
@@ -359,14 +374,24 @@ const CreateReceipt = () => {
                   value={donor.receipt_exemption_type}
                   onChange={(e) => onInputChange(e)}
                   options={exemption}
+                /> */}
+                <Fields
+                 type="newwhatsappDropdown" 
+                 title="Category" 
+                 name="receipt_exemption_type"
+                 value={donor.receipt_exemption_type}
+                 onChange={(e) => onInputChange(e)}
+                 required={true} 
+                 options={exemption} 
+                
                 />
                 <div>
-                  <span className="text-gray-500 text-sm">
+                  <span className="text-gray-500 text-xs">
                     Please select your Exemption Type
                   </span>
                 </div>
               </div>
-              <div className="form-group ">
+              <div className="form-group mt-6">
                 <Input
                   required
                   type="text"
@@ -376,10 +401,11 @@ const CreateReceipt = () => {
                   name="receipt_total_amount"
                   value={donor.receipt_total_amount}
                   onChange={(e) => onInputChange(e)}
+                  
                 />
               </div>
               <div className="form-group ">
-                <Fields
+                {/* <Fields
                   required={true}
                   type="whatsappDropdown"
                   title="Transaction Type"
@@ -393,15 +419,30 @@ const CreateReceipt = () => {
                       ? pay_mode_2
                       : pay_mode
                   }
+                /> */}
+                 <Fields
+                 type="transactionDropdown" 
+                 title="Transaction Type" 
+                 required={true} 
+                 options={
+                  donor.receipt_exemption_type == "80G" &&
+                  donor.receipt_total_amount > 2000
+                    ? pay_mode_2
+                    : pay_mode
+                }
+                name="receipt_tran_pay_mode"
+                value={donor.receipt_tran_pay_mode}
+                onChange={(e) => onInputChange(e)}
+                
                 />
                 <div>
-                  <span className="text-gray-500 text-sm">
+                  <span className="text-gray-500 text-xs">
                     Please select your Transaction Type
                   </span>
                 </div>
               </div>
-              <div className="form-group ">
-                <Fields
+              <div className="form-group col-span-2 ml-12">
+                {/* <Fields
                   required={true}
                   type="whatsappDropdown"
                   title="Purpose"
@@ -414,9 +455,22 @@ const CreateReceipt = () => {
                       ? donation_type_2
                       : donation_type
                   }
+                /> */}
+                 <Fields
+                 type="transactionDropdown" 
+                 title="Purpose" 
+                 required={true} 
+                 options={
+                  donor.receipt_exemption_type == "80G"
+                    ? donation_type_2
+                    : donation_type
+                }
+                name="receipt_donation_type"
+                value={donor.receipt_donation_type}
+                onChange={(e) => onInputChange(e)}
                 />
                   <div>
-                  <span className="text-gray-500 text-sm">
+                  <span className="text-gray-500 text-xs">
                   Please select your Donation Type
                   </span>
                 </div>
@@ -539,7 +593,7 @@ const CreateReceipt = () => {
               >
                 {isButtonDisabled ? "Submiting..." : "Submit"}
               </button>
-              <Link to="/chapters">
+              <Link to="/donor-list">
                 <button className="bg-green-500 text-white px-4 py-2 rounded-md">
                   Back
                 </button>

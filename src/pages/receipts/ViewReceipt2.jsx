@@ -7,7 +7,11 @@ import { Input } from "@material-tailwind/react";
 import moment from "moment";
 import BASE_URL from "../../base/BaseUrl";
 import Layout from "../../layout/Layout";
+import ViewReceipt3 from "./ViewReceipt3";
 // import ReactToPrint from "react-to-print";
+import numWords from "num-words";
+import ViewReceipt1 from "./ViewReceipt1";
+import ReceiptView from "../donor/ReceiptView";
 
 const ViewReceipt2 = () => {
   const navigate = useNavigate();
@@ -17,7 +21,6 @@ const ViewReceipt2 = () => {
   const [viewerId, setID] = useState(0);
   const [contact, setContact] = useState("");
   const [email, setEmail] = useState("");
-  console.log(contact, email);
   const [viewerChapterIds, setViewerChapterIds] = useState([]);
   const [schoolIds, setSchoolIds] = useState("");
   const [chapters, setChapters] = useState([]);
@@ -28,6 +31,7 @@ const ViewReceipt2 = () => {
   const [receipts, setReceipts] = useState({});
   const [chapter, setChapter] = useState({});
   const [authsign, setSign] = useState({});
+  const amountInWords = numWords(receipts.receipt_total_amount);
 
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("id");
@@ -108,18 +112,20 @@ const ViewReceipt2 = () => {
 
   return (
     <Layout>
+   
       <div>
         {/* Title */}
         <div className="flex mb-4 mt-6">
-          <Link to="/chapters">
+          <Link to="/receipts">
             <MdKeyboardBackspace className=" text-white bg-[#464D69] p-1 w-10 h-8 cursor-pointer rounded-2xl" />
           </Link>
           <h1 className="text-2xl text-[#464D69] font-semibold ml-2 content-center">
             Receipt
           </h1>
         </div>
+        <ViewReceipt1/>
         <div className=" flex justify-center">
-          <div className="p-6 mt-5 bg-white shadow-md rounded-lg w-[70%]">
+          <div className="p-6 mt-5 bg-white shadow-md rounded-lg md:w-[70%]">
             {/* <div 
                 style={{
                   display:
@@ -154,7 +160,7 @@ const ViewReceipt2 = () => {
                   fontSize: "21px",
                 }}
               >
-                <div className="text-[#464D69]">
+                <div className="text-[#464D69] md:text-xl text-sm">
                   <label className="!my-4">
                     Date: {moment(receipts.receipt_date).format("DD-MM-YYYY")}
                   </label>
@@ -270,8 +276,8 @@ const ViewReceipt2 = () => {
                   </label>
 
                   {receipts.receipt_donation_type === "One Teacher School" && (
-                    <div className="mt-3">
-                      <label className="block my-2 text-center">
+                    <div className="mt-3 ">
+                      <label className="block my-2 text-center font-semibold">
                         Sub: Adoption of One Teacher School
                       </label>
                       <label className="block my-2 text-justify leading-snug">
@@ -353,6 +359,7 @@ const ViewReceipt2 = () => {
             </div>
           </div>
         </div>
+        <ViewReceipt3/>
       </div>
     </Layout>
   );

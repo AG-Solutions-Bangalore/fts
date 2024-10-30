@@ -142,7 +142,7 @@ const App = () => {
           element={<ProtectedRoute element={<ViewReceipt2 />} />}
         />
         <Route
-          path="/create-receipts"
+          path="/create-receipts/:id"
           element={<ProtectedRoute element={<CreateReceipt />} />}
         />
         <Route

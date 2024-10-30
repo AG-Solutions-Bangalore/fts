@@ -29,11 +29,13 @@ const StatesList = () => {
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
+    e.preventDefault()
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (e) => {
+    e.preventDefault()
     setOpen(false);
   };
 
@@ -41,7 +43,8 @@ const StatesList = () => {
     setOpen1(true);
   };
 
-  const handleClose1 = () => {
+  const handleClose1 = (e) => {
+    e.preventDefault()
     setOpen1(false);
   };
 

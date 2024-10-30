@@ -13,13 +13,15 @@ import BASE_URL from "../../../base/BaseUrl";
 const ExpensiveTypeList = () => {
   const navigate = useNavigate();
 
- 
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [student, setStudent] = useState({});
 
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState({
     ots_exp_type: "",
+  });
+  const [user1, setUser1] = useState({
+    ots_exp_type1: "",
   });
 
   const [selected_user_id, setSelectedUserId] = useState("");
@@ -31,7 +33,8 @@ const ExpensiveTypeList = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (e) => {
+    e.preventDefault();
     setOpen(false);
   };
 
@@ -39,7 +42,8 @@ const ExpensiveTypeList = () => {
     setOpen1(true);
   };
 
-  const handleClose1 = () => {
+  const handleClose1 = (e) => {
+    e.preventDefault();
     setOpen1(false);
   };
 
@@ -57,11 +61,16 @@ const ExpensiveTypeList = () => {
 
   const onUserInputChange = (e) => {
     setUser({
-       ...user,
+      ...user,
       [e.target.name]: e.target.value,
     });
- 
-};
+  };
+  const onUserInputChange1 = (e) => {
+    setUser1({
+      ...user1,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const createUser = async (e) => {
     e.preventDefault();
@@ -72,7 +81,7 @@ const ExpensiveTypeList = () => {
     }
     setIsButtonDisabled(true);
     const formData = {
-        ots_exp_type: user.ots_exp_type,
+      ots_exp_type: user.ots_exp_type,
     };
     try {
       const response = await axios.post(
@@ -115,7 +124,7 @@ const ExpensiveTypeList = () => {
 
     setIsButtonDisabled(true);
     const formData = {
-        ots_exp_type: user.ots_exp_type,
+      ots_exp_type: user1.ots_exp_type1,
     };
     try {
       const response = await axios.put(
@@ -157,7 +166,7 @@ const ExpensiveTypeList = () => {
               onClick={handleClickOpen}
               className="btn btn-primary text-center md:text-right text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md"
             >
-             Create A New Expensive Type
+              Create A New Expensive Type
             </button>
           </div>
         </div>
@@ -184,23 +193,22 @@ const ExpensiveTypeList = () => {
                       <td class="py-3 px-12 text-center">
                         <span> {dataSumm.ots_exp_type}</span>
                       </td>
-                        <td class="py-3 px-12 text-center">
-                          <button
-                            onClick={() => {
-                                setUser({
-                                    ...user,
-                                    ots_exp_type: dataSumm.ots_exp_type,
-                                });
-                                setSelectedUserId(dataSumm.id);
-                                handleClickOpen1();
-                              }}
-                            // onClick={handleClickOpen1}
-                            className="btn btn-primary text-center md:text-right text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md"
-                          >
-                            Edit
-                          </button>
-                        </td>
-                     
+                      <td class="py-3 px-12 text-center">
+                        <button
+                          onClick={() => {
+                            setUser1({
+                              ...user1,
+                              ots_exp_type1: dataSumm.ots_exp_type,
+                            });
+                            setSelectedUserId(dataSumm.id);
+                            handleClickOpen1();
+                          }}
+                          // onClick={handleClickOpen1}
+                          className="btn btn-primary text-center md:text-right text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md"
+                        >
+                          Edit
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 ))}
@@ -217,7 +225,7 @@ const ExpensiveTypeList = () => {
                 <CardContent>
                   <div className="flex justify-between items-center mb-2">
                     <h1 className="text-slate-800 text-xl font-semibold">
-                    Create States
+                      Create States
                     </h1>
                     <div className="flex">
                       <Tooltip title="Close">
@@ -241,8 +249,8 @@ const ExpensiveTypeList = () => {
                           type="textField"
                           autoComplete="Name"
                           name="ots_exp_type"
-                     value={user.ots_exp_type}
-                     onChange={(e) => onUserInputChange(e)}
+                          value={user.ots_exp_type}
+                          onChange={(e) => onUserInputChange(e)}
                         />
                       </div>
                     </div>
@@ -287,7 +295,7 @@ const ExpensiveTypeList = () => {
                   </div>
 
                   <div className="mt-2">
-                  <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
+                    <div className="grid grid-cols-1 md:grid-cols-1 gap-6 mb-2">
                       <div className="form-group ">
                         <Fields
                           required={true}
@@ -296,8 +304,8 @@ const ExpensiveTypeList = () => {
                           type="textField"
                           autoComplete="Name"
                           name="ots_exp_type"
-                          value={user.ots_exp_type}
-                          onChange={(e) => onUserInputChange(e)}
+                          value={user1.ots_exp_type1}
+                          onChange={(e) => onUserInputChange1(e)}
                         />
                       </div>
                     </div>
