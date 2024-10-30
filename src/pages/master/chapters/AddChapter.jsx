@@ -68,7 +68,7 @@ const AddChapter = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/fetch-states'`, {
+      .get(`${BASE_URL}/api/fetch-states`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -140,7 +140,7 @@ const AddChapter = () => {
             <MdKeyboardBackspace className=" text-white bg-[#464D69] p-1 w-10 h-8 cursor-pointer rounded-2xl" />
           </Link>
           <h1 className="text-2xl text-[#464D69] font-semibold ml-2 content-center">
-            Create Brand
+          Add Chapter
           </h1>
         </div>
         <div className="p-6 mt-5 bg-white shadow-md rounded-lg">

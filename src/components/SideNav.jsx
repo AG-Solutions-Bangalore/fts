@@ -78,18 +78,18 @@ const SideNav = ({
   setIsCollapsed,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [openSubMenu, setOpenSubMenu] = useState(false); // For handling sub-menu open/close state
-  const [openSubMenu1, setOpenSubMenu1] = useState(false); // For handling sub-menu open/close state
-  const [openSubMenu2, setOpenSubMenu2] = useState(false); // For handling sub-menu open/close state
-  const [openSubMenu3, setOpenSubMenu3] = useState(false); // For handling sub-menu open/close state
-  const [openSubMenu4, setOpenSubMenu4] = useState(false); // For handling sub-menu open/close state
-  const [openSubMenu5, setOpenSubMenu5] = useState(false); // For handling sub-menu open/close state
+  const [openSubMenu, setOpenSubMenu] = useState(false); 
+  const [openSubMenu1, setOpenSubMenu1] = useState(false); 
+  const [openSubMenu2, setOpenSubMenu2] = useState(false); 
+  const [openSubMenu3, setOpenSubMenu3] = useState(false); 
+  const [openSubMenu4, setOpenSubMenu4] = useState(false); 
+  const [openSubMenu5, setOpenSubMenu5] = useState(false); 
 
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery("(max-width:600px)");
-  const isMediumScreen = useMediaQuery(
-    "(min-width:600px) and (max-width:960px)"
-  );
+  const isSmallScreen = useMediaQuery("(max-width:800px)");
+  // const isMediumScreen = useMediaQuery(
+  //   "(min-width:600px)"
+  // );
 
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
@@ -102,22 +102,22 @@ const SideNav = ({
   };
 
   const handleToggleSubMenu = () => {
-    setOpenSubMenu((prev) => !prev); // Toggles sub-menu open state
+    setOpenSubMenu((prev) => !prev); 
   };
   const handleToggleSubMenu1 = () => {
-    setOpenSubMenu1((prev) => !prev); // Toggles sub-menu open state
+    setOpenSubMenu1((prev) => !prev); 
   };
   const handleToggleSubMenu2 = () => {
-    setOpenSubMenu2((prev) => !prev); // Toggles sub-menu open state
+    setOpenSubMenu2((prev) => !prev); 
   };
   const handleToggleSubMenu3 = () => {
-    setOpenSubMenu3((prev) => !prev); // Toggles sub-menu open state
+    setOpenSubMenu3((prev) => !prev); 
   };
   const handleToggleSubMenu4 = () => {
-    setOpenSubMenu4((prev) => !prev); // Toggles sub-menu open state
+    setOpenSubMenu4((prev) => !prev); 
   };
   const handleToggleSubMenu5 = () => {
-    setOpenSubMenu5((prev) => !prev); // Toggles sub-menu open state
+    setOpenSubMenu5((prev) => !prev); 
   };
 
   return (
@@ -264,7 +264,7 @@ const SideNav = ({
               isSelected={selectedIndex === 28}
               onClick={() => handleListItemClick(28)}
               component={NavLink}
-              to="/donor-view"
+              to="/viewer-list"
               isCollapsed={isCollapsed}
               primary="Viewers"
             ></CustomListItem>
@@ -272,7 +272,7 @@ const SideNav = ({
               isSelected={selectedIndex === 29}
               onClick={() => handleListItemClick(29)}
               component={NavLink}
-              to="/expensive-type"
+              to="/duplicate-list"
               isCollapsed={isCollapsed}
               primary="Duplicate"
             ></CustomListItem>

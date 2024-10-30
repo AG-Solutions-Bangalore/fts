@@ -184,7 +184,7 @@ const StatesList = () => {
               <div className="flex justify-between mb-2">
                 <h1 className="text-xl font-bold"> States</h1>
               </div>
-              <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
+              <table className=" bg-white border border-gray-200 w-full shadow-md rounded-lg overflow-auto">
                 <thead>
                   <tr class="bg-gray-100 text-gray-600 uppercase text-sm leading-normal">
                     <th class="py-3 text-center">Sl No</th>

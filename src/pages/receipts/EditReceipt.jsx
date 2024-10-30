@@ -383,11 +383,6 @@ const EditReceipt = () => {
                       : pay_mode
                   }
                 />
-                <div>
-                  <span className="text-gray-500 text-sm">
-                    Please select your Transaction Type
-                  </span>
-                </div>
               </div>
               <div className="form-group ">
                 {/* <Fields
@@ -419,11 +414,7 @@ const EditReceipt = () => {
                   }
                 />
                 
-                <div>
-                  <span className="text-gray-500 text-sm">
-                    Please select your Donation Type
-                  </span>
-                </div>
+                
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">

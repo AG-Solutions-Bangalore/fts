@@ -88,7 +88,7 @@ const Home = () => {
     } catch (error) {
       console.error("Error fetching notices:", error);
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 
@@ -228,7 +228,7 @@ const Home = () => {
         </div>
         <div className="md:grid md:grid-cols-3 grid-cols-1 mt-5 gap-3">
           {fullCloseCategory && (
-            <div className="col-span-2 h-[200px]">
+            <div className="col-span-2 md:h-[200px]">
               <div className=" bg-white p-4 rounded-sm border-b-2">
                 <div className="flex justify-between">
                   <div className="content-center">
