@@ -135,44 +135,45 @@ function FullListView() {
 
             <div className="flex flex-col md:col-span-3">
               <Card className="mb-2">
-                <div className="p-5 text-xl">
-                  <h3>Contact Info</h3>
+                <div className="p-5 text-md">
+                  <h3 className=" text-lg">Contact Info</h3>
                   <hr></hr>
 
                   <div className="my-2 ">
-                    <strong className="text-blue-500 flex p-2 text-sm sm:text-xs md:text-lg">
-                      Samiti Pramukh - {school.vidyalaya_samity_pramukh}
-                    </strong>
+                    <span className="text-blue-500">
+                      Samiti Pramukh - {school.vidyalaya_samity_pramukh}{" "}
+                    </span>
                   </div>
+
                   <div className="my-2 ">
-                    <strong className="text-blue-500 flex p-2 text-sm sm:text-xs md:text-lg">
+                    <span className="text-blue-500">
                       VCF - {school.vcf_name} - ( {school.vcf_phone} ){" "}
-                    </strong>
+                    </span>
                   </div>
                   <div className="my-2 ">
-                    <strong className="text-blue-500 flex p-2 text-sm sm:text-xs md:text-lg">
+                    <span className="text-blue-500">
                       SCF - {school.scf_name} - ( {school.scf_phone} ){" "}
-                    </strong>
+                    </span>
                   </div>
                 </div>
               </Card>
               <Card className="mb-2">
-                <div className="p-5 text-xl">
+                <div className="p-5 text-lg">
                   <h3>Adoption Details</h3>
                   <hr className="my-2 border-gray-300" />
 
                   {schooladoption.length > 0 ? (
-                    <table className="w-full text-left border-collapse mt-4">
+                    <table className="w-full  border-collapse mt-4">
                       <thead>
                         <tr className="bg-gray-100">
                           <th className="p-3 border-b-2 border-gray-200">
-                            FTS
+                            <p className="text-sm">FTS</p>
                           </th>
                           <th className="p-3 border-b-2 border-gray-200">
-                            Name
+                            <p className="text-sm">Name</p>
                           </th>
                           <th className="p-3 border-b-2 border-gray-200">
-                            Year
+                            <p className="text-sm">Year</p>
                           </th>
                         </tr>
                       </thead>
@@ -180,13 +181,22 @@ function FullListView() {
                         {schooladoption.map((adoption, key) => (
                           <tr key={key} className="hover:bg-gray-50">
                             <td className="p-3 border-b border-gray-200">
-                              {adoption.individual_company.indicomp_fts_id}
+                              <p className="text-sm">
+                                {" "}
+                                {adoption.individual_company.indicomp_fts_id}
+                              </p>
                             </td>
                             <td className="p-3 border-b border-gray-200">
-                              {adoption.individual_company.indicomp_full_name}
+                              <p className="text-sm">
+                                {" "}
+                                {adoption.individual_company.indicomp_full_name}
+                              </p>
                             </td>
                             <td className="p-3 border-b border-gray-200">
-                              {adoption.schoolalot_financial_year}
+                              <p className="text-sm">
+                                {" "}
+                                {adoption.schoolalot_financial_year}
+                              </p>
                             </td>
                           </tr>
                         ))}

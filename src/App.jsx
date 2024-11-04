@@ -74,6 +74,13 @@ import FullListView from "./pages/Students/FullList/FullListView";
 import DonorDetails from "./pages/Students/SchoolToAllot/DonorDetails";
 import SchoolAllot from "./pages/Students/SchoolAllot/SchoolAllot";
 import SchoolAllotEdit from "./pages/Students/SchoolAllot/SchoolAllotEdit";
+import SchoolAllotView from "./pages/Students/SchoolAllot/SchoolAllotView";
+import SchoolAllotLetter from "./pages/Students/SchoolAllot/SchoolAllotLetter";
+import AllotedList from "./pages/Students/RepeatDonors/AllotedList";
+import DuplicateDonorList from "./pages/donor/Duplicate/DuplicateDonorList";
+import EditDuplicate from "./pages/donor/Duplicate/EditDuplicate";
+import ManualGuideBook from "./pages/ManualGuideBook/ManualGuideBook";
+import SchoolSumaryView from "./pages/Reports/SchoolSummary.jsx/SchoolSumaryView";
 //NEW CODE HER AFTER BY MOORTHY
 
 const App = () => {
@@ -165,6 +172,7 @@ const App = () => {
         <Route path="/report/donorgroup-view" element={<DonorGroupView />} />
         <Route path="/report/donation" element={<DonationSummary />} />
         <Route path="/report/school" element={<SchoolSummary />} />
+        <Route path="/report/schoolview" element={<SchoolSumaryView />} />
         <Route path="/report/otg" element={<RecepitDocument />} />
         <Route path="/report/payment" element={<PaymentSummary />} />
         {/* //DOWNOLd// */}
@@ -201,7 +209,20 @@ const App = () => {
         <Route path="/students-addschoolalot" element={<DonorDetails />} />
         <Route path="/students-schoolallot" element={<SchoolAllot />} />
         <Route path="/students-allotedit" element={<SchoolAllotEdit />} />
-
+        <Route path="/students-allotview" element={<SchoolAllotView />} />
+        <Route path="/students-allotletter" element={<SchoolAllotLetter />} />
+        <Route
+          path="/students/report-donor-allotlist"
+          element={<AllotedList />}
+        />
+        {/* //MOORTHY DONOR// */}
+        <Route path="/donor/duplicate-list" element={<DuplicateDonorList />} />
+        <Route
+          path="/donor/duplicate-list/edit/:id"
+          element={<EditDuplicate />}
+        />
+        {/* //MANUALGUUIDE BOOK */}
+        <Route path="/manualguide/book" element={<ManualGuideBook />} />
         {/* Donor  */}
         <Route path="/donor-list" element={<DonorList />} />
         <Route path="/add-indivisual/:id" element={<AddIndivisual />} />

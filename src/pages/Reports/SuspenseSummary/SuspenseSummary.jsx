@@ -2,13 +2,15 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import PageTitleBar from "../../../components/common/PageTitle";
 import BASE_URL from "../../../base/BaseUrl";
-import { Spinner } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import Layout from "../../../layout/Layout";
 import Moment from "moment";
 import image1 from "../../../assets/receipt/fts.png";
 import image2 from "../../../assets/receipt/top.png";
 import image3 from "../../../assets/receipt/ekal.png";
 import { FaArrowLeft } from "react-icons/fa6";
+import { IoIosPrint } from "react-icons/io";
+import { LuDownload } from "react-icons/lu";
 
 const SuspenseSummary = (props) => {
   const componentRef = useRef();
@@ -38,7 +40,32 @@ const SuspenseSummary = (props) => {
 
     fetchData();
   }, []);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    let data = {};
 
+    axios({
+      url: BASE_URL + "/api/download-receipt-suspense-summary",
+      method: "POST",
+      data,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        console.log("data : ", res.data);
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "receipt_suspense_count.csv");
+        document.body.appendChild(link);
+        link.click();
+        toast.success("Suspense Count is Downloaded Successfully");
+      })
+      .catch((err) => {
+        toast.error("Suspense Count is Not Downloaded");
+      });
+  };
   return (
     <Layout>
       {loader && (
@@ -60,6 +87,33 @@ const SuspenseSummary = (props) => {
           <div className="flex flex-col items-center">
             <div className="w-full mx-auto ">
               <div className="bg-white shadow-md rounded-lg p-6 overflow-x-auto  grid sm:grid-cols-1 1fr">
+                <div className="flex items-center space-y-4 self-end md:flex-row md:justify-end md:space-y-0 md:space-x-4">
+                  <Button
+                    variant="text"
+                    className="flex items-center space-x-2"
+                  >
+                    <LuDownload className="text-lg" />
+                    <span>PDF</span>
+                  </Button>
+
+                  <Button
+                    variant="text"
+                    className="flex items-center space-x-2"
+                    onClick={onSubmit}
+                  >
+                    <LuDownload className="text-lg" />
+                    <span>Download</span>
+                  </Button>
+
+                  <Button
+                    variant="text"
+                    className="flex items-center space-x-2"
+                  >
+                    <IoIosPrint className="text-lg" />
+                    <span>Print Letter</span>
+                  </Button>
+                </div>
+                <hr className="mb-6"></hr>
                 <div className="flex justify-between items-center mb-4 ">
                   <div className="invoice-logo">
                     <img

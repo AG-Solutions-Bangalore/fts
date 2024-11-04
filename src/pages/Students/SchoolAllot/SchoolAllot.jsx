@@ -140,6 +140,17 @@ const SchoolAllot = () => {
             localStorage.setItem("sclaltid", newValue);
             localStorage.setItem("sclaltyear", newYear);
           };
+
+          const handleview = () => {
+            navigate("/students-allotview");
+            localStorage.setItem("sclaltid", newValue);
+          };
+
+          const handleletter = () => {
+            navigate("/students-allotletter");
+            localStorage.setItem("sclaltid", newValue);
+          };
+
           return (
             <div>
               <div onClick={handleedit}>
@@ -154,29 +165,30 @@ const SchoolAllot = () => {
                   />{" "}
                 </Link>
               </div>
-
-              <Link
-                style={{
-                  display: localStorage.getItem("id") == 1 ? "" : "none",
-                }}
-                // to={"view?id=" + newValue}
-              >
-                <IoEyeOutline
-                  title="view"
-                  className="h-5 w-5 cursor-pointer text-blue-500"
-                />{" "}
-              </Link>
-              <Link
-                style={{
-                  display: localStorage.getItem("id") == 1 ? "" : "none",
-                }}
-                // to={"edit?id=" + newValue + "&year=" + newYear}
-              >
-                <MdConfirmationNumber
-                  title="Allotment"
-                  className="h-5 w-5 cursor-pointer text-blue-500"
-                />
-              </Link>
+              <div onClick={handleview}>
+                <Link
+                  style={{
+                    display: localStorage.getItem("id") == 1 ? "" : "none",
+                  }}
+                >
+                  <IoEyeOutline
+                    title="view"
+                    className="h-5 w-5 cursor-pointer text-blue-500"
+                  />{" "}
+                </Link>
+              </div>
+              <div onClick={handleletter}>
+                <Link
+                  style={{
+                    display: localStorage.getItem("id") == 1 ? "" : "none",
+                  }}
+                >
+                  <MdConfirmationNumber
+                    title="Allotment"
+                    className="h-5 w-5 cursor-pointer text-blue-500"
+                  />
+                </Link>
+              </div>
             </div>
           );
         },

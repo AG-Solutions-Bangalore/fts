@@ -8,6 +8,7 @@ import moment from "moment";
 import BASE_URL from "../../../base/BaseUrl";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Fields from "../../../common/TextField/TextField";
 
 const SchoolSummary = () => {
   const navigate = useNavigate();
@@ -15,24 +16,23 @@ const SchoolSummary = () => {
   const [downloadDonor, setDonorDownload] = useState({
     indicomp_full_name: "",
   });
-  const onInputChange = (name, value) => {
-    setDonorDownload({
-      ...downloadDonor,
+  const onInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setDonorDownload((prevState) => ({
+      ...prevState,
       [name]: value,
-    });
+    }));
   };
+  console.log(downloadDonor.indicomp_full_name, "values");
   //VIEW
   const onReportView = (e) => {
     e.preventDefault();
     var v = document.getElementById("dowRecp").checkValidity();
     var v = document.getElementById("dowRecp").reportValidity();
     if (v) {
-      localStorage.setItem(
-        "receipt_from_date",
-        downloadDonor.receipt_from_date
-      );
-      localStorage.setItem("receipt_to_date", downloadDonor.receipt_to_date);
-      navigate("/d-summary-view");
+      localStorage.setItem("schl_sum_viw", downloadDonor.indicomp_full_name);
+      navigate("/report/schoolview");
     }
   };
 
@@ -73,7 +73,7 @@ const SchoolSummary = () => {
           const url = window.URL.createObjectURL(new Blob([res.data]));
           const link = document.createElement("a");
           link.href = url;
-          link.setAttribute("download", "school_summary.csv"); //or any other extension
+          link.setAttribute("download", "school_summary.csv");
           document.body.appendChild(link);
           link.click();
           toast.success("School Summary is Downloaded Successfully");
@@ -94,16 +94,13 @@ const SchoolSummary = () => {
         <form id="dowRecp" autoComplete="off">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             <div className="w-full">
-              <Dropdown
-                label="Donor "
-                className="required"
-                value={downloadDonor.indicomp_full_name}
-                options={individual.map((item) => ({
-                  value: item.indicomp_promoter,
-                  label: item.indicomp_promoter,
-                }))}
+              <Fields
+                title="Donor"
+                type="SchoolDropdown"
                 name="indicomp_full_name"
-                onChange={(value) => onInputChange("indicomp_full_name", value)}
+                value={downloadDonor.indicomp_full_name}
+                onChange={(e) => onInputChange(e)}
+                options={individual}
               />
             </div>
 

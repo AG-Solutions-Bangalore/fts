@@ -22,6 +22,8 @@ import { FaShareAlt, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { IoMdCopy } from "react-icons/io";
 import Logout from "./Logout";
+import { FaCircleInfo } from "react-icons/fa6";
+import { CiCircleInfo } from "react-icons/ci";
 
 const HoverIconButton = styled(IconButton)({
   color: "white",
@@ -126,7 +128,9 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
       toast.info("Referral link copied to clipboard!");
     });
   };
-
+  const handlemanual = () => {
+    navigate("/manualguide/book");
+  };
   return (
     <AppBar
       position="fixed"
@@ -180,6 +184,14 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                   <MenuIcon />
                 </HoverIconButton>
               </Box>
+              <div
+                className="border-2 border-gray-400 hover:border-blue-500 p-2 transition-colors rounded"
+                onClick={handlemanual}
+              >
+                <CiCircleInfo className="text-gray-800 hover:text-blue-500" />
+                <span className="hidden hover:block text-black">Help</span>
+              </div>
+
               <Box className="flex justify-end">
                 <Button
                   id="basic-button"
@@ -238,6 +250,14 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                   <MenuIcon />
                 </HoverIconButton>
               </Box>
+              <div
+                className="border-2 border-gray-400 hover:border-blue-500 p-2 transition-colors rounded"
+                onClick={handlemanual}
+              >
+                <CiCircleInfo className="text-gray-800 hover:text-blue-500" />
+                <span className="hidden hover:block text-black">Help</span>
+              </div>
+
               <Box className="flex justify-end">
                 <Button
                   id="basic-button"

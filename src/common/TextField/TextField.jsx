@@ -24,7 +24,6 @@ const Fields = (props) => {
   //   }
   // };
 
-
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedValue, setSelectedValue] = useState(props.value || "");
 
@@ -45,7 +44,7 @@ const Fields = (props) => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'custom-dropdown-popover' : undefined;
+  const id = open ? "custom-dropdown-popover" : undefined;
   return (
     <>
       {props.type === "newwhatsappDropdown" && (
@@ -61,7 +60,9 @@ const Fields = (props) => {
             value={props.value}
             exclusive
             onChange={(event, newAlignment) => {
-              props.onChange({ target: { name: props.name, value: newAlignment } });
+              props.onChange({
+                target: { name: props.name, value: newAlignment },
+              });
             }}
             aria-label="text alignment"
             sx={{
@@ -77,15 +78,16 @@ const Fields = (props) => {
                 sx={{
                   fontSize: "13px",
                   color: props.value === data.value ? "white" : "inherit",
-                  backgroundColor: props.value === data.value ? "#1C64F2" : "#1c64f24d",
+                  backgroundColor:
+                    props.value === data.value ? "#1C64F2" : "#1c64f24d",
                   "&:hover": {
-                    backgroundColor: "#1c64f24d", 
+                    backgroundColor: "#1c64f24d",
                   },
                   "&.Mui-selected": {
-                    backgroundColor: "#1C64F2", 
+                    backgroundColor: "#1C64F2",
                     color: "white",
                     "&:hover": {
-                      backgroundColor: "#1654C0", 
+                      backgroundColor: "#1654C0",
                     },
                   },
                 }}
@@ -106,10 +108,12 @@ const Fields = (props) => {
           </InputLabel>
 
           <ToggleButtonGroup
-             value={props.value}
+            value={props.value}
             exclusive
             onChange={(event, newAlignment) => {
-              props.onChange({ target: { name: props.name, value: newAlignment } });
+              props.onChange({
+                target: { name: props.name, value: newAlignment },
+              });
             }}
             aria-label="text alignment"
             sx={{
@@ -125,15 +129,16 @@ const Fields = (props) => {
                 sx={{
                   fontSize: "13px",
                   color: props.value === data.value ? "white" : "inherit",
-                  backgroundColor: props.value === data.value ? "#1C64F2" : "#1c64f24d",
+                  backgroundColor:
+                    props.value === data.value ? "#1C64F2" : "#1c64f24d",
                   "&:hover": {
-                    backgroundColor: "#1c64f24d", 
+                    backgroundColor: "#1c64f24d",
                   },
                   "&.Mui-selected": {
-                    backgroundColor: "#1C64F2", 
+                    backgroundColor: "#1C64F2",
                     color: "white",
                     "&:hover": {
-                      backgroundColor: "#1654C0", 
+                      backgroundColor: "#1654C0",
                     },
                   },
                 }}
@@ -404,6 +409,34 @@ const Fields = (props) => {
               {props.options?.map((data, key) => (
                 <MenuItem key={key} value={data.id}>
                   {data.branch_name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </>
+      )}
+      {props.type === "SchoolDropdown" && (
+        <>
+          <FormControl fullWidth>
+            <InputLabel id="service-select-label">
+              <span className="text-sm relative bottom-[6px]">
+                {props.title} <span className="text-red-700">*</span>
+              </span>
+            </InputLabel>
+            <Select
+              sx={{ height: "40px", borderRadius: "5px" }}
+              labelId="service-select-label"
+              id="service-select"
+              name={props.name}
+              value={props.value}
+              label={props.title}
+              onChange={props.onchange}
+              {...props}
+              required={props.required === true || props.required === "true"}
+            >
+              {props.options?.map((data, key) => (
+                <MenuItem key={key} value={data.id}>
+                  {data.indicomp_full_name}
                 </MenuItem>
               ))}
             </Select>

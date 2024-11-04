@@ -3,7 +3,7 @@ import ReactToPrint from "react-to-print";
 import axios from "axios";
 import PageTitleBar from "../../../components/common/PageTitle";
 import BASE_URL from "../../../base/BaseUrl";
-import { Spinner } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import Layout from "../../../layout/Layout";
 import Moment from "moment";
 import image1 from "../../../assets/receipt/fts.png";
@@ -11,6 +11,9 @@ import image2 from "../../../assets/receipt/top.png";
 import image3 from "../../../assets/receipt/ekal.png";
 import { FaArrowLeft } from "react-icons/fa6";
 import moment from "moment";
+import { IoIosPrint } from "react-icons/io";
+import { LuDownload } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 const DonorGroupView = (props) => {
   const componentRef = useRef();
@@ -54,7 +57,39 @@ const DonorGroupView = (props) => {
 
     fetchData();
   }, []);
+  const onSubmit = (e) => {
+    const receiptFromDate = localStorage.getItem("receipt_from_date_grp");
+    const receiptToDate = localStorage.getItem("receipt_to_date_grp");
+    const indicompFullName = localStorage.getItem("indicomp_full_name_grp");
+    e.preventDefault();
+    let data = {
+      indicomp_fts_id: indicompFullName,
+      receipt_from_date: receiptFromDate,
+      receipt_to_date: receiptToDate,
+    };
 
+    axios({
+      url: BASE_URL + "/api/download-donor-groupsummary",
+      method: "POST",
+      data,
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => {
+        console.log("data : ", res.data);
+        const url = window.URL.createObjectURL(new Blob([res.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "donor_summary.csv");
+        document.body.appendChild(link);
+        link.click();
+        toast.success("Report is Downloaded Successfully");
+      })
+      .catch((err) => {
+        toast.error("Receipt is Not Downloaded");
+      });
+  };
   return (
     <Layout>
       {loader && (
@@ -76,6 +111,33 @@ const DonorGroupView = (props) => {
           <div className="flex flex-col items-center ">
             <div className="w-full mx-auto ">
               <div className="bg-white shadow-md rounded-lg p-6 overflow-x-auto  grid md:grid-cols-1 1fr">
+                <div className="flex items-center space-y-4 self-end md:flex-row md:justify-end md:space-y-0 md:space-x-4">
+                  <Button
+                    variant="text"
+                    className="flex items-center space-x-2"
+                  >
+                    <LuDownload className="text-lg" />
+                    <span>PDF</span>
+                  </Button>
+
+                  <Button
+                    variant="text"
+                    className="flex items-center space-x-2"
+                    onClick={onSubmit}
+                  >
+                    <LuDownload className="text-lg" />
+                    <span>Download</span>
+                  </Button>
+
+                  <Button
+                    variant="text"
+                    className="flex items-center space-x-2"
+                  >
+                    <IoIosPrint className="text-lg" />
+                    <span>Print Letter</span>
+                  </Button>
+                </div>
+                <hr className="mb-6"></hr>
                 <div className="flex justify-between items-center mb-4 ">
                   <div className="invoice-logo">
                     <img
