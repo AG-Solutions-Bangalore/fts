@@ -138,14 +138,12 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
         boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;",
         backgroundColor: "#95a5b4",
         color: "black",
-        boxShadow: "none",
         padding: "6px",
       }}
     >
       <Toolbar>
         <Box
           sx={{
-            display: "flex",
             alignItems: "center",
             flexGrow: 0,
             justifyContent: "flex-start",
