@@ -96,7 +96,7 @@ const EditChapter = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASE_URL}/api/fetch-states'`, {
+      .get(`${BASE_URL}/api/fetch-states`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -308,7 +308,7 @@ const EditChapter = () => {
                   title="Committee Member for Sign"
                   type="whatsappDropdown"
                   autoComplete="Name"
-                  name="chapter_state"
+                  name="auth_sign"
                   value={chapter.auth_sign}
                   onChange={(e) => onInputChange(e)}
                   options={committee_type}

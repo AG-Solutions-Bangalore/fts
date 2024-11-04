@@ -45,6 +45,8 @@ const SignIn = () => {
       if (res.status === 200) {
         const token = res.data.UserInfo?.token;
 
+
+        localStorage.setItem("id", res.data.UserInfo.user.user_type_id);
         localStorage.setItem("id", res.data.UserInfo.user.user_type_id);
         localStorage.setItem("name", res.data.UserInfo.user.first_name);
         localStorage.setItem("username", res.data.UserInfo.user.name);

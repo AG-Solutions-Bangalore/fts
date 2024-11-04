@@ -109,6 +109,10 @@ const AppProvider = ({ children }) => {
           "/receipt-list",
           "/donor-edit",
           "/receipt-view",
+          "/viewer-list",
+          "/add-viewer",
+          "/edit-viewer",
+          "/duplicate-list",
           //students
           "/students-full-list",
           "/students-to-allot",

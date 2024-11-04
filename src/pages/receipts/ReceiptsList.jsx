@@ -3,8 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, CircularProgress, IconButton, Tooltip } from "@mui/material";
 import MUIDataTable from "mui-datatables";
-import EditIcon from "@mui/icons-material/Edit";
-import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import { MdEdit } from "react-icons/md";
 import moment from "moment";
 import Layout from "../../layout/Layout";
 import BASE_URL from "../../base/BaseUrl";
@@ -160,7 +159,7 @@ const ReceiptsList = () => {
                     }}
                   >
                     <Link to={`/edit-receipts/${id}`}>
-                      <EditIcon />
+                      <MdEdit />
                     </Link>
                   </IconButton>
                 </Tooltip>

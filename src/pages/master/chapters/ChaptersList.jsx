@@ -3,11 +3,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, CircularProgress, IconButton, Tooltip } from "@mui/material";
 import MUIDataTable from "mui-datatables";
-import { Visibility } from "@mui/icons-material";
+import { MdRemoveRedEye } from "react-icons/md";
 import Layout from "../../../layout/Layout";
 import BASE_URL from "../../../base/BaseUrl";
-import EditIcon from "@mui/icons-material/Edit";
-import ConfirmationNumberIcon from "@mui/icons-material/ConfirmationNumber";
+import { MdEdit } from "react-icons/md";
+import { MdConfirmationNumber } from "react-icons/md";
 
 const ChaptersList = () => {
   const [chapterList, setChapterList] = useState(null);
@@ -97,7 +97,7 @@ const ChaptersList = () => {
                     }}
                   >
                     <Link to={`/view-chapter/${id}`}>
-                      <Visibility />
+                      <MdRemoveRedEye />
                     </Link>
                   </IconButton>
                 </Tooltip>
@@ -117,7 +117,7 @@ const ChaptersList = () => {
                     }}
                   >
                     <Link to={`/edit-chapter/${id}`}>
-                      <EditIcon />
+                      <MdEdit />
                     </Link>
                   </IconButton>
                 </Tooltip>
@@ -137,7 +137,7 @@ const ChaptersList = () => {
                     }}
                   >
                     <Link to={`/edit-datasource/${id}`}>
-                      <ConfirmationNumberIcon />
+                      <MdConfirmationNumber />
                     </Link>
                   </IconButton>
                 </Tooltip>
