@@ -16,6 +16,8 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
+import { FaArrowLeft } from "react-icons/fa";
+import PageTitle from "../../components/common/PageTitle";
 
 const gender = [
   {
@@ -241,6 +243,8 @@ const AddIndivisual = () => {
     const form = document.getElementById("addIndiv");
     if (!form.checkValidity()) {
       toast.error("Fill all required");
+      setIsButtonDisabled(false);
+
       return;
     }
 
@@ -258,10 +262,15 @@ const AddIndivisual = () => {
       navigate("/donor-list");
     });
   };
+
   return (
     <Layout>
       <div>
-        <h1>Add Indivisual</h1>
+        <PageTitle
+          title="Create Individual Donor"
+          icon={FaArrowLeft}
+          backLink="/donor-list"
+        />{" "}
         <form
           onSubmit={handleSubmit}
           id="addIndiv"
@@ -297,6 +306,7 @@ const AddIndivisual = () => {
               <Input
                 type="text"
                 label="Full Name"
+                required
                 name="indicomp_full_name"
                 value={donor.indicomp_full_name}
                 onChange={(e) => onInputChange(e)}
@@ -364,6 +374,7 @@ const AddIndivisual = () => {
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
+
               <div>
                 <InputMask
                   mask="aaaaa 9999 a"
@@ -434,7 +445,7 @@ const AddIndivisual = () => {
               <FormControl fullWidth>
                 <InputLabel id="service-select-label">
                   <span className="text-sm relative bottom-[6px]">
-                    Belong To <span className="text-red-700">*</span>
+                    Belong To <span className="text-red-700"></span>
                   </span>
                 </InputLabel>
                 <Select
@@ -445,7 +456,6 @@ const AddIndivisual = () => {
                   name="indicomp_belongs_to"
                   value={donor.indicomp_belongs_to}
                   onChange={(e) => onInputChange(e)}
-                  required
                 >
                   {belongs_to.map((option) => (
                     <MenuItem key={option} value={option}>
@@ -458,7 +468,7 @@ const AddIndivisual = () => {
               <FormControl fullWidth>
                 <InputLabel id="service-select-label">
                   <span className="text-sm relative bottom-[6px]">
-                    Source <span className="text-red-700">*</span>
+                    Source <span className="text-red-700"></span>
                   </span>
                 </InputLabel>
                 <Select
@@ -469,7 +479,6 @@ const AddIndivisual = () => {
                   name="indicomp_source"
                   value={donor.indicomp_source}
                   onChange={(e) => onInputChange(e)}
-                  required
                 >
                   {datasource.map((option) => (
                     <MenuItem key={option.id} value={option.data_source_type}>
@@ -481,7 +490,7 @@ const AddIndivisual = () => {
               <FormControl fullWidth>
                 <InputLabel id="service-select-label">
                   <span className="text-sm relative bottom-[6px]">
-                    Donor Type <span className="text-red-700">*</span>
+                    Donor Type <span className="text-red-700"></span>
                   </span>
                 </InputLabel>
                 <Select
@@ -492,7 +501,6 @@ const AddIndivisual = () => {
                   name="indicomp_donor_type"
                   value={donor.indicomp_donor_type}
                   onChange={(e) => onInputChange(e)}
-                  required
                 >
                   {donor_type.map((option) => (
                     <MenuItem key={option} value={option}>
@@ -524,6 +532,7 @@ const AddIndivisual = () => {
                 value={donor.indicomp_mobile_phone}
                 onChange={(e) => onInputChange(e)}
                 maxLength={10}
+                required
               />
 
               <Input
@@ -544,7 +553,7 @@ const AddIndivisual = () => {
               />
 
               <Input
-                type="url"
+                type="text"
                 label="Website"
                 name="indicomp_website"
                 value={donor.indicomp_website}
@@ -665,7 +674,7 @@ const AddIndivisual = () => {
               <FormControl fullWidth>
                 <InputLabel id="service-select-label">
                   <span className="text-sm relative bottom-[6px]">
-                    State <span className="text-red-700">*</span>
+                    State <span className="text-red-700"></span>
                   </span>
                 </InputLabel>
                 <Select
@@ -676,7 +685,6 @@ const AddIndivisual = () => {
                   name="indicomp_off_branch_state"
                   value={donor.indicomp_off_branch_state}
                   onChange={(e) => onInputChange(e)}
-                  required
                 >
                   {states.map((state) => (
                     <MenuItem key={state.id} value={state.state_name}>

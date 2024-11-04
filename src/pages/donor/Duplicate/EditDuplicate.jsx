@@ -142,31 +142,31 @@ const EditDuplicate = () => {
           <CardBody>
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-4">
               <div className="text-gray-700">
-                <strong>FTS Id :</strong>
+                <strong className="mr-1">FTS Id :</strong>
                 {donor.indicomp_fts_id}
               </div>
               <div className="text-gray-700">
-                <strong>Donor Name:</strong>
+                <strong className="mr-1">Donor Name :</strong>
                 {donor.indicomp_full_name}
               </div>
               <div className="text-gray-700">
-                <strong>Type :</strong>
+                <strong className="mr-1">Type :</strong>
                 {donor.indicomp_type}
               </div>
               <div className="text-gray-700">
-                <strong>Donor Type :</strong>
+                <strong className="mr-1">Donor Type :</strong>
                 {donor.indicomp_donor_type}
               </div>
               <div className="text-gray-700">
-                <strong>Contact Name:</strong>
+                <strong className="mr-1">Contact Name :</strong>
                 {donor.indicomp_com_contact_name}
               </div>
               <div className="text-gray-700">
-                <strong>Mobile:</strong>
+                <strong className="mr-1">Mobile :</strong>
                 {donor.indicomp_mobile_phone}
               </div>
               <div className="text-gray-700">
-                <strong>Email:</strong>
+                <strong className="mr-1">Email :</strong>
                 {donor.indicomp_email}
               </div>
             </div>
@@ -185,6 +185,10 @@ const EditDuplicate = () => {
                 onClick={() => setShowDialog(true)}
               />
             </div>
+            <h3>
+              Please Select Donor ( Note : Please select the donor carefully.
+              You can't change or undo this step. )
+            </h3>
 
             <div className="flex justify-center mt-4 space-x-4">
               <Button type="submit" className="bg-blue-400">

@@ -94,7 +94,7 @@ const RepeatDonors = () => {
       name: "Donor Name",
       label: "Donor Name",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -102,7 +102,7 @@ const RepeatDonors = () => {
       name: "Type",
       label: "Type",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -110,7 +110,7 @@ const RepeatDonors = () => {
       name: "Mobile",
       label: "Mobile",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -118,7 +118,7 @@ const RepeatDonors = () => {
       name: "Email",
       label: "Email",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -156,7 +156,8 @@ const RepeatDonors = () => {
   const options = {
     selectableRows: "none",
     elevation: 0,
-
+    filterType: "textField",
+    selectableRows: false,
     responsive: "standard",
     viewColumns: true,
     download: false,
@@ -180,6 +181,7 @@ const RepeatDonors = () => {
           </div>
         ) : (
           <MUIDataTable
+            title="Repeat School To Allot"
             data={schoolToAllot ? schoolToAllot : []}
             columns={columns}
             options={options}

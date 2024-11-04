@@ -65,7 +65,7 @@ const SchoolAllotView = () => {
       name: "#",
       label: "#",
       options: {
-        filter: true,
+        filter: false,
         sort: false,
       },
     },
@@ -128,7 +128,8 @@ const SchoolAllotView = () => {
   ];
 
   const options = {
-    selectableRows: "none",
+    filterType: "textField",
+    selectableRows: false,
     elevation: 0,
     responsive: "standard",
     viewColumns: true,

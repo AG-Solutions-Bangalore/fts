@@ -82,7 +82,7 @@ const FullList = () => {
       name: "#",
       label: "#",
       options: {
-        filter: true,
+        filter: false,
         sort: false,
       },
     },
@@ -153,7 +153,7 @@ const FullList = () => {
     {
       name: "Actions",
       options: {
-        filter: true,
+        filter: false,
         print: false,
         download: false,
 
@@ -176,7 +176,8 @@ const FullList = () => {
   const options = {
     selectableRows: "none",
     elevation: 0,
-
+    filterType: "textField",
+    selectableRows: false,
     responsive: "standard",
     viewColumns: true,
     download: false,

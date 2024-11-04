@@ -24,6 +24,8 @@ import {
 } from "@mui/material";
 import BASE_URL from "../../base/BaseUrl";
 import AddToGroup from "./AddToGroup";
+import PageTitle from "../../components/common/PageTitle";
+import { FaArrowLeft } from "react-icons/fa";
 
 const gender = [
   {
@@ -190,7 +192,7 @@ const DonorEditComp = ({ id }) => {
       setDonor(res.data.individualCompany);
 
       setShowmodal(false);
-      navigate('/donor-list')
+      navigate("/donor-list");
     });
   };
 
@@ -335,612 +337,617 @@ const DonorEditComp = ({ id }) => {
     });
   };
   return (
-    <div className="p-6 bg-white rounded-lg shadow-lg">
-      <h1>Edit {id} Company</h1>
-      <form onSubmit={handleUpdate} id="addIndiv" autoComplete="off">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Personal Details
-          </h1>
-          <hr className="border-gray-300 mb-6" />
+    <>
+      <PageTitle
+        title="Edit Company Donor"
+        icon={FaArrowLeft}
+        backLink="/donor-list"
+      />{" "}
+      <div className="p-6 bg-white rounded-lg shadow-lg">
+        <form onSubmit={handleUpdate} id="addIndiv" autoComplete="off">
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+              Personal Details
+            </h1>
+            <hr className="border-gray-300 mb-6" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            <div>
-              <Input
-                label="Company Name"
-                required
-                color="blue"
-                name="indicomp_full_name"
-                value={donor.indicomp_full_name}
-                onChange={(e) => onInputChange(e)}
-                className="w-full"
-              />
-              <p className="text-xs text-gray-500 mt-1">
-                Please don't add M/s before name
-              </p>
-            </div>
-
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    Type <span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  label="Type"
-                  name="indicomp_type"
-                  value={donor.indicomp_type}
-                  onChange={(e) => onInputChange(e)}
-                  required
-                >
-                  {company_type.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    Title <span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  label="Title"
-                  name="title"
-                  value={donor.title}
-                  onChange={(e) => onInputChange(e)}
-                  required
-                >
-                  {honorific.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-
-            <div>
-              <Input
-                label="Contact Name"
-                required
-                name="indicomp_com_contact_name"
-                value={donor.indicomp_com_contact_name}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <Input
-                label="Designation"
-                name="indicomp_com_contact_designation"
-                value={donor.indicomp_com_contact_designation}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    Gender <span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  label="Gender"
-                  name="indicomp_gender"
-                  value={donor.indicomp_gender}
-                  onChange={(e) => onInputChange(e)}
-                  required
-                >
-                  {gender.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-
-            <div>
-              <Input
-                type="date"
-                label="Annual Day"
-                name="indicomp_dob_annualday"
-                value={donor.indicomp_dob_annualday}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <InputMask
-                mask="aaaaa 9999 a"
-                formatChars={{
-                  9: "[0-9]",
-                  a: "[A-Z]",
-                }}
-                value={donor.indicomp_pan_no}
-                onChange={(e) => onChangePanNumber(e)}
-              >
-                {() => <Input required label="PAN Number" />}
-              </InputMask>
-            </div>
-
-            <div>
-              <Input
-                type="file"
-                label="Upload Logo"
-                disabled
-                name="indicomp_image_logo"
-                value={donor.indicomp_image_logo}
-                onChange={(e) => onInputChange(e)}
-              />
-              <p className="text-xs text-gray-500 mt-1">Upload Company Logo</p>
-            </div>
-
-            <div>
-              <Input
-                label="Remarks"
-                name="indicomp_remarks"
-                value={donor.indicomp_remarks}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    Promoter <span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  label="Promoter"
-                  required
-                  name="indicomp_promoter"
-                  value={donor.indicomp_promoter}
-                  onChange={(e) => onInputChange(e)}
-                >
-                  {promoter.map((option) => (
-                    <MenuItem
-                      key={option.indicomp_promoter}
-                      value={option.indicomp_promoter}
-                    >
-                      {option.indicomp_promoter}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-
-            {donor.indicomp_promoter === "Other" && (
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
               <div>
                 <Input
-                  label="Promoter"
-                  name="indicomp_newpromoter"
-                  value={donor.indicomp_newpromoter}
+                  label="Company Name"
+                  required
+                  color="blue"
+                  name="indicomp_full_name"
+                  value={donor.indicomp_full_name}
+                  onChange={(e) => onInputChange(e)}
+                  className="w-full"
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Please don't add M/s before name
+                </p>
+              </div>
+
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      Type <span className="text-red-700">*</span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="Type"
+                    name="indicomp_type"
+                    value={donor.indicomp_type}
+                    onChange={(e) => onInputChange(e)}
+                    required
+                  >
+                    {company_type.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      Title <span className="text-red-700">*</span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="Title"
+                    name="title"
+                    value={donor.title}
+                    onChange={(e) => onInputChange(e)}
+                    required
+                  >
+                    {honorific.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+
+              <div>
+                <Input
+                  label="Contact Name"
+                  required
+                  name="indicomp_com_contact_name"
+                  value={donor.indicomp_com_contact_name}
                   onChange={(e) => onInputChange(e)}
                 />
               </div>
-            )}
 
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    Belongs To <span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  label="Belongs To"
-                  name="indicomp_belongs_to"
-                  value={donor.indicomp_belongs_to}
+              <div>
+                <Input
+                  label="Designation"
+                  name="indicomp_com_contact_designation"
+                  value={donor.indicomp_com_contact_designation}
                   onChange={(e) => onInputChange(e)}
-                >
-                  {belongs_to.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
+                />
+              </div>
 
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    Source<span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  label="Source"
-                  name="indicomp_source"
-                  value={donor.indicomp_source}
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      Gender <span className="text-red-700">*</span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="Gender"
+                    name="indicomp_gender"
+                    value={donor.indicomp_gender}
+                    onChange={(e) => onInputChange(e)}
+                    required
+                  >
+                    {gender.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+
+              <div>
+                <Input
+                  type="date"
+                  label="Annual Day"
+                  name="indicomp_dob_annualday"
+                  value={donor.indicomp_dob_annualday}
                   onChange={(e) => onInputChange(e)}
-                >
-                  {datasource.map((option) => (
-                    <MenuItem key={option.id} value={option.data_source_type}>
-                      {option.data_source_type}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
+                />
+              </div>
 
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    Donor Type<span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  label="Donor Type"
-                  name="indicomp_donor_type"
-                  value={donor.indicomp_donor_type}
+              <div>
+                <InputMask
+                  mask="aaaaa 9999 a"
+                  formatChars={{
+                    9: "[0-9]",
+                    a: "[A-Z]",
+                  }}
+                  value={donor.indicomp_pan_no}
+                  onChange={(e) => onChangePanNumber(e)}
+                >
+                  {() => <Input required label="PAN Number" />}
+                </InputMask>
+              </div>
+
+              <div>
+                <Input
+                  type="file"
+                  label="Upload Logo"
+                  disabled
+                  name="indicomp_image_logo"
+                  value={donor.indicomp_image_logo}
                   onChange={(e) => onInputChange(e)}
-                >
-                  {donor_type.map((option) => (
-                    <MenuItem key={option} value={option}>
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
+                />
+                <p className="text-xs text-gray-500 mt-1">
+                  Upload Company Logo
+                </p>
+              </div>
 
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    CSR<span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  required
-                  label="CSR"
-                  name="indicomp_csr"
-                  value={donor.indicomp_csr}
+              <div>
+                <Input
+                  label="Remarks"
+                  name="indicomp_remarks"
+                  value={donor.indicomp_remarks}
                   onChange={(e) => onInputChange(e)}
-                >
-                  {csr.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-          </div>
-        </div>
+                />
+              </div>
 
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">
-            Communication Details
-          </h1>
-          <hr className="border-gray-300 mb-6" />
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      Promoter <span className="text-red-700">*</span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="Promoter"
+                    required
+                    name="indicomp_promoter"
+                    value={donor.indicomp_promoter}
+                    onChange={(e) => onInputChange(e)}
+                  >
+                    {promoter.map((option) => (
+                      <MenuItem
+                        key={option.indicomp_promoter}
+                        value={option.indicomp_promoter}
+                      >
+                        {option.indicomp_promoter}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            <div>
-              <Input
-                label="Mobile Phone"
-                required
-                type="text"
-                maxLength={10}
-                name="indicomp_mobile_phone"
-                value={donor.indicomp_mobile_phone}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
+              {donor.indicomp_promoter === "Other" && (
+                <div>
+                  <Input
+                    label="Promoter"
+                    name="indicomp_newpromoter"
+                    value={donor.indicomp_newpromoter}
+                    onChange={(e) => onInputChange(e)}
+                  />
+                </div>
+              )}
 
-            <div>
-              <Input
-                label="WhatsApp"
-                type="text"
-                maxLength={10}
-                name="indicomp_mobile_whatsapp"
-                value={donor.indicomp_mobile_whatsapp}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      Belongs To <span className="text-red-700"></span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="Belongs To"
+                    name="indicomp_belongs_to"
+                    value={donor.indicomp_belongs_to}
+                    onChange={(e) => onInputChange(e)}
+                  >
+                    {belongs_to.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
 
-            <div>
-              <Input
-                label="Email"
-                type="email"
-                name="indicomp_email"
-                value={donor.indicomp_email}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      Source<span className="text-red-700"></span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="Source"
+                    name="indicomp_source"
+                    value={donor.indicomp_source}
+                    onChange={(e) => onInputChange(e)}
+                  >
+                    {datasource.map((option) => (
+                      <MenuItem key={option.id} value={option.data_source_type}>
+                        {option.data_source_type}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
 
-            <div>
-              <Input
-                label="Website"
-                name="indicomp_website"
-                value={donor.indicomp_website}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-          </div>
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      Donor Type<span className="text-red-700"></span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="Donor Type"
+                    name="indicomp_donor_type"
+                    value={donor.indicomp_donor_type}
+                    onChange={(e) => onInputChange(e)}
+                  >
+                    {donor_type.map((option) => (
+                      <MenuItem key={option} value={option}>
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-8 mb-4">
-            Registered Address
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <div>
-              <Input
-                label="House & Street Number"
-                name="indicomp_res_reg_address"
-                value={donor.indicomp_res_reg_address}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <Input
-                label="Area"
-                name="indicomp_res_reg_area"
-                value={donor.indicomp_res_reg_area}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <Input
-                label="Landmark"
-                name="indicomp_res_reg_ladmark"
-                value={donor.indicomp_res_reg_ladmark}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <Input
-                label="City"
-                required
-                name="indicomp_res_reg_city"
-                value={donor.indicomp_res_reg_city}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    State<span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  required
-                  label="State"
-                  name="indicomp_res_reg_state"
-                  value={donor.indicomp_res_reg_state}
-                  onChange={(e) => onInputChange(e)}
-                >
-                  {states.map((state) => (
-                    <MenuItem key={state.id} value={state.state_name}>
-                      {state.state_name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-
-            <div>
-              <Input
-                label="Pincode"
-                required
-                type="text"
-                maxLength={6}
-                name="indicomp_res_reg_pin_code"
-                value={donor.indicomp_res_reg_pin_code}
-                onChange={(e) => onInputChange(e)}
-              />
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      CSR<span className="text-red-700"></span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="CSR"
+                    name="indicomp_csr"
+                    value={donor.indicomp_csr}
+                    onChange={(e) => onInputChange(e)}
+                  >
+                    {csr.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
             </div>
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-800 mt-8 mb-4">
-            Branch Office Address
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <div>
-              <Input
-                label="Office & Street Number"
-                name="indicomp_off_branch_address"
-                value={donor.indicomp_off_branch_address}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
+          <div className="mb-8">
+            <h1 className="text-2xl font-bold text-gray-800 mb-4">
+              Communication Details
+            </h1>
+            <hr className="border-gray-300 mb-6" />
 
-            <div>
-              <Input
-                label="Area"
-                name="indicomp_off_branch_area"
-                value={donor.indicomp_off_branch_area}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <Input
-                label="Landmark"
-                name="indicomp_off_branch_ladmark"
-                value={donor.indicomp_off_branch_ladmark}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <Input
-                label="City"
-                name="indicomp_off_branch_city"
-                value={donor.indicomp_off_branch_city}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
-
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    State<span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+              <div>
+                <Input
+                  label="Mobile Phone"
                   required
-                  label="State"
-                  name="indicomp_off_branch_state"
-                  value={donor.indicomp_off_branch_state}
+                  type="text"
+                  maxLength={10}
+                  name="indicomp_mobile_phone"
+                  value={donor.indicomp_mobile_phone}
                   onChange={(e) => onInputChange(e)}
-                >
-                  {states.map((state) => (
-                    <MenuItem key={state.id} value={state.state_name}>
-                      {state.state_name}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="WhatsApp"
+                  type="text"
+                  maxLength={10}
+                  name="indicomp_mobile_whatsapp"
+                  value={donor.indicomp_mobile_whatsapp}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="Email"
+                  type="email"
+                  name="indicomp_email"
+                  value={donor.indicomp_email}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="Website"
+                  name="indicomp_website"
+                  value={donor.indicomp_website}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
             </div>
 
-            <div>
-              <Input
-                label="Pincode"
-                type="text"
-                maxLength={6}
-                name="indicomp_off_branch_pin_code"
-                value={donor.indicomp_off_branch_pin_code}
-                onChange={(e) => onInputChange(e)}
-              />
-            </div>
+            <h3 className="text-xl font-semibold text-gray-800 mt-8 mb-4">
+              Registered Address
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div>
+                <Input
+                  label="House & Street Number"
+                  name="indicomp_res_reg_address"
+                  value={donor.indicomp_res_reg_address}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
 
-            <div>
-              <FormControl fullWidth>
-                <InputLabel id="service-select-label">
-                  <span className="text-sm relative bottom-[6px]">
-                    Correspondence Preference
-                    <span className="text-red-700">*</span>
-                  </span>
-                </InputLabel>
-                <Select
-                  sx={{ height: "40px", borderRadius: "5px" }}
-                  labelId="service-select-label"
-                  id="service-select"
-                  label="Correspondence Preference"
+              <div>
+                <Input
+                  label="Area"
+                  name="indicomp_res_reg_area"
+                  value={donor.indicomp_res_reg_area}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="Landmark"
+                  name="indicomp_res_reg_ladmark"
+                  value={donor.indicomp_res_reg_ladmark}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="City"
                   required
-                  name="indicomp_corr_preffer"
-                  value={donor.indicomp_corr_preffer}
+                  name="indicomp_res_reg_city"
+                  value={donor.indicomp_res_reg_city}
                   onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      State<span className="text-red-700">*</span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    required
+                    label="State"
+                    name="indicomp_res_reg_state"
+                    value={donor.indicomp_res_reg_state}
+                    onChange={(e) => onInputChange(e)}
+                  >
+                    {states.map((state) => (
+                      <MenuItem key={state.id} value={state.state_name}>
+                        {state.state_name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+
+              <div>
+                <Input
+                  label="Pincode"
+                  required
+                  type="text"
+                  maxLength={6}
+                  name="indicomp_res_reg_pin_code"
+                  value={donor.indicomp_res_reg_pin_code}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mt-8 mb-4">
+              Branch Office Address
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div>
+                <Input
+                  label="Office & Street Number"
+                  name="indicomp_off_branch_address"
+                  value={donor.indicomp_off_branch_address}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="Area"
+                  name="indicomp_off_branch_area"
+                  value={donor.indicomp_off_branch_area}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="Landmark"
+                  name="indicomp_off_branch_ladmark"
+                  value={donor.indicomp_off_branch_ladmark}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <Input
+                  label="City"
+                  name="indicomp_off_branch_city"
+                  value={donor.indicomp_off_branch_city}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      State<span className="text-red-700"></span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="State"
+                    name="indicomp_off_branch_state"
+                    value={donor.indicomp_off_branch_state}
+                    onChange={(e) => onInputChange(e)}
+                  >
+                    {states.map((state) => (
+                      <MenuItem key={state.id} value={state.state_name}>
+                        {state.state_name}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+
+              <div>
+                <Input
+                  label="Pincode"
+                  type="text"
+                  maxLength={6}
+                  name="indicomp_off_branch_pin_code"
+                  value={donor.indicomp_off_branch_pin_code}
+                  onChange={(e) => onInputChange(e)}
+                />
+              </div>
+
+              <div>
+                <FormControl fullWidth>
+                  <InputLabel id="service-select-label">
+                    <span className="text-sm relative bottom-[6px]">
+                      Correspondence Preference
+                      <span className="text-red-700">*</span>
+                    </span>
+                  </InputLabel>
+                  <Select
+                    sx={{ height: "40px", borderRadius: "5px" }}
+                    labelId="service-select-label"
+                    id="service-select"
+                    label="Correspondence Preference"
+                    required
+                    name="indicomp_corr_preffer"
+                    value={donor.indicomp_corr_preffer}
+                    onChange={(e) => onInputChange(e)}
+                  >
+                    {corrpreffer.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.value}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
+
+            <div className="flex gap-4 mt-8">
+              <Button
+                type="submit"
+                color="blue"
+                disabled={isButtonDisabled}
+                className="px-6 py-2"
+              >
+                {isButtonDisabled ? "Updating..." : "Update"}
+              </Button>
+
+              {donor.indicomp_related_id == donor.indicomp_fts_id ? (
+                <Button
+                  onClick={() => openmodal()}
+                  className="bg-green-500 hover:bg-red-700"
                 >
-                  {corrpreffer.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.value}
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+                  Attach to Group
+                </Button>
+              ) : (
+                <Button
+                  disabled
+                  onClick={() => openmodal()}
+                  className="bg-gray-500 hover:bg-yellow-700"
+                >
+                  Attach to Group
+                </Button>
+              )}
+
+              {donor.indicomp_related_id == donor.indicomp_fts_id ? (
+                <Button disabled className="bg-green-500 hover:bg-red-700">
+                  Leave Group
+                </Button>
+              ) : (
+                <Button
+                  className="bg-gray-500 hover:bg-yellow-700"
+                  color="info"
+                  onClick={() => familyGroupStatus("leave_family_group")}
+                >
+                  Leave Group
+                </Button>
+              )}
             </div>
           </div>
-
-          <div className="flex gap-4 mt-8">
+        </form>
+        <Dialog open={showmodal} toggle={() => closegroupModal()}>
+          <DialogHeader> Add to Group</DialogHeader>
+          <DialogBody>
+            <AddToGroup id={donor.id} />
+          </DialogBody>
+          <DialogFooter>
             <Button
-              type="submit"
-              color="blue"
-              disabled={isButtonDisabled}
-              className="px-6 py-2"
+              variant="text"
+              color="red"
+              onClick={() => closegroupModal()}
+              className="mr-1"
             >
-              {isButtonDisabled ? "Updating..." : "Update"}
+              <span>Cancel</span>
             </Button>
-
-            {donor.indicomp_related_id == donor.indicomp_fts_id ? (
-              <Button
-                onClick={() => openmodal()}
-                className="bg-green-500 hover:bg-red-700"
-              >
-                Attach to Group
-              </Button>
-            ) : (
-              <Button
-                disabled
-                onClick={() => openmodal()}
-                className="bg-gray-500 hover:bg-yellow-700"
-              >
-                Attach to Group
-              </Button>
-            )}
-
-            {donor.indicomp_related_id == donor.indicomp_fts_id ? (
-              <Button disabled className="bg-green-500 hover:bg-red-700">
-                Leave Group
-              </Button>
-            ) : (
-              <Button
-                className="bg-gray-500 hover:bg-yellow-700"
-                color="info"
-                onClick={() => familyGroupStatus("leave_family_group")}
-              >
-                Leave Group
-              </Button>
-            )}
-          </div>
-        </div>
-      </form>
-      <Dialog open={showmodal} toggle={() => closegroupModal()}>
-        <DialogHeader> Add to Group</DialogHeader>
-        <DialogBody>
-        
-          <AddToGroup id={donor.id} />
-        </DialogBody>
-        <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={() => closegroupModal()}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
-        </DialogFooter>
-      </Dialog>
-    </div>
+          </DialogFooter>
+        </Dialog>
+      </div>
+    </>
   );
 };
 

@@ -3,7 +3,6 @@ import {
   Drawer,
   List,
   ListItemIcon,
-  ListItemText,
   Typography,
   Box,
   Collapse,
@@ -17,9 +16,8 @@ import {
   MdExpandMore,
   MdDownloading,
 } from "react-icons/md";
-import { FaWallet, FaDownload, FaRegListAlt } from "react-icons/fa";
+import { FaWallet, FaRegListAlt, FaFileAlt, FaStar } from "react-icons/fa";
 import { IoPersonCircle, IoPersonSharp } from "react-icons/io5";
-import Logo from '../assets/receipt/fts1.png'
 
 const CustomListItem = ({
   isSelected,
@@ -80,12 +78,12 @@ const SideNav = ({
   setIsCollapsed,
 }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
-  const [openSubMenu, setOpenSubMenu] = useState(false); 
-  const [openSubMenu1, setOpenSubMenu1] = useState(false); 
-  const [openSubMenu2, setOpenSubMenu2] = useState(false); 
-  const [openSubMenu3, setOpenSubMenu3] = useState(false); 
-  const [openSubMenu4, setOpenSubMenu4] = useState(false); 
-  const [openSubMenu5, setOpenSubMenu5] = useState(false); 
+  const [openSubMenu, setOpenSubMenu] = useState(false);
+  const [openSubMenu1, setOpenSubMenu1] = useState(false);
+  const [openSubMenu2, setOpenSubMenu2] = useState(false);
+  const [openSubMenu3, setOpenSubMenu3] = useState(false);
+  const [openSubMenu4, setOpenSubMenu4] = useState(false);
+  const [openSubMenu5, setOpenSubMenu5] = useState(false);
 
   const theme = useTheme();
   const isSmallScreen = useMediaQuery("(max-width:800px)");
@@ -104,24 +102,24 @@ const SideNav = ({
   };
 
   const handleToggleSubMenu = () => {
-    setOpenSubMenu((prev) => !prev); 
+    setOpenSubMenu((prev) => !prev);
   };
   const handleToggleSubMenu1 = () => {
-    setOpenSubMenu1((prev) => !prev); 
+    setOpenSubMenu1((prev) => !prev);
   };
   const handleToggleSubMenu2 = () => {
-    setOpenSubMenu2((prev) => !prev); 
+    setOpenSubMenu2((prev) => !prev);
   };
   const handleToggleSubMenu3 = () => {
-    setOpenSubMenu3((prev) => !prev); 
+    setOpenSubMenu3((prev) => !prev);
   };
   const handleToggleSubMenu4 = () => {
-    setOpenSubMenu4((prev) => !prev); 
+    setOpenSubMenu4((prev) => !prev);
   };
   const handleToggleSubMenu5 = () => {
-    setOpenSubMenu5((prev) => !prev); 
+    setOpenSubMenu5((prev) => !prev);
   };
-
+  const userTypeId = localStorage.getItem("user_type_id");
   return (
     <Drawer
       variant={isSmallScreen ? "temporary" : "permanent"}
@@ -171,68 +169,73 @@ const SideNav = ({
           </ListItemIcon>
         </CustomListItem>
         {/* Master with sub-menu */}
+        {userTypeId == "3" ? (
+          <>
+            <CustomListItem
+              isCollapsed={isCollapsed}
+              primary="Master"
+              hasSubMenu={true}
+              isOpen={openSubMenu}
+              toggleSubMenu={handleToggleSubMenu}
+            >
+              <ListItemIcon
+                sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
+              >
+                <IoPersonCircle style={{ fontSize: "20px" }} />
+              </ListItemIcon>
+            </CustomListItem>
+
+            <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <CustomListItem
+                  isSelected={selectedIndex === 21}
+                  onClick={() => handleListItemClick(21)}
+                  component={NavLink}
+                  to="/chapters"
+                  isCollapsed={isCollapsed}
+                  primary="Chapters"
+                ></CustomListItem>
+                <CustomListItem
+                  isSelected={selectedIndex === 22}
+                  onClick={() => handleListItemClick(22)}
+                  component={NavLink}
+                  to="/states"
+                  isCollapsed={isCollapsed}
+                  primary="States"
+                ></CustomListItem>
+                <CustomListItem
+                  isSelected={selectedIndex === 23}
+                  onClick={() => handleListItemClick(23)}
+                  component={NavLink}
+                  to="/designation"
+                  isCollapsed={isCollapsed}
+                  primary="Designation"
+                ></CustomListItem>
+                <CustomListItem
+                  isSelected={selectedIndex === 24}
+                  onClick={() => handleListItemClick(24)}
+                  component={NavLink}
+                  to="/expensive-type"
+                  isCollapsed={isCollapsed}
+                  primary="OTS Expensive Type"
+                ></CustomListItem>
+                <CustomListItem
+                  isSelected={selectedIndex === 25}
+                  onClick={() => handleListItemClick(25)}
+                  component={NavLink}
+                  to="/faqList"
+                  isCollapsed={isCollapsed}
+                  primary="FAQ"
+                ></CustomListItem>
+              </List>
+            </Collapse>
+          </>
+        ) : (
+          ""
+        )}
         <CustomListItem
           isCollapsed={isCollapsed}
-          primary="Master"
-          hasSubMenu={true}
-          isOpen={openSubMenu}
-          toggleSubMenu={handleToggleSubMenu}
-        >
-          <ListItemIcon
-            sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
-          >
-            <IoPersonCircle style={{ fontSize: "20px" }} />
-          </ListItemIcon>
-        </CustomListItem>
-        {/* Sub-menu items */}
-        <Collapse in={openSubMenu} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding>
-            <CustomListItem
-              isSelected={selectedIndex === 21}
-              onClick={() => handleListItemClick(21)}
-              component={NavLink}
-              to="/chapters"
-              isCollapsed={isCollapsed}
-              primary="Chapters"
-            ></CustomListItem>
-            <CustomListItem
-              isSelected={selectedIndex === 22}
-              onClick={() => handleListItemClick(22)}
-              component={NavLink}
-              to="/states"
-              isCollapsed={isCollapsed}
-              primary="States"
-            ></CustomListItem>
-            <CustomListItem
-              isSelected={selectedIndex === 23}
-              onClick={() => handleListItemClick(23)}
-              component={NavLink}
-              to="/designation"
-              isCollapsed={isCollapsed}
-              primary="Designation"
-            ></CustomListItem>
-            <CustomListItem
-              isSelected={selectedIndex === 24}
-              onClick={() => handleListItemClick(24)}
-              component={NavLink}
-              to="/expensive-type"
-              isCollapsed={isCollapsed}
-              primary="OTS Expensive Type"
-            ></CustomListItem>
-            <CustomListItem
-              isSelected={selectedIndex === 25}
-              onClick={() => handleListItemClick(25)}
-              component={NavLink}
-              to="/faqList"
-              isCollapsed={isCollapsed}
-              primary="FAQ"
-            ></CustomListItem>
-          </List>
-        </Collapse>
-        {/* Donor with sub-menu */}
-        <CustomListItem
-          isCollapsed={isCollapsed}
-          primary="Donor"
+          primary="Donors"
           hasSubMenu={true}
           isOpen={openSubMenu3}
           toggleSubMenu={handleToggleSubMenu3}
@@ -262,14 +265,18 @@ const SideNav = ({
               isCollapsed={isCollapsed}
               primary="Members"
             ></CustomListItem>
-            <CustomListItem
-              isSelected={selectedIndex === 28}
-              onClick={() => handleListItemClick(28)}
-              component={NavLink}
-              to="/viewer-list"
-              isCollapsed={isCollapsed}
-              primary="Viewers"
-            ></CustomListItem>
+            {userTypeId == "1" ? (
+              ""
+            ) : (
+              <CustomListItem
+                isSelected={selectedIndex === 28}
+                onClick={() => handleListItemClick(28)}
+                component={NavLink}
+                to="/viewer-list"
+                isCollapsed={isCollapsed}
+                primary="Viewers"
+              ></CustomListItem>
+            )}
             <CustomListItem
               isSelected={selectedIndex === 29}
               onClick={() => handleListItemClick(29)}
@@ -297,7 +304,7 @@ const SideNav = ({
         {/* //student */}
         <CustomListItem
           isCollapsed={isCollapsed}
-          primary="School"
+          primary="Schools"
           hasSubMenu={true}
           isOpen={openSubMenu5}
           toggleSubMenu={handleToggleSubMenu5}
@@ -348,7 +355,7 @@ const SideNav = ({
         {/* /////REPORT START */}
         <CustomListItem
           isCollapsed={isCollapsed}
-          primary="Report"
+          primary="Reports"
           hasSubMenu={true}
           isOpen={openSubMenu1}
           toggleSubMenu={handleToggleSubMenu1}
@@ -356,7 +363,7 @@ const SideNav = ({
           <ListItemIcon
             sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
           >
-            <FaRegListAlt style={{ fontSize: "20px" }} />
+            <FaFileAlt style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
         {/* Sub-menu items */}
@@ -410,22 +417,22 @@ const SideNav = ({
               isCollapsed={isCollapsed}
               primary="10BD  Summary "
             ></CustomListItem>
-            <CustomListItem
+            {/* <CustomListItem
               isSelected={selectedIndex === 35}
               onClick={() => handleListItemClick(35)}
               component={NavLink}
               to="/report/suspense"
               isCollapsed={isCollapsed}
               primary="Suspense  Summary "
-            ></CustomListItem>
-            <CustomListItem
+            ></CustomListItem> */}
+            {/* <CustomListItem
               isSelected={selectedIndex === 36}
               onClick={() => handleListItemClick(36)}
               component={NavLink}
               to="/report/payment"
               isCollapsed={isCollapsed}
               primary="Payment  Summary "
-            ></CustomListItem>
+            ></CustomListItem> */}
           </List>
         </Collapse>
         <CustomListItem
@@ -507,7 +514,7 @@ const SideNav = ({
           <ListItemIcon
             sx={{ minWidth: 0, justifyContent: "center", display: "flex" }}
           >
-            <FaWallet style={{ fontSize: "20px" }} />
+            <FaStar style={{ fontSize: "20px" }} />
           </ListItemIcon>
         </CustomListItem>
         {/* Sub-menu items */}
@@ -535,11 +542,12 @@ const SideNav = ({
               component={NavLink}
               to="/others-notification"
               isCollapsed={isCollapsed}
-              primary="Notification"
+              primary="Notices"
             ></CustomListItem>
           </List>
         </Collapse>
       </List>
+      <h1 className="mt-56 p-4">Updated on :</h1>
     </Drawer>
   );
 };

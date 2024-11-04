@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../layout/Layout";
 import BASE_URL from "../../base/BaseUrl";
 import axios from "axios";
@@ -13,7 +13,9 @@ import { NumericFormat } from "react-number-format";
 import moment from "moment";
 import AddNotice from "./AddNotice";
 import { Bar, Doughnut } from "react-chartjs-2";
+import { Button } from "@material-tailwind/react";
 import { Chart, ArcElement, registerables } from "chart.js";
+import { toast } from "react-toastify";
 
 const Home = () => {
   Chart.register(ArcElement, ...registerables);
@@ -32,7 +34,7 @@ const Home = () => {
   const [closeReceipts1, setCloseReceipts1] = useState(true);
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [datanotification, setNotification] = useState([]);
-  console.log(datanotification , "datanotification")
+  console.log(datanotification, "datanotification");
   const [graphData, setGraphData] = useState(null);
   const [graph1, setGraph1] = useState([]);
   const [graph2, setGraph2] = useState([]);
@@ -47,9 +49,6 @@ const Home = () => {
   const openmodalNotice = () => {
     setShowmodalNotice(true);
   };
-
- 
-
 
   useEffect(() => {
     const fetchYearData = async () => {
@@ -83,7 +82,7 @@ const Home = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(response , "response")
+      console.log(response, "response");
       setNotification(response.data.notices || []);
     } catch (error) {
       console.error("Error fetching notices:", error);
@@ -138,14 +137,12 @@ const Home = () => {
     }
   };
 
-
-  useEffect(()=>{
-    console.log("jshdbeforw")
+  useEffect(() => {
+    console.log("jshdbeforw");
     fetchResult();
-    console.log("jshd")
-    fetchNotices()
-
-  },[currentYear])
+    console.log("jshd");
+    fetchNotices();
+  }, [currentYear]);
 
   const handleReload = () => {
     fetchResult();
@@ -185,7 +182,23 @@ const Home = () => {
   useEffect(() => {
     fetchResult();
   }, [currentYear]);
+  const markNoticeAsRead = async (noticeId) => {
+    var theLoginToken = localStorage.getItem("token");
 
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + theLoginToken,
+      },
+    };
+
+    fetch(
+      BASE_URL + "/api/user-mark-a-notice-as-read?notice_id=" + noticeId,
+      requestOptions
+    ).then((response) => response.json());
+    toast.success("Acknowledge Succesfully Updated");
+    fetchNotices();
+  };
   return (
     <Layout>
       <div>
@@ -271,6 +284,29 @@ const Home = () => {
                                   Notice Posted On{" "}
                                   {moment(notice.created_at).format("DD-MM-YY")}
                                 </h3>
+                                <div className="flex items-center text-xs font-light text-gray-500 mt-1">
+                                  {notice.is_read == 0 ? (
+                                    <Button
+                                      color="green"
+                                      size="sm"
+                                      onClick={() => {
+                                        if (
+                                          window.confirm(
+                                            "Are you sure you have read and understood this notice?"
+                                          )
+                                        ) {
+                                          markNoticeAsRead(notice.id);
+                                        }
+                                      }}
+                                    >
+                                      Acknowledge that you have read this notice
+                                    </Button>
+                                  ) : (
+                                    <Button color="blue" size="sm" disabled>
+                                      Acknowledged
+                                    </Button>
+                                  )}
+                                </div>
                                 <hr />
                               </div>
                             ))
@@ -285,14 +321,16 @@ const Home = () => {
               </div>
               {closeCategory && (
                 <div className="flex justify-between bg-white p-4 rounded-sm border-t-2">
-                  <div className="content-center">
-                    <button
-                      onClick={openmodalNotice}
-                      className="btn btn-primary text-center md:text-right text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md"
-                    >
-                      Add A New Notice
-                    </button>
-                  </div>
+                  {userTypeId === "3" && (
+                    <div className="content-center">
+                      <button
+                        onClick={openmodalNotice}
+                        className="btn btn-primary text-center md:text-right text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg shadow-md"
+                      >
+                        Add A New Notice
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -521,7 +559,7 @@ const Home = () => {
             )}
           </div>
         </div>
-          <div className="md:grid md:grid-cols-3 grid-cols-1 mt-5 gap-3 w-full ">
+        <div className="md:grid md:grid-cols-3 grid-cols-1 mt-5 gap-3 w-full ">
           {fullCloseReceipts && (
             <div className="col-span-2 h-[200px] mt-8">
               <div className=" bg-white p-4 rounded-sm border-b-2">
@@ -614,7 +652,7 @@ const Home = () => {
               </div>
             </div>
           )}
-          </div>
+        </div>
         <AddNotice
           open={showmodalNotice}
           onClick={closegroupNoticeModal}

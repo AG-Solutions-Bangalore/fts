@@ -183,7 +183,7 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                 </HoverIconButton>
               </Box>
               <div
-                className="border-2 border-gray-400 hover:border-blue-500 p-2 transition-colors rounded"
+                className="border-2 border-gray-400 hover:border-blue-500 p-2 transition-colors rounded cursor-pointer"
                 onClick={handlemanual}
               >
                 <CiCircleInfo className="text-gray-800 hover:text-blue-500" />
@@ -249,10 +249,10 @@ const DashboardNavbar = ({ handleLeftDrawerToggle }) => {
                 </HoverIconButton>
               </Box>
               <div
-                className="border-2 border-gray-400 hover:border-blue-500 p-2 transition-colors rounded"
+                className="border-2 border-gray-400 hover:border-blue-500 p-2 transition-colors rounded cursor-pointer"
                 onClick={handlemanual}
               >
-                <CiCircleInfo className="text-gray-800 hover:text-blue-500" />
+                <CiCircleInfo className="text-gray-800 hover:text-blue-500 " />
                 <span className="hidden hover:block text-black">Help</span>
               </div>
 

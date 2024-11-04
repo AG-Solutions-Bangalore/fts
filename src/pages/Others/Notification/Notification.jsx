@@ -18,6 +18,7 @@ import {
 } from "@material-tailwind/react";
 import PageTitle from "../../../components/common/PageTitle";
 import Dropdown from "../../../components/common/DropDown";
+import { toast } from "react-toastify";
 
 const Notification = () => {
   const [datanotification, setNotification] = useState([]);
@@ -96,6 +97,8 @@ const Notification = () => {
       );
 
       if (response.status === 200) {
+        toast.success(" Succesfully Updated");
+
         fetchNotices();
         setNewNotice("");
         setNoticeDetail("");
@@ -108,22 +111,22 @@ const Notification = () => {
   };
 
   const markNoticeAsRead = async (noticeId) => {
-    try {
-      await axios.post(
-        `${BASE_URL}/api/user-mark-a-notice-as-read?notice_id`,
-        { noticeId },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      fetchNotices();
-    } catch (error) {
-      console.error("Error marking notice as read:", error);
-    }
-  };
+    var theLoginToken = localStorage.getItem("token");
 
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + theLoginToken,
+      },
+    };
+
+    fetch(
+      BASE_URL + "/api/user-mark-a-notice-as-read?notice_id=" + noticeId,
+      requestOptions
+    ).then((response) => response.json());
+    toast.success("Acknowledge Succesfully Updated");
+    fetchNotices();
+  };
   return (
     <Layout>
       <div>

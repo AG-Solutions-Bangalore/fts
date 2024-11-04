@@ -24,7 +24,7 @@ const DonorDetails = () => {
 
   const year = new URL(window.location.href).searchParams.get("year");
   const fyear = new URL(window.location.href).searchParams.get("fyear");
-
+  console.log(year);
   // Get the first and last date
   const fromdate = schoolalotcurrentfromdate.toString();
   const todate = schoolalotcurrenttodate.toString();
@@ -38,25 +38,6 @@ const DonorDetails = () => {
     rept_fin_year: fyear,
   });
 
-  useEffect(() => {
-    const fetchYearData = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/api/fetch-year`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
-        setSchoolalot((prev) => ({
-          ...prev,
-          schoolalot_financial_year: response.data.year.current_year,
-        }));
-      } catch (error) {
-        console.error("Error fetching year data:", error);
-      }
-    };
-
-    fetchYearData();
-  }, []);
   //get
   const [userdata, setUserdata] = useState("");
 
@@ -132,6 +113,7 @@ const DonorDetails = () => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       toast.success("Data Inserted Successfully");
+      navigate("/students-schoolallot");
     } catch (error) {
       console.error("Error submitting data:", error);
     }

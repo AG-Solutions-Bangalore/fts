@@ -43,7 +43,7 @@ const SchoolToAllot = () => {
             item["individual_company"]["indicomp_email"],
 
             item["schoolalot_year"],
-            item["receipt_no_of_ots"] + [[]],
+            item["receipt_no_of_ots"] + " Schools",
             item["individual_company"]["indicomp_status"] +
               "#" +
               item["individual_company"]["id"] +
@@ -79,7 +79,7 @@ const SchoolToAllot = () => {
       name: "Donor Name",
       label: "Donor Name",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -87,7 +87,7 @@ const SchoolToAllot = () => {
       name: "Type",
       label: "Type",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -95,7 +95,7 @@ const SchoolToAllot = () => {
       name: "Mobile",
       label: "Mobile",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -103,7 +103,7 @@ const SchoolToAllot = () => {
       name: "Email",
       label: "Email",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -111,7 +111,7 @@ const SchoolToAllot = () => {
       name: "Allotment Year",
       label: "Allotment Year",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -119,7 +119,7 @@ const SchoolToAllot = () => {
       name: "OTS Received",
       label: "OTS Received",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -187,7 +187,8 @@ const SchoolToAllot = () => {
   const options = {
     selectableRows: "none",
     elevation: 0,
-
+    filterType: "textField",
+    selectableRows: false,
     responsive: "standard",
     viewColumns: true,
     download: false,
@@ -203,7 +204,7 @@ const SchoolToAllot = () => {
 
   return (
     <Layout>
-      <PageTitle title="School To Allot in" />
+      <PageTitle title="School To Allot" />
       <div className="mt-5">
         {loading ? (
           <div className="flex justify-center items-center h-64">

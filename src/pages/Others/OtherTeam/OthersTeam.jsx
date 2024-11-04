@@ -323,7 +323,6 @@ const OthersTeam = () => {
                           className="text-blue-600 mr-2 cursor-pointer text-2xl"
                           style={{
                             display:
-                              localStorage.getItem("user_type_id") == 2 ||
                               localStorage.getItem("user_type_id") == 3 ||
                               localStorage.getItem("user_type_id") == 4
                                 ? "none"
@@ -339,6 +338,13 @@ const OthersTeam = () => {
                           }}
                         />
                         <MdDelete
+                          style={{
+                            display:
+                              localStorage.getItem("user_type_id") == 2 ||
+                              localStorage.getItem("user_type_id") == 4
+                                ? "none"
+                                : "",
+                          }}
                           className="text-red-600 cursor-pointer text-2xl"
                           onClick={() => deleteData(datalist.id)}
                         />

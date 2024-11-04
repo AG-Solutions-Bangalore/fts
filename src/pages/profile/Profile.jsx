@@ -199,6 +199,7 @@ const Profile = () => {
                     className="mt-1 p-2 border border-gray-300 rounded w-full"
                     required
                     value={email}
+                    disabled
                     onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>

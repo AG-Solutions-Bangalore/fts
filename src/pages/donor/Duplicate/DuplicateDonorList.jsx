@@ -16,62 +16,61 @@ const DuplicateDonorList = () => {
   const navigate = useNavigate();
   const [data, setData] = useState("");
 
-  useEffect(() => {
-    const fetchPendingRData = async () => {
-      try {
-        if (!isPanelUp) {
-          navigate("/maintenance");
-          return;
-        }
-        setLoading(true);
-        const token = localStorage.getItem("token");
-        const response = await axios.get(
-          `${BASE_URL}/api/fetch-donors-duplicate`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        const res = response.data?.individualCompanies || [];
-
-        const tempRows = res.map((item, index) => {
-          if (item["donor_type"] === "Individual") {
-            return [
-              index + 1,
-              item["indicomp_fts_id"],
-              item["indicomp_full_name"],
-              item["indicomp_type"],
-              item["indicomp_spouse_name"],
-              item["indicomp_mobile_phone"],
-              item["indicomp_email"],
-              item["receipt_count"],
-              item["receipt_count"] + "#" + item["id"],
-            ];
-          } else {
-            return [
-              index + 1,
-              item["indicomp_fts_id"],
-              item["indicomp_full_name"],
-              item["indicomp_type"],
-              item["indicomp_com_contact_name"],
-              item["indicomp_mobile_phone"],
-              item["indicomp_email"],
-              item["receipt_count"],
-              item["receipt_count"] + "#" + item["id"],
-            ];
-          }
-        });
-
-        setDuplicate(tempRows);
-      } catch (error) {
-        console.error("Error fetching pending list request data", error);
-      } finally {
-        setLoading(false);
+  const fetchPendingRData = async () => {
+    try {
+      if (!isPanelUp) {
+        navigate("/maintenance");
+        return;
       }
-    };
+      setLoading(true);
+      const token = localStorage.getItem("token");
+      const response = await axios.get(
+        `${BASE_URL}/api/fetch-donors-duplicate`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
+      const res = response.data?.individualCompanies || [];
+
+      const tempRows = res.map((item, index) => {
+        if (item["indicomp_type"] == "Individual") {
+          return [
+            index + 1,
+            item["indicomp_fts_id"],
+            item["indicomp_full_name"],
+            item["indicomp_type"],
+            item["indicomp_spouse_name"],
+            item["indicomp_mobile_phone"],
+            item["indicomp_email"],
+            item["receipt_count"],
+            item["receipt_count"] + "#" + item["id"],
+          ];
+        } else {
+          return [
+            index + 1,
+            item["indicomp_fts_id"],
+            item["indicomp_full_name"],
+            item["indicomp_type"],
+            item["indicomp_com_contact_name"],
+            item["indicomp_mobile_phone"],
+            item["indicomp_email"],
+            item["receipt_count"],
+            item["receipt_count"] + "#" + item["id"],
+          ];
+        }
+      });
+
+      setDuplicate(tempRows);
+    } catch (error) {
+      console.error("Error fetching pending list request data", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
     fetchPendingRData();
   }, [isPanelUp, navigate]);
 
@@ -86,6 +85,7 @@ const DuplicateDonorList = () => {
       console.log("receipt", res.data);
       setData(res.data.c_receipt_count);
       toast.success("Data Updated Successfully");
+      fetchPendingRData();
     });
   };
 
@@ -151,9 +151,9 @@ const DuplicateDonorList = () => {
               ) : (
                 <MdDelete
                   className="text-blue-500 text-lg cursor-pointer"
-                  onClick={() =>
-                    updateData(value.substr(value.indexOf("#") + 1))
-                  }
+                  onClick={() => {
+                    updateData(value.substr(value.indexOf("#") + 1));
+                  }}
                 />
               )}
             </div>

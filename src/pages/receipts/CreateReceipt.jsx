@@ -135,7 +135,7 @@ const school_year = [
 const CreateReceipt = () => {
   const navigate = useNavigate();
 
-   const {id} = useParams();
+  const { id } = useParams();
 
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, "0");
@@ -148,8 +148,28 @@ const CreateReceipt = () => {
   const todayyear = new Date().getFullYear();
   const twoDigitYear = todayyear.toString().substr(-2);
   const preyear = todayyear;
-  const finyear = (+twoDigitYear) + 1;
-  const finalyear = preyear+'-'+finyear;
+  const finyear = +twoDigitYear + 1;
+  const finalyear = preyear + "-" + finyear;
+
+  const [currentYear, setCurrentYear] = useState("");
+  useEffect(() => {
+    const fetchYearData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/fetch-year`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        setCurrentYear(response.data.year.current_year);
+        console.log(response.data.year.current_year);
+      } catch (error) {
+        console.error("Error fetching year data:", error);
+      }
+    };
+
+    fetchYearData();
+  }, []);
 
   const [userdata, setUserdata] = useState("");
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -209,18 +229,18 @@ const CreateReceipt = () => {
     }
   };
 
-    useEffect(() => {
-      axios
-        .get(`${BASE_URL}/api/fetch-donor-by-id/${id}`, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        })
-        .then((res) => {
-          setUserdata(res.data.individualCompany);
-          setLoader(false);
-        });
-    }, [id]);
+  useEffect(() => {
+    axios
+      .get(`${BASE_URL}/api/fetch-donor-by-id/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        setUserdata(res.data.individualCompany);
+        setLoader(false);
+      });
+  }, [id]);
 
   const [datasource, setDatasource] = useState([]);
   useEffect(() => {
@@ -250,7 +270,7 @@ const CreateReceipt = () => {
       receipt_date: todayback,
       receipt_old_no: donor.receipt_old_no,
       receipt_exemption_type: donor.receipt_exemption_type,
-      receipt_financial_year: "2024-25",
+      receipt_financial_year: currentYear,
       schoolalot_year: donor.schoolalot_year,
       receipt_total_amount: donor.receipt_total_amount,
       receipt_realization_date: donor.receipt_realization_date,
@@ -280,13 +300,13 @@ const CreateReceipt = () => {
         }
       );
 
-      if (response.status == '200') {
+      if (response.status == "200") {
         toast.success("Receipt Created Successfully");
         navigate("/donor-list");
       } else {
-        if (response.status == '401') {
+        if (response.status == "401") {
           toast.error("Receipt Duplicate Entry");
-        } else if (response.status == '402') {
+        } else if (response.status == "402") {
           toast.error("Receipt Duplicate Entry");
         } else {
           toast.error("An unknown error occurred");
@@ -334,21 +354,17 @@ const CreateReceipt = () => {
             </div>
             <div>
               <label className="block text-gray-700 ">Pan No</label>
-              <span className="mt-1 text-black">
-                {pan} 
-              </span>
+              <span className="mt-1 text-black">{pan}</span>
             </div>
             <div>
               <label className="block text-gray-700 ">Receipt Date</label>
               <span className="mt-1 text-black">
-                {moment(donor.receipt_date).format('DD-MM-YYYY')} 
+                {moment(donor.receipt_date).format("DD-MM-YYYY")}
               </span>
             </div>
             <div>
               <label className="block text-gray-700 ">Year</label>
-              <span className="mt-1 text-black">
-                {finalyear} 
-              </span>
+              <span className="mt-1 text-black">{currentYear}</span>
             </div>
             <div>
               {donor.receipt_total_amount > 2000 &&
@@ -376,27 +392,25 @@ const CreateReceipt = () => {
                   options={exemption}
                 /> */}
                 <Fields
-                 type="newwhatsappDropdown" 
-                 title="Category" 
-                 name="receipt_exemption_type"
-                 value={donor.receipt_exemption_type}
-                 onChange={(e) => onInputChange(e)}
-                 required={true} 
-                 options={exemption} 
-                
+                  type="newwhatsappDropdown"
+                  title="Category"
+                  name="receipt_exemption_type"
+                  value={donor.receipt_exemption_type}
+                  onChange={(e) => onInputChange(e)}
+                  required={true}
+                  options={exemption}
                 />
               </div>
               <div className="form-group mt-6">
                 <Input
                   required
                   type="text"
-                  maxLength={10}
+                  maxLength={8}
                   label="Total Amount"
                   autoComplete="Name"
                   name="receipt_total_amount"
                   value={donor.receipt_total_amount}
                   onChange={(e) => onInputChange(e)}
-                  
                 />
               </div>
               <div className="form-group ">
@@ -415,20 +429,19 @@ const CreateReceipt = () => {
                       : pay_mode
                   }
                 /> */}
-                 <Fields
-                 type="transactionDropdown" 
-                 title="Transaction Type" 
-                 required={true} 
-                 options={
-                  donor.receipt_exemption_type == "80G" &&
-                  donor.receipt_total_amount > 2000
-                    ? pay_mode_2
-                    : pay_mode
-                }
-                name="receipt_tran_pay_mode"
-                value={donor.receipt_tran_pay_mode}
-                onChange={(e) => onInputChange(e)}
-                
+                <Fields
+                  type="transactionDropdown"
+                  title="Transaction Type"
+                  required={true}
+                  options={
+                    donor.receipt_exemption_type == "80G" &&
+                    donor.receipt_total_amount > 2000
+                      ? pay_mode_2
+                      : pay_mode
+                  }
+                  name="receipt_tran_pay_mode"
+                  value={donor.receipt_tran_pay_mode}
+                  onChange={(e) => onInputChange(e)}
                 />
               </div>
               <div className="form-group col-span-2 md:ml-12">
@@ -446,27 +459,24 @@ const CreateReceipt = () => {
                       : donation_type
                   }
                 /> */}
-                 <Fields
-                 type="transactionDropdown" 
-                 title="Purpose" 
-                 required={true} 
-                 options={
-                  donor.receipt_exemption_type == "80G"
-                    ? donation_type_2
-                    : donation_type
-                }
-                name="receipt_donation_type"
-                value={donor.receipt_donation_type}
-                onChange={(e) => onInputChange(e)}
+                <Fields
+                  type="transactionDropdown"
+                  title="Purpose"
+                  required={true}
+                  options={
+                    donor.receipt_exemption_type == "80G"
+                      ? donation_type_2
+                      : donation_type
+                  }
+                  name="receipt_donation_type"
+                  value={donor.receipt_donation_type}
+                  onChange={(e) => onInputChange(e)}
                 />
               </div>
-
-
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
               <div className="form-group ">
                 <Input
-                  required
                   type="date"
                   max={today}
                   label="Realization Date"
@@ -480,7 +490,7 @@ const CreateReceipt = () => {
                 <div className="form-group ">
                   <Input
                     required
-                    type="number"
+                    type="tel"
                     maxLength={3}
                     label="No of Schools"
                     autoComplete="Name"
@@ -526,7 +536,7 @@ const CreateReceipt = () => {
               )}
               <div className="form-group col-span-2">
                 <Fields
-                  required={true}
+                  // required={true}
                   type="textField"
                   title="Transaction Pay Details"
                   autoComplete="Name"
@@ -534,9 +544,9 @@ const CreateReceipt = () => {
                   value={donor.receipt_tran_pay_details}
                   onChange={(e) => onInputChange(e)}
                 />
-                 <div>
+                <div>
                   <span className="text-gray-500 text-sm">
-                  Cheque No / Bank Name / UTR / Any Other Details
+                    Cheque No / Bank Name / UTR / Any Other Details
                   </span>
                 </div>
               </div>
@@ -560,7 +570,6 @@ const CreateReceipt = () => {
               )}
               <div className="form-group col-span-2">
                 <Fields
-                  required={true}
                   type="textField"
                   title="Remarks"
                   autoComplete="Name"
