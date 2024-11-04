@@ -11,18 +11,14 @@ import {
 } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import AppRegistrationIcon from "@mui/icons-material/AppRegistration";
 import {
   MdDashboard,
   MdExpandLess,
   MdExpandMore,
   MdDownloading,
 } from "react-icons/md";
-import { BsFillPeopleFill } from "react-icons/bs";
 import { FaWallet, FaDownload, FaRegListAlt } from "react-icons/fa";
 import { IoPersonCircle, IoPersonSharp } from "react-icons/io5";
-// import { IoPersonSharp } from "react-icons/io5";
-// import Logo from "../assets/receipt/fts1.png";
 import Logo from "../assets/receipt/fts1.png";
 
 const CustomListItem = ({
