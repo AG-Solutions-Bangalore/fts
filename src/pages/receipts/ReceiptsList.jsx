@@ -13,7 +13,7 @@ const ReceiptsList = () => {
   const [receiptList, setReceiptList] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-
+  const userType = localStorage.getItem("user_type_id");
   useEffect(() => {
     const fetchOrderList = async () => {
       try {
@@ -35,8 +35,8 @@ const ReceiptsList = () => {
     setLoading(false);
   }, []);
 
-  const columns = useMemo(
-    () => [
+  const columns = useMemo(() => {
+    const baseColumns = [
       {
         name: "receipt_no",
         label: "Receipt No",
@@ -45,26 +45,22 @@ const ReceiptsList = () => {
           sort: true,
         },
       },
-{
-      name: "individual_company",
-      label: "Name",
-      options: {
-        filter: true,
-        sort: true,
-        customBodyRender: (value) => {
-          return value.indicomp_full_name;  
+      {
+        name: "individual_company",
+        label: "Name",
+        options: {
+          filter: true,
+          sort: true,
+          customBodyRender: (value) => value.indicomp_full_name,
         },
       },
-    },
       {
         name: "receipt_date",
         label: "Date",
         options: {
           filter: true,
           sort: false,
-          customBodyRender: (value) => {
-            return moment(value).format("DD-MM-YYYY");
-          },
+          customBodyRender: (value) => moment(value).format("DD-MM-YYYY"),
         },
       },
       {
@@ -91,26 +87,14 @@ const ReceiptsList = () => {
           sort: false,
         },
       },
-    {
+      {
         name: "individual_company",
         label: "Promotor",
         options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (value) => {
-            return value.indicomp_promoter;  
-          },
-        },
-      },
-      {
-        name: "individual_company",
-        label: "Chapter",
-        options: {
-          filter: true,
-          sort: true,
-          customBodyRender: (value) => {
-            return value.chapter_id;  
-          },
+          filter: false,
+          display: "excluded",
+          sort: false,
+          customBodyRender: (value) => value.indicomp_promoter,
         },
       },
       {
@@ -119,30 +103,29 @@ const ReceiptsList = () => {
         options: {
           filter: false,
           sort: false,
-          customBodyRender: (id) => {
-            return (
-              <div className="flex items-center space-x-2">
-                <Tooltip title="View" placement="top">
-                  <IconButton
-                    aria-label="Edit"
-                    className="transition duration-300 ease-in-out transform hover:scale-110 hover:bg-purple-50"
-                    sx={{
-                      width: "35px",
-                      height: "35px",
-                      borderRadius: "8px",
-                      color: "#4CAF50",
-                      "&:hover": {
-                        color: "#388E3C",
-                        backgroundColor: "#f3e8ff",
-                      },
-                    }}
-                  >
-                    <Link to={`/view-receipts/${id}`}>
-                    {/* <Link to={`/view-receipts/${id}`}> */}
-                      <MdRemoveRedEye />
-                    </Link>
-                  </IconButton>
-                </Tooltip>
+          customBodyRender: (id) => (
+            <div className="flex items-center space-x-2">
+              <Tooltip title="View" placement="top">
+                <IconButton
+                  aria-label="View"
+                  className="transition duration-300 ease-in-out transform hover:scale-110 hover:bg-purple-50"
+                  sx={{
+                    width: "35px",
+                    height: "35px",
+                    borderRadius: "8px",
+                    color: "#4CAF50",
+                    "&:hover": {
+                      color: "#388E3C",
+                      backgroundColor: "#f3e8ff",
+                    },
+                  }}
+                >
+                  <Link to={`/view-receipts/${id}`}>
+                    <MdRemoveRedEye />
+                  </Link>
+                </IconButton>
+              </Tooltip>
+              {userType === "2" && (
                 <Tooltip title="Edit" placement="top">
                   <IconButton
                     aria-label="Edit"
@@ -163,16 +146,32 @@ const ReceiptsList = () => {
                     </Link>
                   </IconButton>
                 </Tooltip>
-              </div>
-            );
-          },
+              )}
+            </div>
+          ),
         },
       },
-    ],
-    [receiptList]
-  );
+    ];
+
+    // Conditionally add the "Chapter" column if userType is "4"
+    if (userType === "4") {
+      baseColumns.splice(2, 0, {
+        name: "individual_company",
+        label: "Chapter",
+        options: {
+          filter: true,
+          sort: true,
+          customBodyRender: (value) => value.chapter_id,
+        },
+      });
+    }
+
+    return baseColumns;
+  }, [userType, receiptList]);
 
   const options = {
+    filterType: "textField",
+    selectableRows: false,
     selectableRows: "none",
     elevation: 0,
     responsive: "standard",
@@ -198,10 +197,8 @@ const ReceiptsList = () => {
       )}
       <div className="flex flex-col md:flex-row justify-between items-center bg-white mt-5 p-2 rounded-lg space-y-4 md:space-y-0">
         <h3 className="text-center md:text-left text-lg md:text-xl font-bold">
-        Receipts List
+          Receipts List
         </h3>
-
-       
       </div>
       <div className="mt-5">
         <div className="bg-white mt-4 p-4 md:p-6 rounded-lg shadow-lg">

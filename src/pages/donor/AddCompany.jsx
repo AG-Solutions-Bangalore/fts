@@ -17,6 +17,8 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
+import { FaArrowLeft } from "react-icons/fa";
+import PageTitle from "../../components/common/PageTitle";
 
 const gender = [
   {
@@ -208,9 +210,8 @@ const AddCompany = () => {
     fetchPromoter();
   }, []);
 
-  const onSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsButtonDisabled(true);
     const data = {
       indicomp_full_name: donor.indicomp_full_name,
       title: donor.title,
@@ -254,8 +255,10 @@ const AddCompany = () => {
     const form = document.getElementById("addIndiv");
     if (!form.checkValidity()) {
       toast.error("Fill all required");
+      setIsButtonDisabled(false);
       return;
     }
+    setIsButtonDisabled(true);
 
     axios({
       url: BASE_URL + "/api/create-donor",
@@ -272,9 +275,13 @@ const AddCompany = () => {
 
   return (
     <Layout>
+      <PageTitle
+        title="Create Compnay Donor"
+        icon={FaArrowLeft}
+        backLink="/donor-list"
+      />{" "}
       <div className="p-6 bg-white rounded-lg shadow-lg">
-        <h1>Add Company</h1>
-        <form id="addIndiv" autoComplete="off">
+        <form id="addIndiv" onSubmit={handleSubmit}>
           <div className="mb-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-4">
               Personal Details
@@ -510,7 +517,7 @@ const AddCompany = () => {
                 <FormControl fullWidth>
                   <InputLabel id="service-select-label">
                     <span className="text-sm relative bottom-[6px]">
-                      Source<span className="text-red-700">*</span>
+                      Source<span className="text-red-700"></span>
                     </span>
                   </InputLabel>
                   <Select
@@ -535,7 +542,7 @@ const AddCompany = () => {
                 <FormControl fullWidth>
                   <InputLabel id="service-select-label">
                     <span className="text-sm relative bottom-[6px]">
-                      Donor Type<span className="text-red-700">*</span>
+                      Donor Type<span className="text-red-700"></span>
                     </span>
                   </InputLabel>
                   <Select
@@ -560,14 +567,13 @@ const AddCompany = () => {
                 <FormControl fullWidth>
                   <InputLabel id="service-select-label">
                     <span className="text-sm relative bottom-[6px]">
-                      CSR<span className="text-red-700">*</span>
+                      CSR<span className="text-red-700"></span>
                     </span>
                   </InputLabel>
                   <Select
                     sx={{ height: "40px", borderRadius: "5px" }}
                     labelId="service-select-label"
                     id="service-select"
-                    required
                     label="CSR"
                     name="indicomp_csr"
                     value={donor.indicomp_csr}
@@ -758,14 +764,13 @@ const AddCompany = () => {
                 <FormControl fullWidth>
                   <InputLabel id="service-select-label">
                     <span className="text-sm relative bottom-[6px]">
-                      State<span className="text-red-700">*</span>
+                      State<span className="text-red-700"></span>
                     </span>
                   </InputLabel>
                   <Select
                     sx={{ height: "40px", borderRadius: "5px" }}
                     labelId="service-select-label"
                     id="service-select"
-                    required
                     label="State"
                     name="indicomp_off_branch_state"
                     value={donor.indicomp_off_branch_state}
@@ -823,11 +828,10 @@ const AddCompany = () => {
               <Button
                 type="submit"
                 color="blue"
-                onClick={onSubmit}
                 disabled={isButtonDisabled}
                 className="px-6 py-2"
               >
-                Submit
+                {isButtonDisabled ? "Submitting..." : "Submit"}
               </Button>
 
               <Link to="listing">

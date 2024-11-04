@@ -1,3 +1,3 @@
-const BASE_URL = "https://agsrb.online/api1/public";
+const BASE_URL = "https://agsrb.online/api/public";
 
 export default BASE_URL;

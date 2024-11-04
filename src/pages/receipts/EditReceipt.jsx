@@ -257,13 +257,13 @@ const EditReceipt = () => {
         }
       );
 
-      if (response.status == '200') {
+      if (response.status == "200") {
         toast.success("Receipt Updated Successfully");
         navigate("/receipts");
       } else {
-        if (response.status == '401') {
+        if (response.status == "401") {
           toast.error("Receipt Duplicate Entry");
-        } else if (response.status == '402') {
+        } else if (response.status == "402") {
           toast.error("Receipt Duplicate Entry");
         } else {
           toast.error("An unknown error occurred");
@@ -283,7 +283,7 @@ const EditReceipt = () => {
         {/* Title */}
         <div className="flex mb-4 mt-6">
           <h1 className="text-2xl text-[#464D69] font-semibold ml-2 content-center">
-           Edit Receipt
+            Edit Receipt
           </h1>
         </div>
         <div className="p-6 mt-5 bg-white shadow-md rounded-lg">
@@ -413,14 +413,11 @@ const EditReceipt = () => {
                       : donation_type
                   }
                 />
-                
-                
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
               <div className="form-group ">
                 <Input
-                  required
                   type="date"
                   label="Realization Date"
                   autoComplete="Name"
@@ -433,7 +430,7 @@ const EditReceipt = () => {
                 <div className="form-group ">
                   <Input
                     required
-                    type="number"
+                    type="tel"
                     maxLength={3}
                     label="No of Schools"
                     autoComplete="Name"
@@ -479,7 +476,6 @@ const EditReceipt = () => {
               )}
               <div className="form-group col-span-2">
                 <Fields
-                  required={true}
                   type="textField"
                   title="Transaction Pay Details"
                   autoComplete="Name"
@@ -513,7 +509,6 @@ const EditReceipt = () => {
               )}
               <div className="form-group ">
                 <Fields
-                  required={true}
                   type="textField"
                   title="Remarks"
                   autoComplete="Name"

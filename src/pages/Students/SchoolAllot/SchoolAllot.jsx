@@ -74,7 +74,7 @@ const SchoolAllot = () => {
       name: "Donor Name",
       label: "Donor Name",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -82,7 +82,7 @@ const SchoolAllot = () => {
       name: "School Allot Year",
       label: "School Allot Year",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -90,7 +90,7 @@ const SchoolAllot = () => {
       name: "From Date",
       label: "From Date",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -98,7 +98,7 @@ const SchoolAllot = () => {
       name: "To Date",
       label: "To Date",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -106,7 +106,7 @@ const SchoolAllot = () => {
       name: "OTS Received",
       label: "OTS Received",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -114,7 +114,7 @@ const SchoolAllot = () => {
       name: "Schools Allotted",
       label: "Schools Allotted",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -122,7 +122,7 @@ const SchoolAllot = () => {
       name: "Pending",
       label: "Pending ",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -199,7 +199,8 @@ const SchoolAllot = () => {
   const options = {
     selectableRows: "none",
     elevation: 0,
-
+    filterType: "textField",
+    selectableRows: false,
     responsive: "standard",
     viewColumns: true,
     download: false,

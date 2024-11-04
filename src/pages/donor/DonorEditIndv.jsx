@@ -23,6 +23,8 @@ import {
 } from "@mui/material";
 import BASE_URL from "../../base/BaseUrl";
 import AddToGroup from "./AddToGroup";
+import { FaArrowLeft } from "react-icons/fa";
+import PageTitle from "../../components/common/PageTitle";
 
 const gender = [
   {
@@ -154,8 +156,6 @@ const DonorEditIndv = ({ id }) => {
     setShowmodal(true);
   };
 
-  
-
   const fetchDonorByEdit = async () => {
     try {
       setLoading(true);
@@ -176,7 +176,6 @@ const DonorEditIndv = ({ id }) => {
       setLoading(false);
     }
   };
-  
 
   const [states, setStates] = useState([]);
   const fetchStateData = async () => {
@@ -241,7 +240,7 @@ const DonorEditIndv = ({ id }) => {
         indicomp_related_id: family_related_id,
       };
     } else {
-       data = {
+      data = {
         leave_family_group: true,
       };
     }
@@ -258,10 +257,8 @@ const DonorEditIndv = ({ id }) => {
       setDonor(res.data.individualCompany);
 
       setShowmodal(false);
-      navigate('/donor-list')
-      
+      navigate("/donor-list");
     });
-    
   };
 
   useEffect(() => {
@@ -270,8 +267,6 @@ const DonorEditIndv = ({ id }) => {
     fetchPromoter();
     fetchDonorByEdit();
   }, []);
-
-  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -335,8 +330,12 @@ const DonorEditIndv = ({ id }) => {
   };
   return (
     <>
+      <PageTitle
+        title="Edit Individual Donor"
+        icon={FaArrowLeft}
+        backLink="/donor-list"
+      />{" "}
       <div className="p-6 bg-white rounded-lg shadow-lg">
-        <h1>Edit Indivisual{id}</h1>
         <form
           onSubmit={handleSubmit}
           id="addIndiv"
@@ -375,6 +374,7 @@ const DonorEditIndv = ({ id }) => {
                 name="indicomp_full_name"
                 value={donor.indicomp_full_name}
                 onChange={(e) => onInputChange(e)}
+                required
               />
               <Input
                 type="text"
@@ -509,7 +509,7 @@ const DonorEditIndv = ({ id }) => {
               <FormControl fullWidth>
                 <InputLabel id="service-select-label">
                   <span className="text-sm relative bottom-[6px]">
-                    Belong To <span className="text-red-700">*</span>
+                    Belong To <span className="text-red-700"></span>
                   </span>
                 </InputLabel>
                 <Select
@@ -520,7 +520,6 @@ const DonorEditIndv = ({ id }) => {
                   name="indicomp_belongs_to"
                   value={donor.indicomp_belongs_to}
                   onChange={(e) => onInputChange(e)}
-                  required
                 >
                   {belongs_to.map((option) => (
                     <MenuItem key={option} value={option}>
@@ -533,7 +532,7 @@ const DonorEditIndv = ({ id }) => {
               <FormControl fullWidth>
                 <InputLabel id="service-select-label">
                   <span className="text-sm relative bottom-[6px]">
-                    Source <span className="text-red-700">*</span>
+                    Source <span className="text-red-700"></span>
                   </span>
                 </InputLabel>
                 <Select
@@ -544,7 +543,6 @@ const DonorEditIndv = ({ id }) => {
                   name="indicomp_source"
                   value={donor.indicomp_source}
                   onChange={(e) => onInputChange(e)}
-                  required
                 >
                   {datasource.map((option) => (
                     <MenuItem key={option.id} value={option.data_source_type}>
@@ -556,7 +554,7 @@ const DonorEditIndv = ({ id }) => {
               <FormControl fullWidth>
                 <InputLabel id="service-select-label">
                   <span className="text-sm relative bottom-[6px]">
-                    Donor Type <span className="text-red-700">*</span>
+                    Donor Type <span className="text-red-700"></span>
                   </span>
                 </InputLabel>
                 <Select
@@ -567,7 +565,6 @@ const DonorEditIndv = ({ id }) => {
                   name="indicomp_donor_type"
                   value={donor.indicomp_donor_type}
                   onChange={(e) => onInputChange(e)}
-                  required
                 >
                   {donor_type.map((option) => (
                     <MenuItem key={option} value={option}>
@@ -599,6 +596,7 @@ const DonorEditIndv = ({ id }) => {
                 value={donor.indicomp_mobile_phone}
                 onChange={(e) => onInputChange(e)}
                 maxLength={10}
+                required
               />
 
               <Input
@@ -619,7 +617,6 @@ const DonorEditIndv = ({ id }) => {
               />
 
               <Input
-                type="url"
                 label="Website"
                 name="indicomp_website"
                 value={donor.indicomp_website}
@@ -740,7 +737,7 @@ const DonorEditIndv = ({ id }) => {
               <FormControl fullWidth>
                 <InputLabel id="service-select-label">
                   <span className="text-sm relative bottom-[6px]">
-                    State <span className="text-red-700">*</span>
+                    State <span className="text-red-700"></span>
                   </span>
                 </InputLabel>
                 <Select
@@ -751,7 +748,6 @@ const DonorEditIndv = ({ id }) => {
                   name="indicomp_off_branch_state"
                   value={donor.indicomp_off_branch_state}
                   onChange={(e) => onInputChange(e)}
-                  required
                 >
                   {states.map((state) => (
                     <MenuItem key={state.id} value={state.state_name}>
@@ -837,10 +833,13 @@ const DonorEditIndv = ({ id }) => {
             )}
           </div>
         </form>
-       
+
         <Dialog open={showmodal} toggle={() => closegroupModal()}>
           <DialogHeader> Add to Group</DialogHeader>
-          <DialogBody> <AddToGroup id={donor.id} /></DialogBody>
+          <DialogBody>
+            {" "}
+            <AddToGroup id={donor.id} />
+          </DialogBody>
           <DialogFooter>
             <Button
               variant="text"
@@ -850,7 +849,6 @@ const DonorEditIndv = ({ id }) => {
             >
               <span>Cancel</span>
             </Button>
-            
           </DialogFooter>
         </Dialog>
       </div>

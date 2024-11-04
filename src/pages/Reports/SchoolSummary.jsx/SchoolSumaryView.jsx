@@ -65,7 +65,7 @@ const SchoolSumaryView = (props) => {
             title="School Summary"
             match={props.match}
             icon={FaArrowLeft}
-            backLink="/report/payment"
+            backLink="/report/school"
           />
           <div className="flex flex-col items-center">
             <div className="w-full mx-auto ">

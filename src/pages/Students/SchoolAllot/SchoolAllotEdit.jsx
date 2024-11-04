@@ -217,7 +217,7 @@ const SchoolAllotEdit = () => {
         </div>
         <div className="mt-5 flex justify-end p-4">
           <Button onClick={onSubmit} color="purple">
-            Submit
+            Update
           </Button>
         </div>
       </Card>
