@@ -33,6 +33,8 @@ const OthersTeam = () => {
     receipt_from_date: defaultfromdate,
     receipt_to_date: defaulttodates,
   });
+
+  console.log(committee);
   const [openDialog, setOpenDialog] = useState(false);
   const [designationOptions, setDesignationOptions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -46,6 +48,7 @@ const OthersTeam = () => {
   ];
 
   const onInputChange = (name, value) => {
+    console.log(value);
     setCommittee((prev) => ({
       ...prev,
       [name]: value,

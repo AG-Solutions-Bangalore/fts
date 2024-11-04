@@ -147,7 +147,7 @@ const SchoolAllotEdit = () => {
     selectableRows: true,
     responsive: "standard",
     rowsSelected: selectedSchoolIds,
-    selectableRows: "multiple",
+    // selectableRows: "multiple",
     selectToolbarPlacement: "above",
     isRowSelectable: (dataIndex) =>
       schoolAllot[dataIndex]?.status_label !== "Allotted",

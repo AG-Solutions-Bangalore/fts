@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import { Spinner } from "@material-tailwind/react";
+import { Button, Spinner } from "@material-tailwind/react";
 import Moment from "moment";
 import PageTitleBar from "../../../../components/common/PageTitle";
 import image1 from "../../../../assets/receipt/fts.png";
@@ -9,6 +9,8 @@ import image3 from "../../../../assets/receipt/ekal.png";
 import Layout from "../../../../layout/Layout";
 import { FaArrowLeft } from "react-icons/fa6";
 import BASE_URL from "../../../../base/BaseUrl";
+import { IoIosPrint } from "react-icons/io";
+import { LuDownload } from "react-icons/lu";
 const GroupView = (props) => {
   const componentRef = useRef();
   const [donorSummary, setDonorSummary] = useState([]);
@@ -58,6 +60,24 @@ const GroupView = (props) => {
           <div className="flex flex-col items-center">
             <div className="w-full mx-auto">
               <div className="bg-white shadow-md rounded-lg p-6 overflow-x-auto grid sm:grid-cols-1 1fr">
+                <div className="flex items-center space-y-4 self-end md:flex-row md:justify-end md:space-y-0 md:space-x-4">
+                  <Button
+                    variant="text"
+                    className="flex items-center space-x-2"
+                  >
+                    <LuDownload className="text-lg" />
+                    <span>PDF</span>
+                  </Button>
+
+                  <Button
+                    variant="text"
+                    className="flex items-center space-x-2"
+                  >
+                    <IoIosPrint className="text-lg" />
+                    <span>Print Letter</span>
+                  </Button>
+                </div>
+                <hr className="mb-6"></hr>
                 {/* Header */}
                 <div className="flex justify-between items-center mb-4">
                   <div className="invoice-logo">

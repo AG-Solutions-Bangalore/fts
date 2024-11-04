@@ -14,6 +14,28 @@ const RepeatDonors = () => {
   const [loading, setLoading] = useState(false);
   const { isPanelUp } = useContext(ContextPanel);
   const navigate = useNavigate();
+  const [check, setCheck] = useState(false);
+  //fetchyear
+  const [currentYear, setCurrentYear] = useState("");
+
+  useEffect(() => {
+    const fetchYearData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/fetch-year`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        setCurrentYear(response.data.year.current_year);
+        console.log("Current Year:", response.data.year.current_year);
+      } catch (error) {
+        console.error("Error fetching year data:", error);
+      }
+    };
+
+    fetchYearData();
+  }, []);
 
   useEffect(() => {
     const fetchApprovedRData = async () => {
@@ -23,38 +45,41 @@ const RepeatDonors = () => {
       }
 
       setLoading(true);
+      if (currentYear) {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await axios.get(
+            `${BASE_URL}/api/fetch-receipt-duplicate/${currentYear}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
 
-      try {
-        const token = localStorage.getItem("token");
-        const year = "2024-25";
-        const response = await axios.get(
-          `${BASE_URL}/api/fetch-receipt-duplicate/${year}`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
+          const res = response.data?.receipts;
+          if (Array.isArray(res)) {
+            const tempRows = res.map((item, index) => [
+              index + 1,
+              item["individual_company"]["indicomp_full_name"],
+              item["individual_company"]["indicomp_type"],
+              item["individual_company"]["indicomp_mobile_phone"],
+              item["individual_company"]["indicomp_email"],
+              item["individual_company"]["indicomp_fts_id"],
+            ]);
+            setSchoolToAllot(tempRows);
           }
-        );
-
-        const res = response.data?.receipts;
-        if (Array.isArray(res)) {
-          const tempRows = res.map((item, index) => [
-            index + 1,
-            item["individual_company"]["indicomp_full_name"],
-            item["individual_company"]["indicomp_type"],
-            item["individual_company"]["indicomp_mobile_phone"],
-            item["individual_company"]["indicomp_email"],
-            item["individual_company"]["indicomp_fts_id"],
-          ]);
-          setSchoolToAllot(tempRows);
+        } catch (error) {
+          console.error("Error fetching approved list request data:", error);
+        } finally {
+          setLoading(false);
         }
-      } catch (error) {
-        console.error("Error fetching approved list request data", error);
-      } finally {
+      } else {
+        console.warn("Current year is not set, skipping fetchApprovedRData");
         setLoading(false);
       }
     };
 
     fetchApprovedRData();
-  }, [isPanelUp, navigate]);
+  }, [isPanelUp, navigate, currentYear]);
 
   const columns = [
     {
@@ -101,11 +126,14 @@ const RepeatDonors = () => {
     {
       name: localStorage.getItem("id") == 1 ? "Alloted List" : "",
 
- 
       options: {
         filter: false,
         sort: false,
         customBodyRender: (id) => {
+          const handleedit = () => {
+            navigate("/students/report-donor-allotlist");
+            localStorage.setItem("ralr", id);
+          };
           return (
             <div className="flex items-center space-x-2">
               <Link
@@ -144,11 +172,7 @@ const RepeatDonors = () => {
 
   return (
     <Layout>
-      <PageTitle
-        title="School To Allot"
-        // icon={FaArrowLeft}
-        // backLink="/report/otg"
-      />
+      <PageTitle title="Repeat Donors" />
       <div className="mt-5">
         {loading ? (
           <div className="flex justify-center items-center h-64">

@@ -82,7 +82,7 @@ const FullList = () => {
       name: "#",
       label: "#",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -90,7 +90,7 @@ const FullList = () => {
       name: "State",
       label: "State",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -98,7 +98,7 @@ const FullList = () => {
       name: "District",
       label: "District",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -106,7 +106,7 @@ const FullList = () => {
       name: "Achal",
       label: "Achal",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -114,7 +114,7 @@ const FullList = () => {
       name: "Cluster",
       label: "Cluster",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -122,7 +122,7 @@ const FullList = () => {
       name: "Sub Cluster",
       label: "Sub Cluster",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -130,7 +130,7 @@ const FullList = () => {
       name: "Village",
       label: "Village",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -138,7 +138,7 @@ const FullList = () => {
       name: "School Code",
       label: "School Code",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
@@ -146,14 +146,14 @@ const FullList = () => {
       name: "Status",
       label: "Status",
       options: {
-        filter: false,
+        filter: true,
         sort: false,
       },
     },
     {
       name: "Actions",
       options: {
-        filter: false,
+        filter: true,
         print: false,
         download: false,
 

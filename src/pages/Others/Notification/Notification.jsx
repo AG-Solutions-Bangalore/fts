@@ -107,6 +107,23 @@ const Notification = () => {
     }
   };
 
+  const markNoticeAsRead = async (noticeId) => {
+    try {
+      await axios.post(
+        `${BASE_URL}/api/user-mark-a-notice-as-read?notice_id`,
+        { noticeId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
+      fetchNotices();
+    } catch (error) {
+      console.error("Error marking notice as read:", error);
+    }
+  };
+
   return (
     <Layout>
       <div>
@@ -158,6 +175,29 @@ const Notification = () => {
                             Notice Posted On{" "}
                             {moment(notice.created_at).format("DD-MM-YY")}
                           </h3>
+                          <div className="flex items-center text-xs font-light text-gray-500 mt-1">
+                            {notice.is_read == 0 ? (
+                              <Button
+                                color="green"
+                                size="sm"
+                                onClick={() => {
+                                  if (
+                                    window.confirm(
+                                      "Are you sure you have read and understood this notice?"
+                                    )
+                                  ) {
+                                    markNoticeAsRead(notice.id);
+                                  }
+                                }}
+                              >
+                                Acknowledge that you have read this notice
+                              </Button>
+                            ) : (
+                              <Button color="blue" size="sm" disabled>
+                                Acknowledged
+                              </Button>
+                            )}
+                          </div>
                           <hr />
                         </div>
                       ))
@@ -169,15 +209,17 @@ const Notification = () => {
               </>
             )}
             <hr />
-            <div className="flex w-max p-4">
-              <Button
-                onClick={handleOpenDialog}
-                variant="filled"
-                className="bg-green-500"
-              >
-                Add a New Notice
-              </Button>
-            </div>
+            {userTypeId === "3" && (
+              <div className="flex w-max p-4">
+                <Button
+                  onClick={handleOpenDialog}
+                  variant="filled"
+                  className="bg-green-500"
+                >
+                  Add a New Notice
+                </Button>
+              </div>
+            )}
           </div>
         )}
         <Dialog

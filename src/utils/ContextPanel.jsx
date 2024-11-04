@@ -83,6 +83,7 @@ const AppProvider = ({ children }) => {
           "/report/donor-view",
           "/report/donorgroup-view",
           "/recepit-donation-view",
+          "/report/schoolview",
 
           //download
           "/download/donor",
@@ -120,6 +121,12 @@ const AppProvider = ({ children }) => {
           "/students-addschoolalot",
           "/students-schoolallot",
           "/students-allotedit",
+          "/students-allotview",
+          "/students-allotletter",
+          "/students/report-donor-allotlist",
+          "/donor/duplicate-list",
+          "/donor/duplicate-list/edit/:id",
+          "/manualguide/book",
           "/form",
           "/profile",
           "/change-password",

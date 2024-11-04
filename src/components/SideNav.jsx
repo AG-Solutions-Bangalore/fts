@@ -11,12 +11,14 @@ import {
 } from "@mui/material";
 import { Link, NavLink } from "react-router-dom";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { MdDashboard, MdExpandLess, MdExpandMore , MdDownloading} from "react-icons/md";
-import { BsFillPeopleFill } from "react-icons/bs";
-import { FaWallet, FaDownload  , FaRegListAlt} from "react-icons/fa";
-import { IoPersonCircle , IoPersonSharp } from "react-icons/io5";
-// import { IoPersonSharp } from "react-icons/io5";
-// import Logo from "../assets/receipt/fts1.png";
+import {
+  MdDashboard,
+  MdExpandLess,
+  MdExpandMore,
+  MdDownloading,
+} from "react-icons/md";
+import { FaWallet, FaDownload, FaRegListAlt } from "react-icons/fa";
+import { IoPersonCircle, IoPersonSharp } from "react-icons/io5";
 import Logo from '../assets/receipt/fts1.png'
 
 const CustomListItem = ({
@@ -272,7 +274,7 @@ const SideNav = ({
               isSelected={selectedIndex === 29}
               onClick={() => handleListItemClick(29)}
               component={NavLink}
-              to="/duplicate-list"
+              to="/donor/duplicate-list"
               isCollapsed={isCollapsed}
               primary="Duplicate"
             ></CustomListItem>
@@ -295,7 +297,7 @@ const SideNav = ({
         {/* //student */}
         <CustomListItem
           isCollapsed={isCollapsed}
-          primary="Student"
+          primary="School"
           hasSubMenu={true}
           isOpen={openSubMenu5}
           toggleSubMenu={handleToggleSubMenu5}
@@ -392,14 +394,14 @@ const SideNav = ({
               isCollapsed={isCollapsed}
               primary="Donation  Summary "
             ></CustomListItem>
-            {/* <CustomListItem
+            <CustomListItem
               isSelected={selectedIndex === 22}
               onClick={() => handleListItemClick(22)}
               component={NavLink}
               to="/report/school"
               isCollapsed={isCollapsed}
               primary="School  Summary "
-            ></CustomListItem> */}
+            ></CustomListItem>
             <CustomListItem
               isSelected={selectedIndex === 34}
               onClick={() => handleListItemClick(34)}
@@ -443,6 +445,14 @@ const SideNav = ({
         <Collapse in={openSubMenu2} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <CustomListItem
+              isSelected={selectedIndex === 38}
+              onClick={() => handleListItemClick(38)}
+              component={NavLink}
+              to="/download/receipts"
+              isCollapsed={isCollapsed}
+              primary="Receipts"
+            ></CustomListItem>
+            <CustomListItem
               isSelected={selectedIndex === 37}
               onClick={() => handleListItemClick(37)}
               component={NavLink}
@@ -450,13 +460,14 @@ const SideNav = ({
               isCollapsed={isCollapsed}
               primary="Donor"
             ></CustomListItem>
+
             <CustomListItem
-              isSelected={selectedIndex === 38}
-              onClick={() => handleListItemClick(38)}
+              isSelected={selectedIndex === 41}
+              onClick={() => handleListItemClick(41)}
               component={NavLink}
-              to="/download/receipts"
+              to="/download/school"
               isCollapsed={isCollapsed}
-              primary="Receipts"
+              primary="School"
             ></CustomListItem>
             <CustomListItem
               isSelected={selectedIndex === 39}

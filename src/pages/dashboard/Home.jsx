@@ -126,12 +126,10 @@ const Home = () => {
         setResult(response.data);
 
         const barLabels = response.data?.graph1.map(
-          (item) =>  item.receipt_donation_type
+          (item) => item.receipt_donation_type
         );
-        const barValue = response.data?.graph1.map(
-          (item) =>  item.total_count
-        );
-        console.log(barLabels , "barLabels")
+        const barValue = response.data?.graph1.map((item) => item.total_count);
+        console.log(barLabels, "barLabels");
         setGraph1(barLabels);
         setGraph2(barValue);
       }
@@ -150,11 +148,11 @@ const Home = () => {
   },[currentYear])
 
   const handleReload = () => {
-    fetchResult(); 
+    fetchResult();
   };
 
   useEffect(() => {
-    if (graph1.length > 0 ) {
+    if (graph1.length > 0) {
       setGraphData({
         labels: graph1,
         datasets: [
@@ -182,9 +180,8 @@ const Home = () => {
         ],
       });
     }
-  }, [graph1,graph2]);
+  }, [graph1, graph2]);
 
- 
   useEffect(() => {
     fetchResult();
   }, [currentYear]);

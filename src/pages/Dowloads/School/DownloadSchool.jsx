@@ -78,7 +78,7 @@ function DownloadSchool() {
       setIsButtonDisableds(true);
 
       axios({
-        url: BASE_URL + "/download-school-unalloted",
+        url: BASE_URL + "/api/download-school-unalloted",
         method: "POST",
         data,
         headers: {

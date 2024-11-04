@@ -8,9 +8,6 @@ import ForgetPassword from "./pages/auth/ForgetPassword";
 import Form from "./pages/dashboard/Form";
 import Profile from "./pages/profile/Profile";
 import ChangePassword from "./pages/profile/ChangePassword";
-import DirectReferral from "./pages/referral/DirectReferral";
-import SecondaryReferral from "./pages/referral/SecondReferral";
-import Wallet from "./pages/wallet/wallet";
 // import Download from "./pages/download/download";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
@@ -18,8 +15,6 @@ import ChaptersList from "./pages/master/chapters/ChaptersList";
 import AddChapter from "./pages/master/chapters/AddChapter";
 import EditChapter from "./pages/master/chapters/EditChapter";
 import ViewChapter from "./pages/master/chapters/ViewChapter";
-import ViewSchool from "./pages/master/chapters/AddSchool";
-import Addchool from "./pages/master/chapters/AddSchool";
 import EditDataSource from "./pages/master/chapters/EditDataSource";
 import AddSchool from "./pages/master/chapters/AddSchool";
 import StatesList from "./pages/master/states/StatesList";
@@ -74,6 +69,13 @@ import FullListView from "./pages/Students/FullList/FullListView";
 import DonorDetails from "./pages/Students/SchoolToAllot/DonorDetails";
 import SchoolAllot from "./pages/Students/SchoolAllot/SchoolAllot";
 import SchoolAllotEdit from "./pages/Students/SchoolAllot/SchoolAllotEdit";
+import SchoolAllotView from "./pages/Students/SchoolAllot/SchoolAllotView";
+import SchoolAllotLetter from "./pages/Students/SchoolAllot/SchoolAllotLetter";
+import AllotedList from "./pages/Students/RepeatDonors/AllotedList";
+import DuplicateDonorList from "./pages/donor/Duplicate/DuplicateDonorList";
+import EditDuplicate from "./pages/donor/Duplicate/EditDuplicate";
+import ManualGuideBook from "./pages/ManualGuideBook/ManualGuideBook";
+import SchoolSumaryView from "./pages/Reports/SchoolSummary.jsx/SchoolSumaryView";
 import ViewerList from "./pages/donor/viewer/ViewerList";
 import AddViewer from "./pages/donor/viewer/AddViewer";
 import EditViewer from "./pages/donor/viewer/EditViewer";
@@ -169,6 +171,7 @@ const App = () => {
         <Route path="/report/donorgroup-view" element={<DonorGroupView />} />
         <Route path="/report/donation" element={<DonationSummary />} />
         <Route path="/report/school" element={<SchoolSummary />} />
+        <Route path="/report/schoolview" element={<SchoolSumaryView />} />
         <Route path="/report/otg" element={<RecepitDocument />} />
         <Route path="/report/payment" element={<PaymentSummary />} />
         {/* //DOWNOLd// */}
@@ -205,7 +208,20 @@ const App = () => {
         <Route path="/students-addschoolalot" element={<DonorDetails />} />
         <Route path="/students-schoolallot" element={<SchoolAllot />} />
         <Route path="/students-allotedit" element={<SchoolAllotEdit />} />
-
+        <Route path="/students-allotview" element={<SchoolAllotView />} />
+        <Route path="/students-allotletter" element={<SchoolAllotLetter />} />
+        <Route
+          path="/students/report-donor-allotlist"
+          element={<AllotedList />}
+        />
+        {/* //MOORTHY DONOR// */}
+        <Route path="/donor/duplicate-list" element={<DuplicateDonorList />} />
+        <Route
+          path="/donor/duplicate-list/edit/:id"
+          element={<EditDuplicate />}
+        />
+        {/* //MANUALGUUIDE BOOK */}
+        <Route path="/manualguide/book" element={<ManualGuideBook />} />
         {/* Donor  */}
         <Route path="/donor-list" element={<DonorList />} />
         <Route path="/add-indivisual/:id" element={<AddIndivisual />} />
