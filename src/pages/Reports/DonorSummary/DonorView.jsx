@@ -239,7 +239,7 @@ const DonorSummaryView = (props) => {
                         ].map((header) => (
                           <th
                             key={header}
-                            className="border border-black  py-2 text-center text-sm md:text-base"
+                            className="border border-black  py-2 text-center text-xs "
                           >
                             {header}
                           </th>
@@ -249,44 +249,44 @@ const DonorSummaryView = (props) => {
                     <tbody>
                       {donorsummary.map((dataSumm) => (
                         <tr key={dataSumm.id}>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {Moment(dataSumm.receipt_date).format("DD-MM-YYYY")}
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.receipt_no}
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.receipt_financial_year}
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.receipt_total_amount}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_exemption_type}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_donation_type}{" "}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_no_of_ots}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_tran_pay_mode}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_tran_pay_details}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_realization_date
                               ? moment(
                                   dataSumm.receipt_realization_date
                                 ).format("DD-MM-YYYY")
                               : ""}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_reason || ""}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_remarks || ""}
                           </td>
                         </tr>
@@ -296,26 +296,22 @@ const DonorSummaryView = (props) => {
                       <tr>
                         <td
                           colSpan={3}
-                          className="border border-black text-center font-bold text-sm md:text-base"
+                          className="border border-black text-center font-bold text-xs"
                         >
                           Total
                         </td>
-                        {receiptsummaryfooterOTS.map((footv, key) => (
-                          <td className="border border-black text-center text-sm md:text-base font-bold">
-                            {footv.total_no_of_ots}
-                          </td>
-                        ))}
-
                         {receiptsummaryfootertotal.map((foota, key) => (
                           <td
-                            className="border border-black text-right px-4 text-sm md:text-base font-bold"
-                            colSpan={2}
+                            className="border border-black text-right px-4 text-xs font-bold"
+                            colSpan={1}
                           >
                             {foota.total_grand_amount}{" "}
                           </td>
                         ))}
+                        <td colSpan={2}></td>
+
                         {receiptsummaryfooterOTS.map((footv, key) => (
-                          <td className="border border-black text-center text-sm md:text-base font-bold">
+                          <td className="border border-black text-center text-xs font-bold">
                             {footv.total_no_of_ots}
                           </td>
                         ))}

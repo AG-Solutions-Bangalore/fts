@@ -76,26 +76,30 @@ function ManualGuideBook() {
         />
         <form id="dowRecp" autoComplete="off ">
           <div className="row  item-center ">
-            <div className="bg-white shadow-lg rounded-lg">
-              <div className="header-heading flex justify-center">
-                <img src={Logo} alt="FTS Logo" className="logo-img" />
+            <div className="bg-white shadow-lg rounded-lg p-6 md:p-10  mx-auto my-6">
+              {/* Logo Section */}
+              <div className="flex justify-center mb-4">
+                <img src={Logo} alt="FTS Logo" className="w-60 h-auto" />
               </div>
-              <div className="content-1 flex flex-col items-center text-lg text-center mb-4">
-                <h1 className="font-bold">
+
+              {/* Content Section */}
+              <div className="flex flex-col items-center text-center space-y-4">
+                <h1 className="text-sm  font-bold">
                   CHAMP - Chapter Head-office Activities Management Program
                 </h1>
-                <h2 className="underline">Instruction Manual / Guidebook</h2>
-                <p className="main-text text-justify my-4 px-8">
-                  <u className="font-semibold">About FTS Champ:</u>
+                <h2 className="text-xl underline">
+                  Instruction Manual / Guidebook
+                </h2>
+                <p className="text-justify text-gray-700 px-4 md:px-12">
+                  <span className="font-semibold underline">
+                    About FTS Champ:
+                  </span>
                   <br />
                   Friends of Tribal Society (FTS), also known as Vanbandhu
-                  Parishad,
-                  <br />
-                  is a non-governmental and voluntary organization established
-                  in 1989 in Kolkata, India.
-                  <br />
-                  FTS is committed to uplifting the underprivileged rural and
-                  tribal communities across India.
+                  Parishad, is a non-governmental and voluntary organization
+                  established in 1989 in Kolkata, India. FTS is committed to
+                  uplifting the underprivileged rural and tribal communities
+                  across India.
                 </p>
               </div>
             </div>

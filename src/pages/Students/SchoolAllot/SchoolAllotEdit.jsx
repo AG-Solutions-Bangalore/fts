@@ -163,23 +163,26 @@ const SchoolAllotEdit = () => {
 
       console.log("Selected School IDs (string):", selectedIdsString);
     },
+    customToolbarSelect: () => null,
   };
 
   return (
     <Layout>
+      <PageTitle
+        title="Donor Details"
+        icon={IoMdArrowBack}
+        backLink={"/students-schoolallot"}
+      />
       <Card>
-        <PageTitle
-          title="Donor Details"
-          icon={IoMdArrowBack}
-          backLink={"/students-schoolallot"}
-        />
-        <hr />
         <div className="grid grid-cols md:grid-cols-3 gap-4 p-4">
           <Input
             label="School Allot Year"
             name="schoolalot_financial_year"
             value={schoolalot.schoolalot_financial_year}
             disabled
+            labelProps={{
+              className: "!text-gray-500",
+            }}
           />
           <Input
             label="From Date"
@@ -187,6 +190,9 @@ const SchoolAllotEdit = () => {
             type="date"
             disabled
             value={schoolalot.schoolalot_from_date}
+            labelProps={{
+              className: "!text-gray-500",
+            }}
           />
           <Input
             label="To Date"
@@ -194,12 +200,18 @@ const SchoolAllotEdit = () => {
             type="date"
             disabled
             value={schoolalot.schoolalot_to_date}
+            labelProps={{
+              className: "!text-gray-500",
+            }}
           />
           <Input
             label="Schools Id"
             name="indicomp_fts_id"
             disabled
             value={schoolalot.schoolalot_school_id}
+            labelProps={{
+              className: "!text-gray-500",
+            }}
           />
         </div>
         <div className="mt-5">

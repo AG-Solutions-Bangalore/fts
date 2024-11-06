@@ -85,7 +85,7 @@ const CustomPivotTable = ({ data }) => {
         borderCollapse: "collapse",
       }}
     >
-      <thead className="bg-gray-200">
+      <thead className="bg-gray-200 text-xs">
         <tr>
           <th style={{ border: "1px solid black", padding: "8px" }}>
             {financialYearLabel.replace(/_/g, " ")}
@@ -123,7 +123,7 @@ const CustomPivotTable = ({ data }) => {
           <th style={{ border: "1px solid black", padding: "8px" }}></th>
 
           {donationTypes.map((type, index) => (
-            <React.Fragment key={index}>
+            <React.Fragment key={index} className="text-xs">
               <th style={{ border: "1px solid black", padding: "8px" }}>
                 No of Donation
               </th>
@@ -145,7 +145,7 @@ const CustomPivotTable = ({ data }) => {
         </tr>
       </thead>
 
-      <tbody>
+      <tbody className="text-xs">
         {Object.keys(groupedData).map((year) => (
           <tr key={year}>
             <td style={{ border: "1px solid black", padding: "8px" }}>
@@ -178,7 +178,7 @@ const CustomPivotTable = ({ data }) => {
         ))}
       </tbody>
 
-      <tfoot>
+      <tfoot className="text-xs">
         <tr>
           <td style={{ border: "1px solid black", padding: "8px" }}>
             <strong>Grand Total:</strong>

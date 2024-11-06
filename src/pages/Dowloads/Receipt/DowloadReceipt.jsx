@@ -8,6 +8,7 @@ import BASE_URL from "../../../base/BaseUrl";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import Fields from "../../../common/TextField/TextField";
 
 function DowloadRecpit() {
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -61,7 +62,15 @@ function DowloadRecpit() {
       [name]: value,
     });
   };
+  const onInputChange1 = (e) => {
+    const { name, value } = e.target;
 
+    console.log(value);
+    setReceiptDownload((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   // Submit handler for download
   const onSubmit = (e) => {
     e.preventDefault();
@@ -186,19 +195,19 @@ function DowloadRecpit() {
             </div>
 
             <div className="w-full">
-              <Dropdown
-                label="Source"
-                className="required"
+              <Fields
+                required={true}
+                title="Source"
+                type="sourceDropdown"
+                autoComplete="Name"
                 name="indicomp_source"
                 value={receiptsdwn.indicomp_source}
-                options={datasource.map((option) => ({
-                  value: option.data_source_type,
-                  label: option.data_source_type,
-                }))}
-                onChange={(value) => onInputChange("indicomp_source", value)}
+                onChange={(e) => onInputChange1(e)}
+                options={datasource}
               />
             </div>
           </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 py-4">
             <div className="w-77">
               <Button

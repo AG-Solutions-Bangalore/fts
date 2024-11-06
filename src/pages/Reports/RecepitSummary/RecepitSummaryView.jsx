@@ -144,7 +144,7 @@ const RecepitSummaryView = (props) => {
                         ].map((header) => (
                           <th
                             key={header}
-                            className="border border-black px-4 py-2 text-center text-sm md:text-base"
+                            className="border border-black px-4 py-2 text-center text-xs"
                           >
                             {header}
                           </th>
@@ -154,20 +154,20 @@ const RecepitSummaryView = (props) => {
                     <tbody>
                       {donorsummary.map((dataSumm) => (
                         <tr key={dataSumm.id}>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.month_year}
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.receipt_donation_type}
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.total_count}
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.total_ots}
                           </td>
 
-                          <td className="border border-black text-right px-4 text-sm md:text-base ">
+                          <td className="border border-black text-right px-4 text-xs ">
                             <NumericFormat
                               value={dataSumm.total_amount}
                               displayType={"text"}
@@ -185,23 +185,23 @@ const RecepitSummaryView = (props) => {
                       <tr>
                         <td
                           colSpan={2}
-                          className="border border-black text-center font-bold text-sm md:text-base"
+                          className="border border-black text-center font-bold text-xs"
                         >
                           Total
                         </td>
                         {grandtotal.map((grandcount, key) => (
-                          <td className="border border-black px-4 py-2 text-sm md:text-base font-bold">
+                          <td className="border border-black px-4 py-2 text-xs font-bold">
                             {grandcount.total_grand_count}
                           </td>
                         ))}
                         {grandots.map((footv, key) => (
-                          <td className="border border-black px-4 py-2 text-sm md:text-base font-bold">
+                          <td className="border border-black px-4 py-2 text-xs font-bold">
                             {footv.total_no_of_ots}
                           </td>
                         ))}
 
                         {receiptsummaryfootertotal.map((foota, key) => (
-                          <td className="border border-black text-right px-4  py-2 text-sm md:text-base font-bold">
+                          <td className="border border-black text-right px-4  py-2 text-xs font-bold">
                             <NumericFormat
                               value={foota.total_grand_amount}
                               displayType={"text"}

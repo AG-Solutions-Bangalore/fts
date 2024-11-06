@@ -134,7 +134,8 @@ const DonorDetails = () => {
   ];
 
   const options = {
-    filterType: "dropdown",
+    filterType: "textField",
+    selectableRows: false,
     filter: true,
     search: true,
     print: false,
@@ -157,23 +158,26 @@ const DonorDetails = () => {
 
       console.log("Selected School IDs (string):", selectedIds);
     },
+    customToolbarSelect: () => null,
   };
 
   return (
     <Layout>
+      <PageTitle
+        title="Donor Details"
+        icon={IoMdArrowBack}
+        backLink={"/students-to-allot"}
+      />
       <Card>
-        <PageTitle
-          title="Donor Details"
-          icon={IoMdArrowBack}
-          backLink={"/students-to-allot"}
-        />
-        <hr />
-        <div className="grid grid-cols md:grid-cols-3 gap-4">
+        <div className="grid grid-cols md:grid-cols-3 gap-4 p-2">
           <Input
             label="School Allot Year"
             name="schoolalot_financial_year"
             value={schoolalot.schoolalot_financial_year}
             disabled
+            labelProps={{
+              className: "!text-gray-500",
+            }}
           />
           <Input
             label="From Date"
@@ -181,6 +185,9 @@ const DonorDetails = () => {
             type="date"
             disabled
             value={schoolalot.schoolalot_from_date}
+            labelProps={{
+              className: "!text-gray-500",
+            }}
           />
           <Input
             label="To Date"
@@ -188,6 +195,9 @@ const DonorDetails = () => {
             type="date"
             disabled
             value={schoolalot.schoolalot_to_date}
+            labelProps={{
+              className: "!text-gray-500",
+            }}
           />
         </div>
         <div className="mt-5">

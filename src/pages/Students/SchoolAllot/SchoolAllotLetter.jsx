@@ -8,6 +8,9 @@ import Logo3 from "../../../assets/receipt/ekal.png";
 import Layout from "../../../layout/Layout";
 import { FaArrowLeft } from "react-icons/fa";
 import PageTitleBar from "../../../components/common/PageTitle";
+import { LuDownload } from "react-icons/lu";
+import { IoIosPrint } from "react-icons/io";
+import { Button } from "@mui/material";
 
 const SchoolAllotLetter = () => {
   const navigate = useNavigate();
@@ -49,7 +52,20 @@ const SchoolAllotLetter = () => {
         />
         <div className="flex flex-col items-center">
           <div className="sm:w-[90%] md:w-[90%] lg:w-[70%] mx-auto ">
-            <div className="bg-white shadow-md rounded-lg p-16 ">
+            <div className="bg-white shadow-md rounded-lg px-16 pb-16 pt-6 ">
+              <div className="flex flex-row justify-end items-center sm:space-x-4 space-y-2 sm:space-y-0 mb-2">
+                <Button variant="text" className="flex items-center space-x-2">
+                  <LuDownload className="text-lg" />
+                  <span>PDF</span>
+                </Button>
+
+                <Button variant="text" className="flex items-center space-x-2">
+                  <IoIosPrint className="text-lg" />
+                  <span>Print Letter</span>
+                </Button>
+              </div>
+
+              <hr className="mb-6" />
               <div className="flex justify-between items-center mb-4 ">
                 <div className="invoice-logo">
                   <img src={Logo1} alt="session-logo" width="80" height="80" />
@@ -246,13 +262,13 @@ const SchoolAllotLetter = () => {
                     <img
                       src={Logo2}
                       alt="session-logo"
-                      width="250"
-                      height="250"
+                      width="300"
+                      height="300"
                       className="mb-2"
                     />
                   </div>
                 </div>
-                <div className="text-center">
+                <div className="text-center text-sm">
                   <label>
                     <small>
                       Head Office: Ekal Bhawan, 123/A, Harish Mukherjee Road,
@@ -340,7 +356,7 @@ const SchoolAllotLetter = () => {
                         ].map((header) => (
                           <th
                             key={header}
-                            className="border border-black px-4 py-2 text-center text-xs"
+                            className="border border-black px-2 py-2 text-center text-xs"
                           >
                             {header}
                           </th>
@@ -389,13 +405,13 @@ const SchoolAllotLetter = () => {
                       <img
                         src={Logo2}
                         alt="session-logo"
-                        width="250"
-                        height="250"
+                        width="300"
+                        height="300"
                         className="mb-4"
                       />
                     </div>
                   </div>
-                  <div className="text-center" style={{}}>
+                  <div className="text-center text-sm">
                     <label>
                       <small>
                         Head Office: Ekal Bhawan, 123/A, Harish Mukherjee Road,

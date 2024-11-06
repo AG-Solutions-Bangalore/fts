@@ -23,6 +23,7 @@ import { BiEdit, BiImageAdd } from "react-icons/bi";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import DesginationDropDown from "../../../components/common/DesginationDropDown";
+import Fields from "../../../common/TextField/TextField";
 
 const OthersTeam = () => {
   const [committee, setCommittee] = useState({
@@ -34,7 +35,6 @@ const OthersTeam = () => {
     receipt_to_date: defaulttodates,
   });
 
-  console.log(committee);
   const [openDialog, setOpenDialog] = useState(false);
   const [designationOptions, setDesignationOptions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -54,7 +54,15 @@ const OthersTeam = () => {
       [name]: value,
     }));
   };
+  const onInputChange1 = (e) => {
+    const { name, value } = e.target;
 
+    console.log(value);
+    setCommittee((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
   const handleOpenDialog = () => setOpenDialog((prev) => !prev);
 
   const populateDonorName = (fts_id) => {
@@ -191,12 +199,15 @@ const OthersTeam = () => {
             </div>
 
             <div className="w-full">
-              <DesginationDropDown
-                label="Designation"
-                value={committee.designation}
-                options={designationOptions}
+              <Fields
+                required={true}
+                title="Designation"
+                type="DesignDropdown"
+                autoComplete="Name"
                 name="designation"
-                onChange={(value) => onInputChange("designation", value)}
+                value={committee.designation}
+                onChange={(e) => onInputChange1(e)}
+                options={designationOptions}
               />
             </div>
 
@@ -222,11 +233,17 @@ const OthersTeam = () => {
                 name="receipt_from_date"
                 value={committee.receipt_from_date}
                 onChange={(e) => onInputChange(e.target.name, e.target.value)}
+                labelProps={{
+                  className: "!text-gray-500",
+                }}
               />
             </div>
             <div className="w-full">
               <Input
                 disabled
+                labelProps={{
+                  className: "!text-gray-500",
+                }}
                 type="date"
                 label="To Date"
                 required
