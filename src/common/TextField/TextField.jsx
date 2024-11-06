@@ -443,6 +443,62 @@ const Fields = (props) => {
           </FormControl>
         </>
       )}
+      {props.type === "DesignDropdown" && (
+        <>
+          <FormControl fullWidth>
+            <InputLabel id="service-select-label">
+              <span className="text-sm relative bottom-[6px]">
+                {props.title} <span className="text-red-700">*</span>
+              </span>
+            </InputLabel>
+            <Select
+              sx={{ height: "40px", borderRadius: "5px" }}
+              labelId="service-select-label"
+              id="service-select"
+              name={props.name}
+              value={props.value}
+              label={props.title}
+              onChange={props.onchange}
+              {...props}
+              required={props.required === true || props.required === "true"}
+            >
+              {props.options?.map((data, key) => (
+                <MenuItem key={key} value={data.designation_type}>
+                  {data.designation_type}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </>
+      )}
+      {props.type === "PromoterDropdown" && (
+        <>
+          <FormControl fullWidth>
+            <InputLabel id="service-select-label">
+              <span className="text-sm relative bottom-[6px]">
+                {props.title} <span className="text-red-700">*</span>
+              </span>
+            </InputLabel>
+            <Select
+              sx={{ height: "40px", borderRadius: "5px" }}
+              labelId="service-select-label"
+              id="service-select"
+              name={props.name}
+              value={props.value}
+              label={props.title}
+              onChange={props.onchange}
+              {...props}
+              required={props.required === true || props.required === "true"}
+            >
+              {props.options?.map((data, key) => (
+                <MenuItem key={key} value={data.indicomp_promoter}>
+                  {data.indicomp_promoter}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </>
+      )}
       {props.type === "whatsappDropdown" && (
         <>
           <FormControl fullWidth>
@@ -481,7 +537,7 @@ const Fields = (props) => {
               <span className="text-sm relative bottom-[6px]">
                 {props.title}{" "}
                 {props.required ? (
-                  <span className="text-red-700">*</span>
+                  <span className="text-red-700"></span>
                 ) : null}
               </span>
             </InputLabel>

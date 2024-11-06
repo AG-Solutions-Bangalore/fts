@@ -115,7 +115,7 @@ const ReceiptAllView = (props) => {
                         ].map((header) => (
                           <th
                             key={header}
-                            className="border border-black px-4 py-2 text-center text-sm md:text-base"
+                            className="border border-black px-4 py-2 text-center text-xs"
                           >
                             {header}
                           </th>
@@ -125,16 +125,16 @@ const ReceiptAllView = (props) => {
                     <tbody>
                       {donorSummary.map((dataSumm) => (
                         <tr key={dataSumm.id}>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.indicomp_pan_no}
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             1
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             Section 80G
                           </td>
-                          <td className="border border-black px-4 py-2 text-sm md:text-base">
+                          <td className="border border-black px-4 py-2 text-xs">
                             {dataSumm.indicomp_type !== "Individual" && (
                               <>M/s {dataSumm.indicomp_full_name} </>
                             )}
@@ -145,7 +145,7 @@ const ReceiptAllView = (props) => {
                             )}
                           </td>
 
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.indicomp_corr_preffer == "Residence" && (
                               <>
                                 {dataSumm.indicomp_res_reg_address}
@@ -208,13 +208,13 @@ const ReceiptAllView = (props) => {
                               </>
                             )}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_donation_type}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_tran_pay_mode}
                           </td>
-                          <td className="border border-black text-center text-sm md:text-base">
+                          <td className="border border-black text-center text-xs">
                             {dataSumm.receipt_total_amount}
                           </td>
                         </tr>

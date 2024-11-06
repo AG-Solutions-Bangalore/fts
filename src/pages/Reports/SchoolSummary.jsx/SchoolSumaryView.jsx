@@ -178,7 +178,7 @@ const SchoolSumaryView = (props) => {
                         ].map((header) => (
                           <th
                             key={header}
-                            className="border border-black px-4 py-2 text-center text-sm md:text-base"
+                            className="border border-black px-4 py-2 text-center text-xs"
                           >
                             {header}
                           </th>
@@ -189,31 +189,31 @@ const SchoolSumaryView = (props) => {
                       {Array.isArray(SchoolAlotView) &&
                         SchoolAlotView.map((dataSumm) => (
                           <tr key={dataSumm.id}>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.school_state}
                             </td>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.achal}
                             </td>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.cluster}
                             </td>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.sub_cluster}
                             </td>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.village}
                             </td>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.teacher}
                             </td>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.boys}
                             </td>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.girls}
                             </td>
-                            <td className="border border-black px-4 py-2 text-sm md:text-base">
+                            <td className="border border-black px-4 py-2 text-xs">
                               {dataSumm.total}
                             </td>
                           </tr>

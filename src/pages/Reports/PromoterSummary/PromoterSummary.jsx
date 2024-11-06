@@ -8,6 +8,7 @@ import moment from "moment";
 import BASE_URL from "../../../base/BaseUrl";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Fields from "../../../common/TextField/TextField";
 
 const PromterSummary = () => {
   const navigate = useNavigate();
@@ -21,7 +22,8 @@ const PromterSummary = () => {
   });
   const [isButtonEnabled, setIsButtonEnabled] = useState(false);
 
-  const onInputChange = (name, value) => {
+  const onInputChange = (e) => {
+    const { name, value } = e.target;
     const updatedDonor = {
       ...downloadDonor,
       [name]: value,
@@ -106,18 +108,16 @@ const PromterSummary = () => {
         <h3 className="text-red-500 mb-5">Please fill all for View report.</h3>
         <form id="dowRecp" autoComplete="off">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div className="w-full">
-              <Dropdown
-                required
-                label="Donor Type"
-                className="required"
-                value={downloadDonor.indicomp_promoter}
-                options={promoter.map((item) => ({
-                  value: item.indicomp_promoter,
-                  label: item.indicomp_promoter,
-                }))}
+            <div>
+              <Fields
+                required={true}
+                title="Notice Title"
+                type="PromoterDropdown"
+                autoComplete="Name"
                 name="indicomp_promoter"
-                onChange={(value) => onInputChange("indicomp_promoter", value)}
+                value={downloadDonor.indicomp_promoter}
+                onChange={(e) => onInputChange(e)}
+                options={promoter}
               />
             </div>
 

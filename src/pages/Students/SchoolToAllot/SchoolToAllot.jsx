@@ -11,6 +11,7 @@ import moment from "moment";
 import { Spinner } from "@material-tailwind/react";
 import PageTitle from "../../../components/common/PageTitle";
 import { FaArrowLeft } from "react-icons/fa6";
+import { IoMdArrowBack } from "react-icons/io";
 
 const SchoolToAllot = () => {
   const [schoolToAllot, setSchoolToAllot] = useState([]);
